@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>401C Unit 5 — Comparative Account of Gymnosperms</title>
+<style>
+:root{
+  --bg:#111417;
+  --bg-soft:#191d21;
+  --panel:#1f2529;
+  --panel-2:#232b31;
+  --panel-3:#28252c;
+  --paper:#f1ead9;
+  --ink:#111214;
+  --text:#f3f1e8;
+  --muted:#d2d6d0;
+  --line:#0d0f11;
+  --edge:#d9dbc8;
+  --sage:#b8d5bf;
+  --dusty-blue:#b8cce5;
+  --ochre:#e6bf69;
+  --clay:#d9a187;
+  --mauve:#cfb1c4;
+  --sand:#ead9bb;
+  --shadow:#070809;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(217,161,135,.09), transparent 35%),
+    linear-gradient(180deg, #121519, #101214 32%, #13171b 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height:1.7;
+  font-size:18px;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.22;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+.page{width:min(1180px, calc(100% - 32px)); margin:0 auto; padding:24px 0 56px; position:relative; z-index:1;}
+.hero{
+  background:linear-gradient(145deg, #1c2024, #181b1f 45%, #20252a);
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:28px;
+  margin-bottom:20px;
+}
+.kicker{
+  display:inline-block; padding:8px 14px; margin-bottom:16px;
+  background:var(--dusty-blue); color:var(--ink); border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow); font-weight:900; letter-spacing:.04em; text-transform:uppercase;
+  font-size:.92rem;
+}
+.hero-grid{display:grid; grid-template-columns: 1.35fr .9fr; gap:18px; align-items:start;}
+.hero h1{font-size:clamp(2.45rem, 5.5vw, 5.1rem); line-height:.96; margin:0 0 16px; letter-spacing:-0.05em;}
+.hero p{margin:0; color:var(--muted); max-width:68ch; font-size:1.06rem;}
+.hero-notes{display:grid; gap:14px;}
+.meta-card{background:#ece6d6; color:var(--ink); border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow); padding:16px;}
+.meta-card h3{margin:0 0 10px; font-size:1rem; text-transform:uppercase; letter-spacing:.04em;}
+.meta-card ul{margin:0; padding-left:1.1rem;}
+.toc{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin:18px 0 26px;}
+.toc a{
+  display:block; text-decoration:none; color:var(--ink); font-weight:900; line-height:1.25;
+  border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; background:var(--sand);
+}
+.toc a:nth-child(2n){background:var(--sage)}
+.toc a:nth-child(3n){background:var(--dusty-blue)}
+.toc a:nth-child(4n){background:var(--clay)}
+.section{
+  border:4px solid var(--edge); box-shadow:10px 10px 0 var(--shadow); padding:26px; margin:0 0 26px;
+  background:linear-gradient(160deg, rgba(34,40,46,.95), rgba(22,26,30,.98));
+  break-inside:avoid; page-break-inside:avoid;
+}
+.section.alt{background:linear-gradient(160deg, rgba(37,32,40,.96), rgba(22,24,28,.98));}
+.section.soft{background:linear-gradient(160deg, rgba(31,38,40,.96), rgba(20,23,26,.98));}
+.section-head{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:center; margin-bottom:16px;}
+.chapter-num{
+  min-width:58px; height:58px; display:grid; place-items:center;
+  border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow);
+  background:var(--ochre); color:var(--ink); font-weight:900; font-size:1.2rem;
+}
+.section-label{display:inline-block; padding:7px 12px; background:var(--mauve); color:var(--ink); border:3px solid var(--ink); box-shadow:4px 4px 0 var(--shadow); font-weight:900; text-transform:uppercase; font-size:.9rem; margin-bottom:12px;}
+.section h2{font-size:clamp(2rem,4.7vw,4rem); margin:0; line-height:1; letter-spacing:-0.04em;}
+.section-intro{color:var(--muted); margin:0 0 18px; max-width:76ch;}
+.table-wrap{
+  overflow-x:auto;
+  margin:20px 0 4px;
+  border:4px solid var(--ink);
+  box-shadow:8px 8px 0 var(--shadow);
+  background:var(--paper);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:960px;
+  color:var(--ink);
+  background:var(--paper);
+  font-size:.96rem;
+  line-height:1.45;
+}
+th,td{
+  border:2px solid var(--ink);
+  padding:12px 12px;
+  vertical-align:top;
+}
+th{
+  background:var(--ochre);
+  font-weight:900;
+  text-align:left;
+}
+td:first-child, th:first-child{
+  width:16%;
+  font-weight:900;
+  background:#ead9bb;
+}
+tr:nth-child(even) td:not(:first-child){background:#f7f1e4}
+tr:nth-child(odd) td:not(:first-child){background:#efe6d4}
+.note-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:18px;}
+.note-card{
+  background:#ece6d6; color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:16px;
+}
+.note-card h3{margin:0 0 8px; font-size:1.08rem;}
+.note-card p{margin:0;}
+.callout{background:#ece6d6; color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:16px; margin-top:18px;}
+.callout strong{display:block; margin-bottom:6px;}
+.footer{text-align:center; color:var(--muted); margin-top:8px; font-size:.95rem;}
+a{color:inherit}
+@media (max-width:900px){
+  body{font-size:17px}
+  .hero-grid{grid-template-columns:1fr}
+  .section{padding:20px}
+}
+@media (max-width:700px){
+  .page{width:calc(100% - 18px); padding-top:12px}
+  .section-head{grid-template-columns:1fr}
+  .chapter-num{width:58px}
+  .hero h1{letter-spacing:-0.04em}
+}
+@media print{
+  @page{size:A4; margin:9mm;}
+  body{background:#fff; color:#111; font-size:10.5pt; line-height:1.42;}
+  body::before{display:none}
+  .page{width:100%; padding:0}
+  .hero, .section{background:#fff !important; color:#111; border:2px solid #111; box-shadow:none; margin:0 0 12px; padding:12px;}
+  .kicker, .section-label, .toc a, .chapter-num, .meta-card, .note-card, .callout{box-shadow:none; border:1.7px solid #111; color:#111 !important;}
+  .toc{display:none}
+  .hero p, .section-intro, .footer{color:#111}
+  .table-wrap{box-shadow:none; border:1.7px solid #111; overflow:visible;}
+  table{font-size:7.2pt; min-width:0; width:100%;}
+  th,td{padding:5px 5px; border:1px solid #111;}
+  th,td:first-child{background:#fff !important;}
+  .section h2{color:#111 !important;}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <span class="kicker">401C Unit 5</span>
+    <div class="hero-grid">
+      <div>
+        <h1>Comparative Account of Gymnosperms</h1>
+        <p>Comparative account of morphology, anatomy and reproduction of <em>Cycas</em>, <em>Pinus</em>, <em>Ginkgo</em> and <em>Gnetum</em>. The content is arranged in clear exam-ready charts for fast revision and direct use in notes.</p>
+      </div>
+      <div class="hero-notes">
+        <div class="meta-card">
+          <h3>Included genera</h3>
+          <ul>
+            <li><em>Cycas</em> — Cycadales</li>
+            <li><em>Pinus</em> — Coniferales</li>
+            <li><em>Ginkgo</em> — Ginkgoales</li>
+            <li><em>Gnetum</em> — Gnetales</li>
+          </ul>
+        </div>
+        <div class="meta-card" style="background:var(--sage)">
+          <h3>Comparison basis</h3>
+          <ul>
+            <li>Morphology</li>
+            <li>Anatomy</li>
+            <li>Reproduction</li>
+            <li>Evolutionary advancement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="toc" aria-label="Table of contents">
+    <a href="#intro">01 · Introduction</a>
+    <a href="#morphology">02 · Morphology chart</a>
+    <a href="#anatomy">03 · Anatomy chart</a>
+    <a href="#reproduction">04 · Reproduction chart</a>
+    <a href="#summary">05 · Short summary</a>
+    <a href="#conclusion">06 · Conclusion</a>
+  </nav>
+
+  <section class="section" id="intro">
+    <div class="section-label">Opening note</div>
+    <div class="section-head">
+      <div class="chapter-num">01</div>
+      <h2>Introduction</h2>
+    </div>
+    <p class="section-intro"><em>Cycas</em>, <em>Pinus</em>, <em>Ginkgo</em> and <em>Gnetum</em> are important gymnosperms showing both primitive and advanced features. <em>Cycas</em> belongs to Cycadales, <em>Pinus</em> to Coniferales, <em>Ginkgo</em> to Ginkgoales and <em>Gnetum</em> to Gnetales. Their comparison on the basis of morphology, anatomy and reproduction helps in understanding the diversity and evolutionary trends among gymnosperms.</p>
+  </section>
+
+  <section class="section alt" id="morphology">
+    <div class="section-label">A · Vegetative characters</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">02</div>
+      <h2>Comparative Account of Morphology</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th><em>Cycas</em></th><th><em>Pinus</em></th><th><em>Ginkgo</em></th><th><em>Gnetum</em></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Habit</td><td>Palm-like, evergreen, slow-growing plant</td><td>Tall, evergreen, woody tree</td><td>Tall, deciduous tree</td><td>Woody climber, shrub or small tree</td></tr>
+          <tr><td>Stem</td><td>Stout, columnar and usually unbranched</td><td>Woody, erect and well-branched</td><td>Woody and well-branched</td><td>Woody and branched; often climbing in some species</td></tr>
+          <tr><td>Branching</td><td>Usually absent or very limited</td><td>Dimorphic branching with long shoots and dwarf shoots</td><td>Long shoots and dwarf shoots present</td><td>Normal branching; dwarf shoots absent</td></tr>
+          <tr><td>Leaves</td><td>Large, pinnately compound leaves forming a crown</td><td>Needle-like leaves</td><td>Fan-shaped leaves</td><td>Broad, simple, dicot-like leaves</td></tr>
+          <tr><td>Leaf arrangement</td><td>Spirally arranged at the apex of stem</td><td>Needles in clusters on dwarf shoots</td><td>Leaves singly on long shoots and clustered on dwarf shoots</td><td>Opposite and decussate</td></tr>
+          <tr><td>Venation</td><td>Open dichotomous or parallel-like venation in leaflets</td><td>One or two vascular bundles in needle</td><td>Dichotomous venation</td><td>Reticulate venation</td></tr>
+          <tr><td>Roots</td><td>Tap root system present</td><td>Tap root system present</td><td>Tap root system present</td><td>Tap root system present</td></tr>
+          <tr><td>Special roots</td><td>Coralloid roots present with cyanobacteria</td><td>Mycorrhizal roots common</td><td>No special coralloid roots</td><td>No coralloid roots</td></tr>
+          <tr><td>Xerophytic nature</td><td>Moderately xerophytic</td><td>Strongly xerophytic</td><td>Moderately xerophytic</td><td>Less xerophytic, more mesophytic</td></tr>
+          <tr><td>General appearance</td><td>Resembles a palm</td><td>Typical conifer</td><td>Unique fan-leaved tree</td><td>Resembles an angiosperm externally</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section soft" id="anatomy">
+    <div class="section-label">B · Internal structure</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">03</div>
+      <h2>Comparative Account of Anatomy</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th><em>Cycas</em></th><th><em>Pinus</em></th><th><em>Ginkgo</em></th><th><em>Gnetum</em></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Type of wood</td><td>Manoxylic wood</td><td>Pycnoxylic wood</td><td>Pycnoxylic wood</td><td>Advanced wood</td></tr>
+          <tr><td>Nature of wood</td><td>Soft, loose wood with large pith and cortex</td><td>Compact, hard wood</td><td>Compact wood</td><td>Wood with vessels</td></tr>
+          <tr><td>Secondary growth</td><td>Present but not very extensive</td><td>Well-developed</td><td>Well-developed</td><td>Well-developed</td></tr>
+          <tr><td>Xylem</td><td>Mainly tracheids; vessels absent</td><td>Tracheids present; vessels absent</td><td>Tracheids present; vessels absent</td><td>Vessels present</td></tr>
+          <tr><td>Phloem</td><td>Sieve cells and albuminous cells present</td><td>Sieve cells and albuminous cells present</td><td>Sieve cells and albuminous cells present</td><td>Sieve cells present; more advanced condition</td></tr>
+          <tr><td>Resin ducts</td><td>Generally absent; mucilage canals common</td><td>Resin ducts prominent in stem, leaves and cones</td><td>Resin ducts absent</td><td>Resin ducts absent</td></tr>
+          <tr><td>Leaf anatomy</td><td>Thick cuticle, sunken stomata, transfusion tissue and diploxylic vascular bundles</td><td>Thick cuticle, sunken stomata, sclerenchymatous hypodermis, resin ducts and transfusion tissue</td><td>Dichotomously branched vascular bundles and transfusion tissue</td><td>Dicot-like leaf anatomy with reticulate venation</td></tr>
+          <tr><td>Vascular bundle in leaf</td><td>Diploxylic, with centripetal and centrifugal xylem</td><td>Conjoint and collateral</td><td>Vascular supply dichotomously branched</td><td>Reticulate vascular supply</td></tr>
+          <tr><td>Stomata</td><td>Sunken stomata</td><td>Deeply sunken stomata</td><td>Present, not as strongly xerophytic as <em>Pinus</em></td><td>Present; more mesophytic type</td></tr>
+          <tr><td>Anatomical advancement</td><td>Primitive due to manoxylic wood and absence of vessels</td><td>Advanced coniferous wood but vessels absent</td><td>Primitive and specialized features combined</td><td>Most advanced due to vessels and angiosperm-like characters</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section alt" id="reproduction">
+    <div class="section-label">C · Reproductive characters</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">04</div>
+      <h2>Comparative Account of Reproduction</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th><em>Cycas</em></th><th><em>Pinus</em></th><th><em>Ginkgo</em></th><th><em>Gnetum</em></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Sex condition</td><td>Dioecious</td><td>Monoecious</td><td>Dioecious</td><td>Mostly dioecious</td></tr>
+          <tr><td>Male reproductive structure</td><td>Large compact male cone</td><td>Small male cones</td><td>Male strobili or catkin-like structures</td><td>Male cones or compound strobili</td></tr>
+          <tr><td>Female reproductive structure</td><td>True female cone absent; megasporophylls loosely arranged</td><td>Female cone well-developed and woody</td><td>Female cone absent; ovules borne in pairs on stalks</td><td>Female cones or compound strobili present</td></tr>
+          <tr><td>Microsporophyll</td><td>Bears many microsporangia on lower surface</td><td>Bears two microsporangia</td><td>Bears microsporangia in male strobilus</td><td>Bears microsporangia in male strobilus</td></tr>
+          <tr><td>Megasporophyll</td><td>Large, leaf-like and loosely arranged</td><td>Ovuliferous scale with bract scale</td><td>Ovules borne usually in pairs on stalks</td><td>Ovules enclosed by envelope-like structures</td></tr>
+          <tr><td>Ovules</td><td>Large and naked</td><td>Naked, borne on ovuliferous scales</td><td>Naked, usually two on a stalk</td><td>Ovules appear more enclosed due to envelopes</td></tr>
+          <tr><td>Pollen grains</td><td>Non-winged</td><td>Winged</td><td>Non-winged</td><td>Non-winged</td></tr>
+          <tr><td>Pollination</td><td>Wind pollination</td><td>Wind pollination</td><td>Wind pollination</td><td>Wind or sometimes insect pollination</td></tr>
+          <tr><td>Male gametes</td><td>Motile, multiciliate sperms</td><td>Non-motile male gametes</td><td>Motile, multiciliate sperms</td><td>Non-motile male gametes</td></tr>
+          <tr><td>Fertilization</td><td>Zooidogamy</td><td>Siphonogamy</td><td>Zooidogamy</td><td>Siphonogamy</td></tr>
+          <tr><td>Archegonia</td><td>Present and well-developed</td><td>Present</td><td>Present</td><td>Absent or highly reduced in many species</td></tr>
+          <tr><td>Female gametophyte</td><td>Well-developed</td><td>Well-developed</td><td>Well-developed</td><td>Reduced and advanced</td></tr>
+          <tr><td>Seed</td><td>Large, fleshy and brightly coloured</td><td>Usually winged seeds</td><td>Fleshy seed with unpleasant-smelling outer layer</td><td>Seed enclosed by fleshy envelope, fruit-like in appearance</td></tr>
+          <tr><td>Embryo</td><td>Usually one embryo matures</td><td>Polyembryony common, but usually one embryo matures</td><td>Embryo develops after fertilization</td><td>Embryo development advanced</td></tr>
+          <tr><td>Reproductive advancement</td><td>Primitive because of motile sperms and loose megasporophylls</td><td>Advanced cone organization and siphonogamy</td><td>Primitive due to motile sperms</td><td>Most advanced due to reduced archegonia and angiosperm-like features</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section soft" id="summary">
+    <div class="section-label">D · Short comparative summary</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--mauve)">05</div>
+      <h2>Short Comparative Summary</h2>
+    </div>
+    <div class="note-grid">
+      <div class="note-card">
+        <h3><em>Cycas</em></h3>
+        <p>A primitive gymnosperm with a palm-like habit, large pinnate leaves, coralloid roots, manoxylic wood, motile sperms and loosely arranged megasporophylls.</p>
+      </div>
+      <div class="note-card" style="background:var(--sage)">
+        <h3><em>Pinus</em></h3>
+        <p>A typical conifer with needle-like leaves, resin ducts, compact pycnoxylic wood, winged pollen grains and well-developed male and female cones.</p>
+      </div>
+      <div class="note-card" style="background:var(--dusty-blue)">
+        <h3><em>Ginkgo</em></h3>
+        <p>A living fossil with fan-shaped leaves, dichotomous venation, motile sperms and naked ovules borne on stalks.</p>
+      </div>
+      <div class="note-card" style="background:var(--clay)">
+        <h3><em>Gnetum</em></h3>
+        <p>The most advanced among these four because it has broad reticulate leaves, vessels in the xylem, reduced archegonia and several angiosperm-like features.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="conclusion">
+    <div class="section-label">Final answer ending</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sand)">06</div>
+      <h2>Conclusion</h2>
+    </div>
+    <p class="section-intro">Thus, <em>Cycas</em>, <em>Pinus</em>, <em>Ginkgo</em> and <em>Gnetum</em> show clear differences in morphology, anatomy and reproduction. <em>Cycas</em> and <em>Ginkgo</em> retain primitive characters such as motile sperms, while <em>Pinus</em> shows typical coniferous specialization. <em>Gnetum</em> shows the highest advancement among them because of vessels, reticulate venation and reduced reproductive structures. This comparison shows the evolutionary diversity of gymnosperms.</p>
+    <div class="callout">
+      <strong>Exam-use line:</strong>
+      <span>This chart shows a gradual trend from primitive gymnosperm features in <em>Cycas</em> and <em>Ginkgo</em> towards advanced, angiosperm-like characters in <em>Gnetum</em>.</span>
+    </div>
+  </section>
+
+  <div class="footer">401C Unit 5 · Comparative account of Gymnosperms</div>
+</main>
+</body>
+</html>

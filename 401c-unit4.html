@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>401C Unit 4 — Gymnosperms Classification and Comparative Relations</title>
+<style>
+:root{
+  --bg:#111417;
+  --paper:#f1ead9;
+  --ink:#111214;
+  --text:#f3f1e8;
+  --muted:#d2d6d0;
+  --edge:#d9dbc8;
+  --sage:#b8d5bf;
+  --dusty-blue:#b8cce5;
+  --ochre:#e6bf69;
+  --clay:#d9a187;
+  --mauve:#cfb1c4;
+  --sand:#ead9bb;
+  --shadow:#070809;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(217,161,135,.09), transparent 35%),
+    linear-gradient(180deg, #121519, #101214 32%, #13171b 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height:1.7;
+  font-size:18px;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; opacity:.22;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+.page{
+  width:min(1200px, calc(100% - 32px));
+  margin:0 auto;
+  padding:24px 0 56px;
+  position:relative;
+  z-index:1;
+}
+.hero{
+  background:linear-gradient(145deg, #1c2024, #181b1f 45%, #20252a);
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:28px;
+  margin-bottom:20px;
+}
+.kicker{
+  display:inline-block;
+  padding:8px 14px;
+  margin-bottom:16px;
+  background:var(--dusty-blue);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  font-size:.92rem;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.3fr .9fr;
+  gap:18px;
+  align-items:start;
+}
+.hero h1{
+  font-size:clamp(2.35rem, 5.2vw, 4.8rem);
+  line-height:.96;
+  margin:0 0 16px;
+  letter-spacing:-0.05em;
+}
+.hero p{
+  margin:0;
+  color:var(--muted);
+  max-width:72ch;
+  font-size:1.04rem;
+}
+.hero-notes{display:grid; gap:14px;}
+.meta-card{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--shadow);
+  padding:16px;
+}
+.meta-card h3{
+  margin:0 0 10px;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.meta-card ul{
+  margin:0;
+  padding-left:1.15rem;
+}
+.toc{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+  margin:18px 0 26px;
+}
+.toc a{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  font-weight:900;
+  line-height:1.25;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:14px 16px;
+  background:var(--sand);
+}
+.toc a:nth-child(2n){background:var(--sage)}
+.toc a:nth-child(3n){background:var(--dusty-blue)}
+.toc a:nth-child(4n){background:var(--clay)}
+.section{
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:26px;
+  margin:0 0 26px;
+  background:linear-gradient(160deg, rgba(34,40,46,.95), rgba(22,26,30,.98));
+  break-inside:avoid;
+  page-break-inside:avoid;
+}
+.section.alt{background:linear-gradient(160deg, rgba(37,32,40,.96), rgba(22,24,28,.98));}
+.section.soft{background:linear-gradient(160deg, rgba(31,38,40,.96), rgba(20,23,26,.98));}
+.section-head{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:14px;
+  align-items:center;
+  margin-bottom:16px;
+}
+.chapter-num{
+  min-width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  background:var(--ochre);
+  color:var(--ink);
+  font-weight:900;
+  font-size:1.2rem;
+}
+.section-label{
+  display:inline-block;
+  padding:7px 12px;
+  background:var(--mauve);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--shadow);
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:.9rem;
+  margin-bottom:12px;
+}
+.section h2{
+  font-size:clamp(1.95rem,4.7vw,3.8rem);
+  margin:0;
+  line-height:1;
+  letter-spacing:-0.04em;
+}
+.section-intro{
+  color:var(--muted);
+  margin:0 0 18px;
+  max-width:78ch;
+}
+.table-wrap{
+  overflow-x:auto;
+  margin:20px 0 4px;
+  border:4px solid var(--ink);
+  box-shadow:8px 8px 0 var(--shadow);
+  background:var(--paper);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:940px;
+  color:var(--ink);
+  background:var(--paper);
+  font-size:.92rem;
+  line-height:1.38;
+}
+th, td{
+  border:2px solid var(--ink);
+  padding:10px 10px;
+  vertical-align:top;
+}
+th{
+  background:var(--ochre);
+  font-weight:900;
+  text-align:left;
+}
+td:first-child, th:first-child{
+  background:#ead9bb;
+  font-weight:900;
+}
+tr:nth-child(even) td:not(:first-child){background:#f7f1e4}
+tr:nth-child(odd) td:not(:first-child){background:#efe6d4}
+.note-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:14px;
+  margin-top:18px;
+}
+.note-card{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:16px;
+}
+.note-card h3{margin:0 0 8px; font-size:1.06rem;}
+.note-card p{margin:0;}
+.callout{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:16px;
+  margin-top:18px;
+}
+.callout strong{display:block; margin-bottom:6px;}
+.subhead{
+  font-size:1.25rem;
+  font-weight:900;
+  margin:18px 0 8px;
+}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:8px;
+  font-size:.95rem;
+}
+a{color:inherit}
+
+@media (max-width:900px){
+  body{font-size:17px}
+  .hero-grid{grid-template-columns:1fr}
+  .section{padding:20px}
+}
+@media (max-width:700px){
+  .page{width:calc(100% - 18px); padding-top:12px}
+  .section-head{grid-template-columns:1fr}
+  .chapter-num{width:58px}
+  .hero h1{letter-spacing:-0.04em}
+}
+@media print{
+  @page{size:A4; margin:8mm;}
+  body{background:#fff; color:#111; font-size:10pt; line-height:1.35;}
+  body::before{display:none}
+  .page{width:100%; padding:0}
+  .hero, .section{
+    background:#fff !important;
+    color:#111;
+    border:2px solid #111;
+    box-shadow:none;
+    margin:0 0 12px;
+    padding:12px;
+  }
+  .kicker, .section-label, .toc a, .chapter-num, .meta-card, .note-card, .callout{
+    box-shadow:none;
+    border:1.7px solid #111;
+    color:#111 !important;
+  }
+  .toc{display:none}
+  .hero p, .section-intro, .footer{color:#111}
+  .table-wrap{box-shadow:none; border:1.7px solid #111; overflow:visible;}
+  table{font-size:7pt; min-width:0; width:100%;}
+  th, td{padding:4px 4px; border:1px solid #111;}
+  th, td:first-child{background:#fff !important;}
+  .section h2{color:#111 !important;}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <span class="kicker">401C Unit 4</span>
+    <div class="hero-grid">
+      <div>
+        <h1>Gymnosperms — Classification and Comparative Relations</h1>
+        <p>This unit contains two exam-style answers: <strong>Classification of gymnosperms with special reference to Sporne’s classification (1965)</strong> and <strong>resemblances and differences of gymnosperms with pteridophytes and angiosperms</strong>. The content is arranged in neat charts and revision-friendly sections, keeping the same matte neo-brutalist style as the previous units.</p>
+      </div>
+      <div class="hero-notes">
+        <div class="meta-card">
+          <h3>Topic 1</h3>
+          <ul>
+            <li>Sporne’s classification, 1965</li>
+            <li>Cycadopsida</li>
+            <li>Coniferopsida</li>
+            <li>Gnetopsida</li>
+            <li>Merits and limitations</li>
+          </ul>
+        </div>
+        <div class="meta-card" style="background:var(--sage)">
+          <h3>Topic 2</h3>
+          <ul>
+            <li>Gymnosperms vs Pteridophytes</li>
+            <li>Gymnosperms vs Angiosperms</li>
+            <li>Similarities and differences</li>
+            <li>Evolutionary position of gymnosperms</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="toc" aria-label="Table of contents">
+    <a href="#sporne-intro">01 · Sporne classification intro</a>
+    <a href="#sporne-outline">02 · Outline of classification</a>
+    <a href="#sporne-classes">03 · Three classes explained</a>
+    <a href="#sporne-chart">04 · Quick revision chart</a>
+    <a href="#sporne-merits">05 · Merits & limitations</a>
+    <a href="#comp-intro">06 · Comparative essay intro</a>
+    <a href="#gym-ptero-sim">07 · Gymnosperms & pteridophytes: resemblances</a>
+    <a href="#gym-ptero-diff">08 · Gymnosperms & pteridophytes: differences</a>
+    <a href="#gym-angio-sim">09 · Gymnosperms & angiosperms: resemblances</a>
+    <a href="#gym-angio-diff">10 · Gymnosperms & angiosperms: differences</a>
+    <a href="#evolutionary-position">11 · Evolutionary position</a>
+    <a href="#final-conclusion">12 · Final conclusion</a>
+  </nav>
+
+  <section class="section" id="sporne-intro">
+    <div class="section-label">Topic 1 · 10-mark answer</div>
+    <div class="section-head">
+      <div class="chapter-num">01</div>
+      <h2>Classification of Gymnosperms with Special Reference to Sporne’s Classification, 1965</h2>
+    </div>
+    <p class="section-intro">Gymnosperms are seed-bearing vascular plants in which the ovules are not enclosed within an ovary. Therefore, their seeds are called naked seeds. They do not produce true flowers and fruits. The main plant body is a dominant sporophyte, usually differentiated into root, stem and leaves. Gymnosperms include both living and fossil forms.</p>
+    <p class="section-intro">Several botanists have classified gymnosperms on the basis of morphology, anatomy, reproductive structures and fossil history. Among these systems, the classification proposed by K. R. Sporne in 1965 is commonly studied. Sporne classified gymnosperms into three major classes: <em>Cycadopsida</em>, <em>Coniferopsida</em> and <em>Gnetopsida</em>. His classification is useful because it includes both fossil and living gymnosperms and shows a broad evolutionary arrangement.</p>
+  </section>
+
+  <section class="section alt" id="sporne-outline">
+    <div class="section-label">A · Outline chart</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">02</div>
+      <h2>Outline of Sporne’s Classification, 1965</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Orders included</th>
+            <th>Living / fossil status</th>
+            <th>Important examples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cycadopsida</td>
+            <td>Pteridospermales, Bennettitales, Pentoxylales, Cycadales</td>
+            <td>Includes fossil and living forms</td>
+            <td><em>Lyginopteris</em>, <em>Cycadeoidea</em>, <em>Pentoxylon</em>, <em>Cycas</em>, <em>Zamia</em></td>
+          </tr>
+          <tr>
+            <td>Coniferopsida</td>
+            <td>Cordaitales, Coniferales, Taxales, Ginkgoales</td>
+            <td>Includes fossil and living forms</td>
+            <td><em>Cordaites</em>, <em>Pinus</em>, <em>Cedrus</em>, <em>Taxus</em>, <em>Ginkgo</em></td>
+          </tr>
+          <tr>
+            <td>Gnetopsida</td>
+            <td>Gnetales</td>
+            <td>Living forms</td>
+            <td><em>Gnetum</em>, <em>Ephedra</em>, <em>Welwitschia</em></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Note:</strong>
+      <span>In many university notes, Sporne’s system is described as having 3 classes, 9 orders and 31 families. In some detailed treatments, Gnetopsida may be separated into Ephedrales, Gnetales and Welwitschiales, but in many B.Sc. answers it is treated under the single order Gnetales.</span>
+    </div>
+  </section>
+
+  <section class="section soft" id="sporne-classes">
+    <div class="section-label">B–D · Class descriptions</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">03</div>
+      <h2>The Three Main Classes</h2>
+    </div>
+
+    <div class="note-grid">
+      <div class="note-card">
+        <h3>B. Class I: <em>Cycadopsida</em></h3>
+        <p><em>Cycadopsida</em> includes both fossil and living gymnosperms. The plants are usually palm-like, with a short, stout and generally unbranched stem. Leaves are large, pinnately compound and arranged in a crown at the apex of the stem. The wood is usually manoxylic, meaning it is loose and contains more parenchyma and less compact xylem.</p>
+        <p style="margin-top:10px;">The reproductive structures are comparatively primitive. Male cones are usually large and compact. Female cones may be absent or loosely organized. Megasporophylls are often leaf-like, and ovules are large. Members of this class show several primitive characters and are considered close to the seed fern line.</p>
+      </div>
+
+      <div class="note-card" style="background:var(--dusty-blue)">
+        <h3>C. Class II: <em>Coniferopsida</em></h3>
+        <p><em>Coniferopsida</em> includes many large, woody and highly branched gymnosperms. Most members are trees or shrubs. The stem is well-developed and shows strong secondary growth. The wood is pycnoxylic, meaning it is compact, hard and contains less parenchyma and more xylem.</p>
+        <p style="margin-top:10px;">Leaves are usually simple and may be needle-like, scale-like, flat or fan-shaped. Reproductive structures are generally organized into cones or strobili. Male and female cones are compact in most members. This class includes the largest and most familiar gymnosperms such as conifers.</p>
+      </div>
+
+      <div class="note-card" style="background:var(--clay)">
+        <h3>D. Class III: <em>Gnetopsida</em></h3>
+        <p><em>Gnetopsida</em> includes advanced gymnosperms that show several angiosperm-like features. Members may be shrubs, woody climbers or unusual desert plants. Leaves are usually opposite or whorled. In <em>Gnetum</em>, leaves are broad and show reticulate venation, resembling dicot leaves.</p>
+        <p style="margin-top:10px;">A very important anatomical feature of this group is the presence of vessels in the xylem, which is rare among gymnosperms. Resin canals are absent. Reproductive structures are arranged in compound strobili. Archegonia are absent or highly reduced in some members. Because of these advanced characters, <em>Gnetopsida</em> is often considered a link between gymnosperms and angiosperms.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="sporne-chart">
+    <div class="section-label">F · Compact chart</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">04</div>
+      <h2>Compact Chart for Quick Revision</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Main habit</th>
+            <th>Leaf type</th>
+            <th>Wood type</th>
+            <th>Reproductive feature</th>
+            <th>Orders</th>
+            <th>Examples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cycadopsida</td>
+            <td>Palm-like, usually unbranched</td>
+            <td>Large pinnate leaves</td>
+            <td>Manoxylic wood</td>
+            <td>Large ovules; loose or simple female structures</td>
+            <td>Pteridospermales, Bennettitales, Pentoxylales, Cycadales</td>
+            <td><em>Cycas</em>, <em>Zamia</em>, <em>Lyginopteris</em></td>
+          </tr>
+          <tr>
+            <td>Coniferopsida</td>
+            <td>Woody trees or shrubs</td>
+            <td>Needle-like, scale-like, flat or fan-shaped</td>
+            <td>Pycnoxylic wood</td>
+            <td>Cones or specialized ovule-bearing structures</td>
+            <td>Cordaitales, Coniferales, Taxales, Ginkgoales</td>
+            <td><em>Pinus</em>, <em>Taxus</em>, <em>Ginkgo</em></td>
+          </tr>
+          <tr>
+            <td>Gnetopsida</td>
+            <td>Shrubs, climbers or unusual desert plants</td>
+            <td>Opposite, sometimes broad and reticulate-veined</td>
+            <td>Vessels present</td>
+            <td>Compound strobili; reduced reproductive structures</td>
+            <td>Gnetales</td>
+            <td><em>Gnetum</em>, <em>Ephedra</em>, <em>Welwitschia</em></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="sporne-merits">
+    <div class="section-label">G–H · Evaluation</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--mauve)">05</div>
+      <h2>Merits and Limitations of Sporne’s Classification</h2>
+    </div>
+
+    <div class="subhead">G. Merits of Sporne’s Classification</div>
+    <div class="table-wrap">
+      <table style="min-width:760px">
+        <thead>
+          <tr><th>Merit</th><th>Explanation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Includes fossil and living forms</td><td>This makes the classification more evolutionary and complete.</td></tr>
+          <tr><td>Simple and practical</td><td>The system is easy to understand for undergraduate study.</td></tr>
+          <tr><td>Based on several characters</td><td>It considers morphology, anatomy, reproductive structures and fossil evidence.</td></tr>
+          <tr><td>Shows evolutionary trends</td><td>It separates primitive cycad-like forms, conifer-like forms and advanced gnetophytes.</td></tr>
+          <tr><td>Useful for comparison</td><td>It helps compare major gymnosperm groups such as <em>Cycas</em>, <em>Pinus</em>, <em>Ginkgo</em> and <em>Gnetum</em>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subhead">H. Limitations of Sporne’s Classification</div>
+    <div class="table-wrap">
+      <table style="min-width:760px">
+        <thead>
+          <tr><th>Limitation</th><th>Explanation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Not fully phylogenetic</td><td>It does not completely explain the exact evolutionary relationships among all gymnosperms.</td></tr>
+          <tr><td>Fossil groups are difficult to place</td><td>Some fossil groups show mixed characters, so their placement may be debated.</td></tr>
+          <tr><td>Gnetopsida placement is controversial</td><td>Gnetophytes show angiosperm-like characters, but their exact relationship with angiosperms and conifers is still debated.</td></tr>
+          <tr><td>Modern molecular data not included</td><td>Since it was proposed in 1965, it does not use DNA-based evidence.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Conclusion:</strong>
+      <span>Sporne’s classification of gymnosperms is an important and useful system for B.Sc. level study. He divided gymnosperms into three main classes: Cycadopsida, Coniferopsida and Gnetopsida. Cycadopsida includes primitive cycad-like forms, Coniferopsida includes conifers, taxads and <em>Ginkgo</em>, while Gnetopsida includes advanced gymnosperms such as <em>Gnetum</em>, <em>Ephedra</em> and <em>Welwitschia</em>. This classification is valuable because it considers both fossil and living forms and clearly shows the major evolutionary lines of gymnosperms.</span>
+    </div>
+  </section>
+
+  <section class="section soft" id="comp-intro">
+    <div class="section-label">Topic 2 · 10-mark answer</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sand)">06</div>
+      <h2>Resemblances and Differences of Gymnosperms with Pteridophytes and Angiosperms</h2>
+    </div>
+    <p class="section-intro">Gymnosperms are naked-seeded vascular plants. They occupy an intermediate evolutionary position between pteridophytes and angiosperms. Like pteridophytes, gymnosperms show some primitive characters such as absence of flowers and, in some members, motile male gametes. Like angiosperms, they produce seeds and have a highly developed sporophyte. Therefore, gymnosperms are important in understanding the evolutionary transition from spore-bearing vascular plants to flowering plants.</p>
+  </section>
+
+  <section class="section alt" id="gym-ptero-sim">
+    <div class="section-label">A · Similarities with pteridophytes</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">07</div>
+      <h2>Resemblances between Gymnosperms and Pteridophytes</h2>
+    </div>
+    <div class="table-wrap">
+      <table style="min-width:780px">
+        <thead>
+          <tr><th>Point of resemblance</th><th>Explanation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Vascular plant body</td><td>Both gymnosperms and pteridophytes possess vascular tissues, namely xylem and phloem.</td></tr>
+          <tr><td>Dominant sporophyte</td><td>In both groups, the main plant body is the sporophyte, differentiated into root, stem and leaves.</td></tr>
+          <tr><td>Alternation of generations</td><td>Both show alternation of generations, with sporophytic and gametophytic phases.</td></tr>
+          <tr><td>Archegonia present</td><td>Archegonia are present in pteridophytes and also in many gymnosperms such as <em>Cycas</em> and <em>Pinus</em>.</td></tr>
+          <tr><td>Motile male gametes in some forms</td><td>Pteridophytes have motile male gametes. Some gymnosperms such as <em>Cycas</em> and <em>Ginkgo</em> also have motile multiciliate sperms.</td></tr>
+          <tr><td>Heterospory</td><td>Some pteridophytes such as <em>Selaginella</em>, <em>Isoetes</em> and <em>Marsilea</em> are heterosporous. All gymnosperms are heterosporous, producing microspores and megaspores.</td></tr>
+          <tr><td>No true flowers</td><td>Pteridophytes lack flowers, and gymnosperms also do not produce true flowers like angiosperms.</td></tr>
+          <tr><td>Seed habit evolved from heterospory</td><td>Heterosporous pteridophytes show an approach towards seed habit, while gymnosperms show true seed habit.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="gym-ptero-diff">
+    <div class="section-label">B · Differences from pteridophytes</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">08</div>
+      <h2>Differences between Gymnosperms and Pteridophytes</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th>Pteridophytes</th><th>Gymnosperms</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Reproduction</td><td>Reproduce by spores</td><td>Reproduce by seeds</td></tr>
+          <tr><td>Seed formation</td><td>Seeds absent</td><td>Seeds present, but naked</td></tr>
+          <tr><td>Ovules</td><td>Ovules absent</td><td>Ovules present</td></tr>
+          <tr><td>Pollen grains</td><td>True pollen grains absent</td><td>Pollen grains present</td></tr>
+          <tr><td>Fertilization</td><td>Usually depends on external water</td><td>Mostly independent of external water due to pollen tube, except primitive forms like <em>Cycas</em> and <em>Ginkgo</em></td></tr>
+          <tr><td>Male gametes</td><td>Usually motile and flagellated</td><td>Non-motile in most, but motile in <em>Cycas</em> and <em>Ginkgo</em></td></tr>
+          <tr><td>Gametophyte</td><td>Usually independent and free-living in homosporous forms</td><td>Highly reduced and dependent on sporophyte</td></tr>
+          <tr><td>Female gametophyte</td><td>Free-living or endosporic, depending on group</td><td>Always retained inside ovule</td></tr>
+          <tr><td>Sporophyte</td><td>Usually herbaceous, except fossil forms</td><td>Usually woody trees or shrubs</td></tr>
+          <tr><td>Secondary growth</td><td>Usually absent or poorly developed in living forms</td><td>Well-developed secondary growth common</td></tr>
+          <tr><td>Wood</td><td>Not well-developed</td><td>Well-developed wood present</td></tr>
+          <tr><td>Examples</td><td><em>Lycopodium</em>, <em>Selaginella</em>, <em>Equisetum</em>, <em>Pteris</em></td><td><em>Cycas</em>, <em>Pinus</em>, <em>Ginkgo</em>, <em>Gnetum</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section soft" id="gym-angio-sim">
+    <div class="section-label">C · Similarities with angiosperms</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">09</div>
+      <h2>Resemblances between Gymnosperms and Angiosperms</h2>
+    </div>
+    <div class="table-wrap">
+      <table style="min-width:780px">
+        <thead>
+          <tr><th>Point of resemblance</th><th>Explanation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Seed-bearing plants</td><td>Both gymnosperms and angiosperms produce seeds, so both are grouped under spermatophytes.</td></tr>
+          <tr><td>Dominant sporophyte</td><td>In both, the plant body is a dominant, independent sporophyte.</td></tr>
+          <tr><td>Vascular tissues</td><td>Both have well-developed xylem and phloem.</td></tr>
+          <tr><td>True roots, stems and leaves</td><td>Both possess a well-differentiated plant body.</td></tr>
+          <tr><td>Heterospory</td><td>Both are heterosporous, producing microspores and megaspores.</td></tr>
+          <tr><td>Pollen grains</td><td>Both produce pollen grains that develop into male gametophytes.</td></tr>
+          <tr><td>Ovules</td><td>Both produce ovules containing the female gametophyte.</td></tr>
+          <tr><td>Fertilization by pollen tube</td><td>In most gymnosperms and all angiosperms, male gametes are carried by the pollen tube. This is called siphonogamy.</td></tr>
+          <tr><td>Gametophyte reduction</td><td>Male and female gametophytes are highly reduced and dependent on the sporophyte in both groups.</td></tr>
+          <tr><td>Embryo formation</td><td>Both form embryo after fertilization and protect it within the seed.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section alt" id="gym-angio-diff">
+    <div class="section-label">D · Differences from angiosperms</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--mauve)">10</div>
+      <h2>Differences between Gymnosperms and Angiosperms</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th>Gymnosperms</th><th>Angiosperms</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ovules</td><td>Ovules are naked</td><td>Ovules are enclosed inside ovary</td></tr>
+          <tr><td>Seeds</td><td>Naked seeds</td><td>Seeds enclosed within fruit</td></tr>
+          <tr><td>Flowers</td><td>True flowers absent</td><td>True flowers present</td></tr>
+          <tr><td>Fruits</td><td>Fruits absent</td><td>Fruits present</td></tr>
+          <tr><td>Carpels</td><td>Carpels absent</td><td>Carpels present and form ovary</td></tr>
+          <tr><td>Reproductive organs</td><td>Usually cones or strobili</td><td>Flowers with stamens and carpels</td></tr>
+          <tr><td>Xylem</td><td>Usually tracheids only; vessels absent except in <em>Gnetum</em></td><td>Vessels usually present</td></tr>
+          <tr><td>Phloem</td><td>Sieve cells and albuminous cells present</td><td>Sieve tubes and companion cells present</td></tr>
+          <tr><td>Pollination</td><td>Pollen directly reaches ovule</td><td>Pollen reaches stigma first</td></tr>
+          <tr><td>Archegonia</td><td>Present in many gymnosperms</td><td>Archegonia absent</td></tr>
+          <tr><td>Fertilization</td><td>Simple fertilization usually occurs</td><td>Double fertilization occurs</td></tr>
+          <tr><td>Endosperm</td><td>Haploid female gametophyte forms before fertilization</td><td>Triploid endosperm forms after fertilization</td></tr>
+          <tr><td>Seeds</td><td>Usually not enclosed by fruit wall</td><td>Enclosed inside fruit</td></tr>
+          <tr><td>Examples</td><td><em>Cycas</em>, <em>Pinus</em>, <em>Ginkgo</em>, <em>Gnetum</em></td><td>Mango, pea, wheat, sunflower</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="evolutionary-position">
+    <div class="section-label">E · Synthesis</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sand)">11</div>
+      <h2>Evolutionary Position of Gymnosperms</h2>
+    </div>
+    <p class="section-intro">Gymnosperms show characters of both pteridophytes and angiosperms. They resemble pteridophytes in having archegonia, absence of true flowers, and motile sperms in primitive forms like <em>Cycas</em> and <em>Ginkgo</em>. They also show a relationship with heterosporous pteridophytes because seed habit evolved from heterospory.</p>
+    <p class="section-intro">At the same time, gymnosperms resemble angiosperms in producing seeds, pollen grains, ovules, reduced gametophytes and a dominant sporophyte. However, gymnosperms are less advanced than angiosperms because their ovules are naked, fruits are absent, flowers are absent, and double fertilization is generally absent.</p>
+    <div class="callout">
+      <strong>Key line:</strong>
+      <span>Thus, gymnosperms form an evolutionary bridge between pteridophytes and angiosperms.</span>
+    </div>
+  </section>
+
+  <section class="section soft" id="final-conclusion">
+    <div class="section-label">Final exam conclusion</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">12</div>
+      <h2>Conclusion</h2>
+    </div>
+    <p class="section-intro">Gymnosperms resemble pteridophytes in their vascular nature, archegonia, alternation of generations and primitive reproductive characters. However, they differ from pteridophytes in having pollen grains, ovules and seeds. Gymnosperms also resemble angiosperms in being seed plants with reduced gametophytes and well-developed sporophytes, but differ from them in having naked ovules, absence of flowers, absence of fruits and lack of true double fertilization. Therefore, gymnosperms occupy an intermediate and important position in plant evolution between pteridophytes and angiosperms.</p>
+  </section>
+
+  <div class="footer">401C Unit 4 · Gymnosperms classification and comparative relations</div>
+</main>
+</body>
+</html>
