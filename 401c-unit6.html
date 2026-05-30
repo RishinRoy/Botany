@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>401C Unit 6 — Fossils and Important Fossil Plant Groups</title>
+<style>
+:root{
+  --bg:#111417;
+  --paper:#f1ead9;
+  --ink:#111214;
+  --text:#f3f1e8;
+  --muted:#d2d6d0;
+  --edge:#d9dbc8;
+  --sage:#b8d5bf;
+  --dusty-blue:#b8cce5;
+  --ochre:#e6bf69;
+  --clay:#d9a187;
+  --mauve:#cfb1c4;
+  --sand:#ead9bb;
+  --shadow:#070809;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(217,161,135,.09), transparent 35%),
+    linear-gradient(180deg, #121519, #101214 32%, #13171b 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height:1.7;
+  font-size:18px;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; opacity:.22;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+.page{
+  width:min(1200px, calc(100% - 32px));
+  margin:0 auto;
+  padding:24px 0 56px;
+  position:relative;
+  z-index:1;
+}
+.hero{
+  background:linear-gradient(145deg, #1c2024, #181b1f 45%, #20252a);
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:28px;
+  margin-bottom:20px;
+}
+.kicker{
+  display:inline-block;
+  padding:8px 14px;
+  margin-bottom:16px;
+  background:var(--dusty-blue);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  font-size:.92rem;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.25fr .95fr;
+  gap:18px;
+  align-items:start;
+}
+.hero h1{
+  font-size:clamp(2.2rem, 5vw, 4.7rem);
+  line-height:.96;
+  margin:0 0 16px;
+  letter-spacing:-0.05em;
+}
+.hero p{
+  margin:0;
+  color:var(--muted);
+  max-width:72ch;
+  font-size:1.04rem;
+}
+.hero-notes{display:grid; gap:14px;}
+.meta-card{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--shadow);
+  padding:16px;
+}
+.meta-card h3{
+  margin:0 0 10px;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.meta-card ul{
+  margin:0;
+  padding-left:1.15rem;
+}
+.toc{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:12px;
+  margin:18px 0 26px;
+}
+.toc a{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  font-weight:900;
+  line-height:1.25;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:14px 16px;
+  background:var(--sand);
+}
+.toc a:nth-child(2n){background:var(--sage)}
+.toc a:nth-child(3n){background:var(--dusty-blue)}
+.toc a:nth-child(4n){background:var(--clay)}
+.section{
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:26px;
+  margin:0 0 26px;
+  background:linear-gradient(160deg, rgba(34,40,46,.95), rgba(22,26,30,.98));
+  break-inside:avoid;
+  page-break-inside:avoid;
+}
+.section.alt{background:linear-gradient(160deg, rgba(37,32,40,.96), rgba(22,24,28,.98));}
+.section.soft{background:linear-gradient(160deg, rgba(31,38,40,.96), rgba(20,23,26,.98));}
+.section-head{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:14px;
+  align-items:center;
+  margin-bottom:16px;
+}
+.chapter-num{
+  min-width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  background:var(--ochre);
+  color:var(--ink);
+  font-weight:900;
+  font-size:1.2rem;
+}
+.section-label{
+  display:inline-block;
+  padding:7px 12px;
+  background:var(--mauve);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--shadow);
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:.9rem;
+  margin-bottom:12px;
+}
+.section h2{
+  font-size:clamp(1.85rem,4.6vw,3.65rem);
+  margin:0;
+  line-height:1;
+  letter-spacing:-0.04em;
+}
+.section-intro{
+  color:var(--muted);
+  margin:0 0 18px;
+  max-width:80ch;
+}
+.subhead{
+  font-size:1.25rem;
+  font-weight:900;
+  margin:20px 0 8px;
+}
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:14px;
+}
+.note-card{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:16px;
+}
+.note-card h3{margin:0 0 8px; font-size:1.06rem;}
+.note-card p{margin:0;}
+.note-card p + p{margin-top:10px;}
+.callout{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:16px;
+  margin-top:18px;
+}
+.callout strong{display:block; margin-bottom:6px;}
+.table-wrap{
+  overflow-x:auto;
+  margin:20px 0 4px;
+  border:4px solid var(--ink);
+  box-shadow:8px 8px 0 var(--shadow);
+  background:var(--paper);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:900px;
+  color:var(--ink);
+  background:var(--paper);
+  font-size:.92rem;
+  line-height:1.38;
+}
+th, td{
+  border:2px solid var(--ink);
+  padding:10px 10px;
+  vertical-align:top;
+}
+th{
+  background:var(--ochre);
+  font-weight:900;
+  text-align:left;
+}
+td:first-child, th:first-child{
+  background:#ead9bb;
+  font-weight:900;
+}
+tr:nth-child(even) td:not(:first-child){background:#f7f1e4}
+tr:nth-child(odd) td:not(:first-child){background:#efe6d4}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:8px;
+  font-size:.95rem;
+}
+@media (max-width:900px){
+  body{font-size:17px}
+  .hero-grid{grid-template-columns:1fr}
+  .section{padding:20px}
+}
+@media (max-width:700px){
+  .page{width:calc(100% - 18px); padding-top:12px}
+  .section-head{grid-template-columns:1fr}
+  .chapter-num{width:58px}
+  .hero h1{letter-spacing:-0.04em}
+}
+@media print{
+  @page{size:A4; margin:8mm;}
+  body{background:#fff; color:#111; font-size:10pt; line-height:1.35;}
+  body::before{display:none}
+  .page{width:100%; padding:0}
+  .hero, .section{
+    background:#fff !important;
+    color:#111;
+    border:2px solid #111;
+    box-shadow:none;
+    margin:0 0 12px;
+    padding:12px;
+  }
+  .kicker, .section-label, .toc a, .chapter-num, .meta-card, .note-card, .callout{
+    box-shadow:none;
+    border:1.7px solid #111;
+    color:#111 !important;
+  }
+  .toc{display:none}
+  .hero p, .section-intro, .footer{color:#111}
+  .table-wrap{box-shadow:none; border:1.7px solid #111; overflow:visible;}
+  table{font-size:7pt; min-width:0; width:100%;}
+  th, td{padding:4px 4px; border:1px solid #111;}
+  th, td:first-child{background:#fff !important;}
+  .section h2{color:#111 !important;}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <span class="kicker">401C Unit 6</span>
+    <div class="hero-grid">
+      <div>
+        <h1>Fossils and Important Fossil Plant Groups</h1>
+        <p>This unit combines two major palaeobotany answers: <strong>Fossils: definition, types, nomenclature, fossilization and geological time scale</strong> and <strong>general account of Psilophytales, Lepidodendrales, Sphenophyllales and Bennettitales with special reference to Rhynia, Lepidodendron, Sphenophyllum and Williamsonia</strong>. The content is arranged as a clear revision page with charts, subheads and print-friendly tables.</p>
+      </div>
+      <div class="hero-notes">
+        <div class="meta-card">
+          <h3>Topic 1</h3>
+          <ul>
+            <li>Definition of fossils</li>
+            <li>Types of plant fossils</li>
+            <li>Fossil nomenclature</li>
+            <li>Fossilization</li>
+            <li>Geological time scale</li>
+          </ul>
+        </div>
+        <div class="meta-card" style="background:var(--sage)">
+          <h3>Topic 2</h3>
+          <ul>
+            <li>Psilophytales — <em>Rhynia</em></li>
+            <li>Lepidodendrales — <em>Lepidodendron</em></li>
+            <li>Sphenophyllales — <em>Sphenophyllum</em></li>
+            <li>Bennettitales — <em>Williamsonia</em></li>
+            <li>Comparative summary</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="toc" aria-label="Table of contents">
+    <a href="#fossils-intro">01 · Fossils introduction</a>
+    <a href="#types-of-fossils">02 · Types of plant fossils</a>
+    <a href="#fossil-nomenclature">03 · Nomenclature of plant fossils</a>
+    <a href="#fossilization">04 · Fossilization</a>
+    <a href="#time-scale">05 · Geological time scale</a>
+    <a href="#fossils-conclusion">06 · Conclusion on fossils</a>
+    <a href="#groups-intro">07 · Fossil plant groups introduction</a>
+    <a href="#rhynia">08 · Psilophytales / Rhynia</a>
+    <a href="#lepidodendron">09 · Lepidodendrales / Lepidodendron</a>
+    <a href="#sphenophyllum">10 · Sphenophyllales / Sphenophyllum</a>
+    <a href="#williamsonia">11 · Bennettitales / Williamsonia</a>
+    <a href="#comparative-summary">12 · Comparative summary</a>
+  </nav>
+
+  <section class="section" id="fossils-intro">
+    <div class="section-label">Topic 1 · 10-mark answer</div>
+    <div class="section-head">
+      <div class="chapter-num">01</div>
+      <h2>Fossils: Definition, Types, Nomenclature, Fossilization and Geological Time Scale</h2>
+    </div>
+    <p class="section-intro">Fossils are very important in botany because they provide direct evidence about plants that lived in the past. The study of plant fossils is called <strong>palaeobotany</strong>. Fossils help us understand the origin, evolution, structure, distribution and extinction of ancient plants. They are especially useful in studying extinct groups such as seed ferns, ancient pteridophytes and primitive gymnosperms.</p>
+
+    <div class="subhead">1. Definition of Fossils</div>
+    <p class="section-intro">The term fossil is derived from the Latin word <em>fossilis</em>, meaning “dug out.” In botany, a fossil may be defined as the preserved remains, impressions, traces or evidence of ancient plants that lived in past geological ages and are found preserved in rocks, sediments, coal, amber or other natural deposits.</p>
+    <p class="section-intro">Plant fossils may include leaves, stems, roots, seeds, spores, pollen grains, wood, fruits or even impressions of plant parts. They may preserve only the external form of the plant or, in some cases, even the internal anatomy.</p>
+  </section>
+
+  <section class="section alt" id="types-of-fossils">
+    <div class="section-label">2 · Types of fossils</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">02</div>
+      <h2>Types of Plant Fossils</h2>
+    </div>
+    <p class="section-intro">Plant fossils are of different types depending on how the plant material is preserved.</p>
+
+    <div class="grid-2">
+      <div class="note-card">
+        <h3>A. Compression fossils</h3>
+        <p>In compression fossils, the plant part is flattened due to pressure of sediments. A thin carbonaceous film of the original plant material may remain. Leaves are commonly preserved as compressions. They show the external form of the plant but usually do not preserve detailed internal anatomy.</p>
+        <p><strong>Example:</strong> Fossil leaves of <em>Glossopteris</em>.</p>
+      </div>
+
+      <div class="note-card" style="background:var(--dusty-blue)">
+        <h3>B. Impression fossils</h3>
+        <p>In impression fossils, the plant part leaves only an imprint on the surrounding rock or sediment. The original plant material is absent. Only the shape, outline or surface details are preserved. Impressions are common in leaves, bark and stems.</p>
+        <p><strong>Example:</strong> Leaf impressions of ferns.</p>
+      </div>
+
+      <div class="note-card" style="background:var(--sage)">
+        <h3>C. Petrified fossils</h3>
+        <p>In petrified fossils, the plant tissues are replaced or infiltrated by minerals such as silica, calcium carbonate or iron compounds. This type of fossil is very important because it may preserve the internal anatomy of the plant and is therefore highly useful in studying extinct plants.</p>
+        <p><strong>Example:</strong> Petrified wood.</p>
+      </div>
+
+      <div class="note-card" style="background:var(--clay)">
+        <h3>D. Casts and moulds</h3>
+        <p>A mould is formed when a plant part buried in sediment decays and leaves a hollow cavity. A cast is formed when this cavity is later filled with mineral matter or sediment. Casts and moulds preserve the external form of the plant part.</p>
+        <p><strong>Example:</strong> Stem casts of ancient plants.</p>
+      </div>
+
+      <div class="note-card" style="background:var(--mauve)">
+        <h3>E. Coal balls</h3>
+        <p>Coal balls are rounded masses of petrified plant material found in coal deposits. They are formed by mineral infiltration, commonly by calcium carbonate and other minerals. Coal balls are very valuable in palaeobotany because both morphology and anatomy may be preserved.</p>
+        <p><strong>Example:</strong> Coal balls containing fossils of ancient pteridophytes.</p>
+      </div>
+
+      <div class="note-card">
+        <h3>F. Amber fossils</h3>
+        <p>Amber fossils are formed when plant parts or small organisms become trapped in resin that later hardens into amber. In plants, pollen grains, spores, small flowers or plant fragments may be preserved in amber, often showing fine structural details.</p>
+      </div>
+
+      <div class="note-card" style="background:var(--sand)">
+        <h3>G. Actual remains</h3>
+        <p>Sometimes plant parts are preserved almost unchanged under special conditions such as extreme cold, dryness or lack of oxygen. These are called actual remains. They are rare in plants but very valuable.</p>
+        <p><strong>Example:</strong> Preserved seeds, wood or pollen grains.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="fossil-nomenclature">
+    <div class="section-label">3 · Nomenclature</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">03</div>
+      <h2>Nomenclature of Plant Fossils</h2>
+    </div>
+    <p class="section-intro">The nomenclature of plant fossils is different from that of living plants because fossil specimens are often incomplete. A fossil plant may be represented only by a leaf, stem, root, seed or reproductive structure. Since the whole plant is rarely preserved, separate names are often given to different fossil parts.</p>
+
+    <div class="grid-2">
+      <div class="note-card">
+        <h3>A. Form genus</h3>
+        <p>A form genus is a name given to a fossil plant part whose complete plant is not known. For example, a fossil leaf, stem or root may be named separately even if they belonged to the same original plant.</p>
+        <p><strong>Example:</strong> <em>Glossopteris</em> is commonly used for fossil leaves, while other organs of the same plant may have different names.</p>
+      </div>
+      <div class="note-card" style="background:var(--dusty-blue)">
+        <h3>B. Organ genus</h3>
+        <p>An organ genus is used for a particular organ of a fossil plant, such as a leaf, stem, root, pollen organ or seed. This helps palaeobotanists describe incomplete fossil material scientifically.</p>
+      </div>
+      <div class="note-card" style="background:var(--clay)">
+        <h3>C. Reconstruction of fossil plants</h3>
+        <p>When different fossil parts are found associated with each other and their connection is proved, they may be reconstructed as parts of one plant. Until then, separate fossil names are used for different organs.</p>
+      </div>
+      <div class="note-card" style="background:var(--mauve)">
+        <h3>D. Importance of fossil nomenclature</h3>
+        <p>Fossil nomenclature helps in accurate identification, comparison and classification of fossil plants. It also avoids confusion because a fossil plant is rarely found as a complete organism.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="fossilization">
+    <div class="section-label">4 · Fossilization</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">04</div>
+      <h2>Fossilization</h2>
+    </div>
+    <p class="section-intro">Fossilization is the process by which plant remains or traces are preserved in the earth’s crust for long periods of geological time. Fossilization usually occurs when plant parts are quickly buried under sediments such as mud, sand or volcanic ash. Burial protects the plant material from complete decay.</p>
+
+    <div class="callout">
+      <strong>Conditions necessary for fossilization</strong>
+      <span>Good fossilization usually requires rapid burial, absence of oxygen, presence of mineral-rich water, pressure from sediments and resistance of plant parts to decay. Hard parts such as wood, seeds, spores and pollen are more easily preserved than delicate parts.</span>
+    </div>
+
+    <div class="subhead">Main processes of fossilization</div>
+    <div class="grid-2">
+      <div class="note-card"><h3>A. Compression</h3><p>The plant part is buried under sediments and becomes flattened due to pressure. Some carbonaceous matter may remain as a thin film.</p></div>
+      <div class="note-card" style="background:var(--dusty-blue)"><h3>B. Impression</h3><p>The plant part leaves an imprint on soft sediment. Later the sediment hardens into rock, preserving the impression.</p></div>
+      <div class="note-card" style="background:var(--sage)"><h3>C. Petrifaction</h3><p>Minerals enter the plant tissues and replace or fill the cells. This may preserve even cellular details.</p></div>
+      <div class="note-card" style="background:var(--clay)"><h3>D. Carbonization</h3><p>Volatile substances are lost from the plant body, and a thin carbon film remains. This is common in leaf fossils.</p></div>
+      <div class="note-card" style="background:var(--mauve)"><h3>E. Cast and mould formation</h3><p>The plant part decays after burial, leaving a cavity called a mould. If the cavity is filled by minerals or sediments, a cast is formed.</p></div>
+      <div class="note-card"><h3>F. Amber preservation</h3><p>Plant parts get trapped in resin, which later hardens into amber.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="time-scale">
+    <div class="section-label">5 · Geological time scale</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sand)">05</div>
+      <h2>Geological Time Scale</h2>
+    </div>
+    <p class="section-intro">The geological time scale is a chronological arrangement of the history of the earth. It divides earth history into eons, eras, periods and epochs. It is important in palaeobotany because fossils are studied according to the geological period in which they occur. The International Commission on Stratigraphy maintains the official International Chronostratigraphic Chart, which provides the standard global time divisions used for geological history.</p>
+
+    <div class="subhead">Simplified Geological Time Scale for Botany</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Eon / Era</th>
+            <th>Period</th>
+            <th>Approximate age</th>
+            <th>Important plant events</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Precambrian</td><td>—</td><td>4600–541 million years ago</td><td>Origin of earth; early life forms; algae-like organisms appeared</td></tr>
+          <tr><td>Palaeozoic Era</td><td>Cambrian</td><td>541–485 million years ago</td><td>Aquatic algae abundant</td></tr>
+          <tr><td>Palaeozoic Era</td><td>Ordovician</td><td>485–444 million years ago</td><td>Early land plant evidence begins</td></tr>
+          <tr><td>Palaeozoic Era</td><td>Silurian</td><td>444–419 million years ago</td><td>First vascular land plants appeared</td></tr>
+          <tr><td>Palaeozoic Era</td><td>Devonian</td><td>419–359 million years ago</td><td>Early pteridophytes and first forests developed</td></tr>
+          <tr><td>Palaeozoic Era</td><td>Carboniferous</td><td>359–299 million years ago</td><td>Great coal-forming forests of pteridophytes; seed ferns common</td></tr>
+          <tr><td>Palaeozoic Era</td><td>Permian</td><td>299–252 million years ago</td><td>Gymnosperms increased; <em>Glossopteris</em> flora common</td></tr>
+          <tr><td>Mesozoic Era</td><td>Triassic</td><td>252–201 million years ago</td><td>Gymnosperms became dominant</td></tr>
+          <tr><td>Mesozoic Era</td><td>Jurassic</td><td>201–145 million years ago</td><td>Cycads, conifers and ginkgoes abundant</td></tr>
+          <tr><td>Mesozoic Era</td><td>Cretaceous</td><td>145–66 million years ago</td><td>Angiosperms appeared and diversified</td></tr>
+          <tr><td>Cenozoic Era</td><td>Tertiary</td><td>66–2.58 million years ago</td><td>Angiosperms became dominant; modern flora developed</td></tr>
+          <tr><td>Cenozoic Era</td><td>Quaternary</td><td>2.58 million years ago–present</td><td>Modern vegetation and human influence on plants</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Note:</strong>
+      <span>The exact numerical boundaries are updated by geological authorities, but the above simplified table is suitable for B.Sc. botany answers. The present ICS chart gives the Phanerozoic Eon beginning at about 538.8 million years ago, while the major eras are Palaeozoic, Mesozoic and Cenozoic.</span>
+    </div>
+  </section>
+
+  <section class="section soft" id="fossils-conclusion">
+    <div class="section-label">Topic 1 · Conclusion</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--mauve)">06</div>
+      <h2>Conclusion</h2>
+    </div>
+    <p class="section-intro">Fossils are preserved remains, impressions or traces of ancient plants found in rocks and sediments. They are studied under palaeobotany and are important for understanding plant evolution, extinct plant groups and past environments. Plant fossils may occur as compressions, impressions, petrifactions, casts, moulds, coal balls, amber fossils or actual remains. Because fossil plants are often incomplete, fossil nomenclature uses form genera and organ genera. Fossilization occurs through processes such as compression, impression, petrifaction, carbonization and amber preservation. The geological time scale provides the time framework for arranging fossils and understanding the history of plant evolution.</p>
+  </section>
+
+  <section class="section" id="groups-intro">
+    <div class="section-label">Topic 2 · 10-mark answer</div>
+    <div class="section-head">
+      <div class="chapter-num">07</div>
+      <h2>General Account of Psilophytales, Lepidodendrales, Sphenophyllales and Bennettitales</h2>
+    </div>
+    <p class="section-intro"><strong>With special reference to <em>Rhynia</em>, <em>Lepidodendron</em>, <em>Sphenophyllum</em> and <em>Williamsonia</em>.</strong></p>
+    <p class="section-intro">Fossil plants are very important in botany because they show the evolutionary history of plant groups. Some fossil plants represent early vascular plants, while others represent extinct pteridophytes or gymnosperms. Psilophytales, Lepidodendrales and Sphenophyllales are extinct pteridophytic groups, while Bennettitales is an extinct gymnosperm group. Their study helps us understand the origin of vascular plants, evolution of leaves, stele, spores, cones and seed habit.</p>
+  </section>
+
+  <section class="section alt" id="rhynia">
+    <div class="section-label">1 · Psilophytales</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">08</div>
+      <h2>Psilophytales with Special Reference to <em>Rhynia</em></h2>
+    </div>
+    <div class="grid-2">
+      <div class="note-card">
+        <h3>Occurrence and geological age</h3>
+        <p>Psilophytales includes some of the earliest and simplest vascular plants. <em>Rhynia</em> is a well-known fossil member of this group. It was discovered from the Rhynie chert of Scotland and belongs to the Early Devonian period. <em>Rhynia gwynne-vaughanii</em> is regarded as one of the earliest vascular land plants.</p>
+      </div>
+      <div class="note-card" style="background:var(--dusty-blue)">
+        <h3>Morphology</h3>
+        <p>The plant body of <em>Rhynia</em> was very simple. It had a creeping underground rhizome-like axis and upright aerial branches. True roots and true leaves were absent. Rhizoids were present for absorption. The aerial axes were cylindrical, leafless, green and dichotomously branched.</p>
+      </div>
+      <div class="note-card" style="background:var(--sage)">
+        <h3>Anatomy</h3>
+        <p>Internally, the stem showed an epidermis, cortex and central vascular cylinder. The stele was protostelic, with xylem in the centre and phloem surrounding it. The xylem contained tracheids, proving that <em>Rhynia</em> was a true vascular plant, although primitive.</p>
+      </div>
+      <div class="note-card" style="background:var(--clay)">
+        <h3>Reproduction</h3>
+        <p><em>Rhynia</em> reproduced by spores. The sporangia were borne terminally at the tips of aerial branches. Spores were produced inside the sporangia and were probably dispersed by wind. It was homosporous.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Evolutionary significance</strong>
+      <span><em>Rhynia</em> is important because it represents a very primitive stage in the evolution of vascular plants. Its simple body, absence of roots and leaves, dichotomous branching and protostele make it a key fossil in the study of early land plant evolution.</span>
+    </div>
+  </section>
+
+  <section class="section soft" id="lepidodendron">
+    <div class="section-label">2 · Lepidodendrales</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">09</div>
+      <h2>Lepidodendrales with Special Reference to <em>Lepidodendron</em></h2>
+    </div>
+    <div class="grid-2">
+      <div class="note-card">
+        <h3>Occurrence and geological age</h3>
+        <p>Lepidodendrales was an extinct group of arborescent lycopods. <em>Lepidodendron</em> is the best-known member of this order. It was abundant during the Carboniferous period, when large swamp forests were formed. These plants contributed greatly to coal formation.</p>
+      </div>
+      <div class="note-card" style="background:var(--dusty-blue)">
+        <h3>Morphology</h3>
+        <p><em>Lepidodendron</em> was a tall tree-like plant. The stem was erect, massive and dichotomously branched near the top. The stem surface had characteristic diamond-shaped leaf scars, giving it the name “scale tree.” Leaves were small, simple, linear and microphyllous. Underground rooting organs were known as <em>Stigmaria</em>.</p>
+      </div>
+      <div class="note-card" style="background:var(--clay)">
+        <h3>Anatomy</h3>
+        <p>The stem showed a protostelic or siphonostelic vascular system depending on age and species. The central vascular cylinder was relatively small compared with the huge cortex and bark. Secondary growth was present, but much of the support came from thick outer cortex and periderm.</p>
+      </div>
+      <div class="note-card" style="background:var(--mauve)">
+        <h3>Reproduction</h3>
+        <p>Reproductive structures were organized into cones or strobili bearing sporophylls with sporangia. Many members of Lepidodendrales were heterosporous, producing microspores and megaspores. The related fossil form <em>Lepidocarpon</em> showed seed-like features and is important in understanding the origin of seed habit.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Evolutionary significance</strong>
+      <span><em>Lepidodendron</em> shows that lycopods were once large forest-forming trees, unlike their small modern representatives. It also shows the importance of heterospory in the evolution of seed habit, and Carboniferous forests of <em>Lepidodendron</em> played a major role in coal formation.</span>
+    </div>
+  </section>
+
+  <section class="section alt" id="sphenophyllum">
+    <div class="section-label">3 · Sphenophyllales</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">10</div>
+      <h2>Sphenophyllales with Special Reference to <em>Sphenophyllum</em></h2>
+    </div>
+    <div class="grid-2">
+      <div class="note-card">
+        <h3>Occurrence and geological age</h3>
+        <p>Sphenophyllales was an extinct group related to the horsetail line. <em>Sphenophyllum</em> was common in the late Palaeozoic, especially from the Devonian to Permian periods. It is considered a close relative of the sphenopsids, the group that includes <em>Equisetum</em>.</p>
+      </div>
+      <div class="note-card" style="background:var(--dusty-blue)">
+        <h3>Morphology</h3>
+        <p><em>Sphenophyllum</em> was a small, delicate, herbaceous or scrambling plant. The stem was slender, jointed and divided into nodes and internodes. Leaves were arranged in whorls at the nodes and were usually wedge-shaped, which explains the name “wedge leaf.”</p>
+      </div>
+      <div class="note-card" style="background:var(--sage)">
+        <h3>Anatomy</h3>
+        <p>The stem had a simple protostele. The primary xylem was usually triangular in outline, a characteristic feature of <em>Sphenophyllum</em>. Secondary growth was present in some species. Although the stem was jointed like <em>Equisetum</em>, the vascular cylinder remained more primitive.</p>
+      </div>
+      <div class="note-card" style="background:var(--mauve)">
+        <h3>Reproduction</h3>
+        <p>The reproductive organs were borne in compact cones or strobili. These strobili consisted of whorls of sporophylls bearing sporangia. Most species were homosporous, although some advanced forms showed tendencies towards heterospory.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Evolutionary significance</strong>
+      <span><em>Sphenophyllum</em> is important because it connects primitive pteridophytes with the horsetail group. It combines a protostele like early vascular plants with jointed stems and whorled leaves like sphenopsids, helping us understand the evolution of <em>Equisetum</em>-like plants.</span>
+    </div>
+  </section>
+
+  <section class="section" id="williamsonia">
+    <div class="section-label">4 · Bennettitales</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--mauve)">11</div>
+      <h2>Bennettitales with Special Reference to <em>Williamsonia</em></h2>
+    </div>
+    <div class="grid-2">
+      <div class="note-card">
+        <h3>Occurrence and geological age</h3>
+        <p>Bennettitales is an extinct order of gymnosperms. It was especially common during the Mesozoic era, particularly the Jurassic and Cretaceous periods. <em>Williamsonia</em> is an important member. Bennettitalean plants often resembled cycads in vegetative structure but had more complex reproductive organs.</p>
+      </div>
+      <div class="note-card" style="background:var(--dusty-blue)">
+        <h3>Morphology</h3>
+        <p><em>Williamsonia</em> was a cycad-like plant with a stout or branched stem. The leaves were large, pinnately compound and arranged spirally. The general appearance was similar to cycads, but the plant body was gymnospermous and seed-bearing.</p>
+      </div>
+      <div class="note-card" style="background:var(--sage)">
+        <h3>Anatomy</h3>
+        <p>The stem anatomy showed a eustele-like vascular organization. Secondary growth was present. The wood was gymnospermous, mainly with tracheids. The leaves had a thick cuticle and xerophytic features suitable for Mesozoic conditions.</p>
+      </div>
+      <div class="note-card" style="background:var(--clay)">
+        <h3>Reproduction</h3>
+        <p>The reproductive structures were large and flower-like and were usually borne at the ends of branches or in leaf axils. In <em>Williamsonia</em>, the reproductive structures were generally unisexual. The female structure had a receptacle bearing ovules surrounded by protective bracts, while the male structures had microsporophylls bearing synangia. They were flower-like, but not true angiosperm flowers.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Evolutionary significance</strong>
+      <span><em>Williamsonia</em> shows advanced reproductive organization among fossil gymnosperms. Its flower-like reproductive structures created interest in the possible relationship between Bennettitales and angiosperms. However, Bennettitales were not true flowering plants because their ovules were not enclosed inside an ovary.</span>
+    </div>
+  </section>
+
+  <section class="section soft" id="comparative-summary">
+    <div class="section-label">Comparative chart</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sand)">12</div>
+      <h2>Comparative Summary</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Representative</th>
+            <th>Geological age</th>
+            <th>Plant type</th>
+            <th>Main vegetative feature</th>
+            <th>Reproductive feature</th>
+            <th>Evolutionary importance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Psilophytales</td>
+            <td><em>Rhynia</em></td>
+            <td>Early Devonian</td>
+            <td>Primitive vascular plant</td>
+            <td>Rootless, leafless, dichotomously branched axis</td>
+            <td>Terminal sporangia, homosporous</td>
+            <td>Shows early stage of vascular plant evolution</td>
+          </tr>
+          <tr>
+            <td>Lepidodendrales</td>
+            <td><em>Lepidodendron</em></td>
+            <td>Carboniferous</td>
+            <td>Tree-like lycopod</td>
+            <td>Tall trunk with scale-like leaf scars</td>
+            <td>Strobili, often heterosporous</td>
+            <td>Important in coal formation and seed habit evolution</td>
+          </tr>
+          <tr>
+            <td>Sphenophyllales</td>
+            <td><em>Sphenophyllum</em></td>
+            <td>Late Palaeozoic</td>
+            <td>Small scrambling sphenopsid</td>
+            <td>Jointed stem with whorled wedge-shaped leaves</td>
+            <td>Strobili with sporangia</td>
+            <td>Related to horsetail line</td>
+          </tr>
+          <tr>
+            <td>Bennettitales</td>
+            <td><em>Williamsonia</em></td>
+            <td>Mesozoic</td>
+            <td>Fossil gymnosperm</td>
+            <td>Cycad-like plant with pinnate leaves</td>
+            <td>Flower-like reproductive structures</td>
+            <td>Shows advanced gymnosperm reproduction</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Conclusion</strong>
+      <span>Psilophytales, Lepidodendrales, Sphenophyllales and Bennettitales represent important fossil plant groups. <em>Rhynia</em> shows the earliest stage of vascular plant evolution with a rootless, leafless and protostelic body. <em>Lepidodendron</em> represents giant Carboniferous lycopods that contributed to coal formation. <em>Sphenophyllum</em> shows the extinct sphenopsid line related to horsetails. <em>Williamsonia</em> represents Bennettitales, an extinct gymnosperm group with flower-like reproductive structures. Thus, these fossils are highly significant in understanding the evolution of vascular plants, pteridophytes and gymnosperms.</span>
+    </div>
+  </section>
+
+  <div class="footer">401C Unit 6 · Fossils and important fossil plant groups</div>
+</main>
+</body>
+</html>
