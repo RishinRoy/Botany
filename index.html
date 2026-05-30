@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Botany Notes Hub — 401C, 402C, 403C</title>
+
+<style>
+:root{
+  --bg:#111417;
+  --bg-soft:#191d21;
+  --panel:#1f2529;
+  --panel-2:#232b31;
+  --paper:#f1ead9;
+  --ink:#111214;
+  --text:#f3f1e8;
+  --muted:#d2d6d0;
+  --edge:#d9dbc8;
+  --sage:#b8d5bf;
+  --dusty-blue:#b8cce5;
+  --ochre:#e6bf69;
+  --clay:#d9a187;
+  --mauve:#cfb1c4;
+  --sand:#ead9bb;
+  --shadow:#070809;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(217,161,135,.09), transparent 35%),
+    linear-gradient(180deg, #121519, #101214 32%, #13171b 100%);
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height:1.65;
+  font-size:18px;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+
+.page{
+  width:min(1180px, calc(100% - 32px));
+  margin:0 auto;
+  padding:24px 0 56px;
+  position:relative;
+  z-index:1;
+}
+
+.hero{
+  background:linear-gradient(145deg, #1c2024, #181b1f 45%, #20252a);
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:30px;
+  margin-bottom:24px;
+}
+
+.kicker{
+  display:inline-block;
+  padding:8px 14px;
+  margin-bottom:16px;
+  background:var(--dusty-blue);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  font-size:.92rem;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.4fr .9fr;
+  gap:18px;
+  align-items:start;
+}
+
+.hero h1{
+  font-size:clamp(2.8rem, 6vw, 5.6rem);
+  line-height:.96;
+  margin:0 0 16px;
+  letter-spacing:-0.05em;
+}
+
+.hero p{
+  margin:0;
+  color:var(--muted);
+  max-width:64ch;
+  font-size:1.06rem;
+}
+
+.hero-notes{
+  display:grid;
+  gap:14px;
+}
+
+.meta-card{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--shadow);
+  padding:16px;
+}
+
+.meta-card h3{
+  margin:0 0 10px;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.meta-card p,
+.meta-card ul{
+  color:var(--ink);
+  margin:0;
+  font-size:.98rem;
+}
+
+.meta-card ul{
+  padding-left:1.1rem;
+}
+
+.quick-nav{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+  gap:12px;
+  margin:0 0 24px;
+}
+
+.quick-nav a{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  font-weight:900;
+  line-height:1.25;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:14px 16px;
+  background:var(--sand);
+}
+
+.quick-nav a:nth-child(2){
+  background:var(--sage);
+}
+
+.quick-nav a:nth-child(3){
+  background:var(--dusty-blue);
+}
+
+.toolbar{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:14px;
+  margin:0 0 28px;
+}
+
+.search-box{
+  width:100%;
+  padding:16px 18px;
+  border:3px solid var(--edge);
+  background:#181d21;
+  color:var(--text);
+  font-size:1rem;
+  box-shadow:6px 6px 0 var(--shadow);
+  outline:none;
+}
+
+.search-box::placeholder{
+  color:#a9b0aa;
+}
+
+.count-badge{
+  display:grid;
+  place-items:center;
+  padding:0 18px;
+  background:var(--ochre);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--shadow);
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.paper-section{
+  margin-bottom:34px;
+}
+
+.section-heading{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:16px;
+  align-items:center;
+  margin:0 0 18px;
+  background:linear-gradient(145deg, #1c2024, #181b1f 45%, #20252a);
+  border:4px solid var(--edge);
+  box-shadow:8px 8px 0 var(--shadow);
+  padding:20px;
+}
+
+.section-number{
+  min-width:86px;
+  height:70px;
+  display:grid;
+  place-items:center;
+  background:var(--dusty-blue);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  font-weight:900;
+  font-size:1.25rem;
+}
+
+.paper-section:nth-of-type(2) .section-number{
+  background:var(--sage);
+}
+
+.paper-section:nth-of-type(3) .section-number{
+  background:var(--clay);
+}
+
+.section-heading h2{
+  margin:0 0 4px;
+  font-size:clamp(1.8rem, 4vw, 3.2rem);
+  line-height:1;
+  letter-spacing:-0.04em;
+}
+
+.section-heading p{
+  margin:0;
+  color:var(--muted);
+}
+
+.units-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+  gap:18px;
+}
+
+.unit-card{
+  text-decoration:none;
+  color:var(--text);
+  background:linear-gradient(160deg, rgba(34,40,46,.95), rgba(22,26,30,.98));
+  border:4px solid var(--edge);
+  box-shadow:8px 8px 0 var(--shadow);
+  padding:20px;
+  min-height:170px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.unit-card:hover{
+  transform:translate(-4px, -4px);
+  box-shadow:12px 12px 0 var(--shadow);
+  background:linear-gradient(160deg, rgba(43,50,56,.98), rgba(25,30,34,.98));
+}
+
+.unit-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.unit-no{
+  min-width:54px;
+  height:54px;
+  display:grid;
+  place-items:center;
+  background:var(--ochre);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--shadow);
+  font-weight:900;
+}
+
+.unit-status{
+  display:inline-block;
+  padding:6px 10px;
+  background:var(--sand);
+  color:var(--ink);
+  border:2px solid var(--ink);
+  font-size:.78rem;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.unit-title{
+  font-size:1.35rem;
+  line-height:1.2;
+  margin:0 0 10px;
+  color:#f4f1e5;
+}
+
+.unit-desc{
+  margin:0;
+  color:var(--muted);
+  font-size:.96rem;
+}
+
+.unit-card:nth-child(2n) .unit-no{
+  background:var(--sage);
+}
+
+.unit-card:nth-child(3n) .unit-no{
+  background:var(--dusty-blue);
+}
+
+.unit-card:nth-child(4n) .unit-no{
+  background:var(--clay);
+}
+
+.unit-card:nth-child(5n) .unit-no{
+  background:var(--mauve);
+}
+
+.unit-card:nth-child(6n) .unit-no{
+  background:var(--sand);
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:30px;
+  font-size:.95rem;
+}
+
+.hidden{
+  display:none;
+}
+
+.no-results{
+  display:none;
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--shadow);
+  padding:18px;
+  margin:0 0 28px;
+  font-weight:800;
+}
+
+@media (max-width:900px){
+  body{
+    font-size:17px;
+  }
+
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+
+  .toolbar{
+    grid-template-columns:1fr;
+  }
+
+  .count-badge{
+    min-height:54px;
+  }
+}
+
+@media (max-width:700px){
+  .page{
+    width:calc(100% - 18px);
+    padding-top:12px;
+  }
+
+  .hero{
+    padding:22px;
+  }
+
+  .hero h1{
+    letter-spacing:-0.04em;
+  }
+
+  .section-heading{
+    grid-template-columns:1fr;
+  }
+
+  .section-number{
+    width:86px;
+  }
+
+  .unit-card{
+    min-height:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <section class="hero">
+    <span class="kicker">Botany Notes Hub</span>
+
+    <div class="hero-grid">
+      <div>
+        <h1>Botany All Units</h1>
+        <p>
+          A single homepage for 401C, 402C and 403C unit webpages. Click any unit card below
+          to open that unit through GitHub Pages as a proper webpage.
+        </p>
+      </div>
+
+      <div class="hero-notes">
+        <div class="meta-card">
+          <h3>File naming rule</h3>
+          <ul>
+            <li>This homepage must be named <strong>index.html</strong>.</li>
+            <li>Use names like <strong>401c-unit1.html</strong>.</li>
+            <li>Keep all files in the same GitHub repo.</li>
+          </ul>
+        </div>
+
+        <div class="meta-card" style="background:var(--sage)">
+          <h3>Viewing rule</h3>
+          <p>
+            Use the <strong>github.io</strong> website link to view pages. The normal GitHub file view will show code.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="quick-nav" aria-label="Quick paper navigation">
+    <a href="#paper-401c">401C · Units 1–6</a>
+    <a href="#paper-402c">402C · Units 1–6</a>
+    <a href="#paper-403c">403C · Units 1–6</a>
+  </nav>
+
+  <section class="toolbar">
+    <input class="search-box" id="searchInput" type="text" placeholder="Search: 401C, 402C, 403C, Unit 1..." />
+    <div class="count-badge">3 Papers · 18 Units</div>
+  </section>
+
+  <div class="no-results" id="noResults">No matching units found.</div>
+
+  <section class="paper-section" id="paper-401c" data-paper-section>
+    <div class="section-heading">
+      <div class="section-number">401C</div>
+      <div>
+        <h2>401C Units</h2>
+        <p>Open Units 1–6 for Paper 401C.</p>
+      </div>
+    </div>
+
+    <div class="units-grid">
+      <a class="unit-card" href="401c-unit1.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">01</div><span class="unit-status">401C</span></div>
+          <h2 class="unit-title">401C Unit 1</h2>
+          <p class="unit-desc">Open 401C Unit 1 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="401c-unit2.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">02</div><span class="unit-status">401C</span></div>
+          <h2 class="unit-title">401C Unit 2</h2>
+          <p class="unit-desc">Open 401C Unit 2 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="401c-unit3.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">03</div><span class="unit-status">401C</span></div>
+          <h2 class="unit-title">401C Unit 3</h2>
+          <p class="unit-desc">Open 401C Unit 3 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="401c-unit4.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">04</div><span class="unit-status">401C</span></div>
+          <h2 class="unit-title">401C Unit 4</h2>
+          <p class="unit-desc">Open 401C Unit 4 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="401c-unit5.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">05</div><span class="unit-status">401C</span></div>
+          <h2 class="unit-title">401C Unit 5</h2>
+          <p class="unit-desc">Open 401C Unit 5 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="401c-unit6.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">06</div><span class="unit-status">401C</span></div>
+          <h2 class="unit-title">401C Unit 6</h2>
+          <p class="unit-desc">Open 401C Unit 6 notes.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="paper-section" id="paper-402c" data-paper-section>
+    <div class="section-heading">
+      <div class="section-number">402C</div>
+      <div>
+        <h2>402C Units</h2>
+        <p>Open Units 1–6 for Paper 402C.</p>
+      </div>
+    </div>
+
+    <div class="units-grid">
+      <a class="unit-card" href="402c-unit1.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">01</div><span class="unit-status">402C</span></div>
+          <h2 class="unit-title">402C Unit 1</h2>
+          <p class="unit-desc">Open 402C Unit 1 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="402c-unit2.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">02</div><span class="unit-status">402C</span></div>
+          <h2 class="unit-title">402C Unit 2</h2>
+          <p class="unit-desc">Open 402C Unit 2 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="402c-unit3.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">03</div><span class="unit-status">402C</span></div>
+          <h2 class="unit-title">402C Unit 3</h2>
+          <p class="unit-desc">Open 402C Unit 3 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="402c-unit4.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">04</div><span class="unit-status">402C</span></div>
+          <h2 class="unit-title">402C Unit 4</h2>
+          <p class="unit-desc">Open 402C Unit 4 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="402c-unit5.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">05</div><span class="unit-status">402C</span></div>
+          <h2 class="unit-title">402C Unit 5</h2>
+          <p class="unit-desc">Open 402C Unit 5 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="402c-unit6.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">06</div><span class="unit-status">402C</span></div>
+          <h2 class="unit-title">402C Unit 6</h2>
+          <p class="unit-desc">Open 402C Unit 6 notes.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="paper-section" id="paper-403c" data-paper-section>
+    <div class="section-heading">
+      <div class="section-number">403C</div>
+      <div>
+        <h2>403C Units</h2>
+        <p>Open Units 1–6 for Paper 403C.</p>
+      </div>
+    </div>
+
+    <div class="units-grid">
+      <a class="unit-card" href="403c-unit1.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">01</div><span class="unit-status">403C</span></div>
+          <h2 class="unit-title">403C Unit 1</h2>
+          <p class="unit-desc">Open 403C Unit 1 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="403c-unit2.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">02</div><span class="unit-status">403C</span></div>
+          <h2 class="unit-title">403C Unit 2</h2>
+          <p class="unit-desc">Open 403C Unit 2 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="403c-unit3.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">03</div><span class="unit-status">403C</span></div>
+          <h2 class="unit-title">403C Unit 3</h2>
+          <p class="unit-desc">Open 403C Unit 3 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="403c-unit4.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">04</div><span class="unit-status">403C</span></div>
+          <h2 class="unit-title">403C Unit 4</h2>
+          <p class="unit-desc">Open 403C Unit 4 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="403c-unit5.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">05</div><span class="unit-status">403C</span></div>
+          <h2 class="unit-title">403C Unit 5</h2>
+          <p class="unit-desc">Open 403C Unit 5 notes.</p>
+        </div>
+      </a>
+
+      <a class="unit-card" href="403c-unit6.html" data-unit-card>
+        <div>
+          <div class="unit-top"><div class="unit-no">06</div><span class="unit-status">403C</span></div>
+          <h2 class="unit-title">403C Unit 6</h2>
+          <p class="unit-desc">Open 403C Unit 6 notes.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    Botany Notes Hub · 401C, 402C and 403C · Unit-wise HTML collection
+  </footer>
+
+</main>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const cards = Array.from(document.querySelectorAll("[data-unit-card]"));
+const sections = Array.from(document.querySelectorAll("[data-paper-section]"));
+const noResults = document.getElementById("noResults");
+
+searchInput.addEventListener("input", function(){
+  const query = searchInput.value.toLowerCase().trim();
+  let visibleCards = 0;
+
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+    const href = card.getAttribute("href").toLowerCase();
+    const isVisible = text.includes(query) || href.includes(query);
+    card.classList.toggle("hidden", !isVisible);
+    if(isVisible) visibleCards++;
+  });
+
+  sections.forEach(section => {
+    const sectionCards = Array.from(section.querySelectorAll("[data-unit-card]"));
+    const hasVisibleCard = sectionCards.some(card => !card.classList.contains("hidden"));
+    section.classList.toggle("hidden", !hasVisibleCard && query.length > 0);
+  });
+
+  noResults.style.display = visibleCards === 0 ? "block" : "none";
+});
+</script>
+
+</body>
+</html>
