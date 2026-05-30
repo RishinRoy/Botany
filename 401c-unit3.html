@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>401C Unit 3 — Comparative Account of Pteridophytes</title>
+<style>
+:root{
+  --bg:#111417;
+  --bg-soft:#191d21;
+  --panel:#1f2529;
+  --panel-2:#232b31;
+  --panel-3:#28252c;
+  --paper:#f1ead9;
+  --ink:#111214;
+  --text:#f3f1e8;
+  --muted:#d2d6d0;
+  --line:#0d0f11;
+  --edge:#d9dbc8;
+  --sage:#b8d5bf;
+  --dusty-blue:#b8cce5;
+  --ochre:#e6bf69;
+  --clay:#d9a187;
+  --mauve:#cfb1c4;
+  --sand:#ead9bb;
+  --shadow:#070809;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(217,161,135,.09), transparent 35%),
+    linear-gradient(180deg, #121519, #101214 32%, #13171b 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height:1.7;
+  font-size:18px;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.22;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+.page{width:min(1200px, calc(100% - 32px)); margin:0 auto; padding:24px 0 56px; position:relative; z-index:1;}
+.hero{
+  background:linear-gradient(145deg, #1c2024, #181b1f 45%, #20252a);
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:28px;
+  margin-bottom:20px;
+}
+.kicker{
+  display:inline-block; padding:8px 14px; margin-bottom:16px;
+  background:var(--dusty-blue); color:var(--ink); border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow); font-weight:900; letter-spacing:.04em; text-transform:uppercase;
+  font-size:.92rem;
+}
+.hero-grid{display:grid; grid-template-columns: 1.35fr .9fr; gap:18px; align-items:start;}
+.hero h1{font-size:clamp(2.4rem, 5.3vw, 5rem); line-height:.96; margin:0 0 16px; letter-spacing:-0.05em;}
+.hero p{margin:0; color:var(--muted); max-width:70ch; font-size:1.06rem;}
+.hero-notes{display:grid; gap:14px;}
+.meta-card{background:#ece6d6; color:var(--ink); border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow); padding:16px;}
+.meta-card h3{margin:0 0 10px; font-size:1rem; text-transform:uppercase; letter-spacing:.04em;}
+.meta-card ul{margin:0; padding-left:1.1rem;}
+.toc{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin:18px 0 26px;}
+.toc a{
+  display:block; text-decoration:none; color:var(--ink); font-weight:900; line-height:1.25;
+  border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; background:var(--sand);
+}
+.toc a:nth-child(2n){background:var(--sage)}
+.toc a:nth-child(3n){background:var(--dusty-blue)}
+.toc a:nth-child(4n){background:var(--clay)}
+.section{
+  border:4px solid var(--edge); box-shadow:10px 10px 0 var(--shadow); padding:26px; margin:0 0 26px;
+  background:linear-gradient(160deg, rgba(34,40,46,.95), rgba(22,26,30,.98));
+  break-inside:avoid; page-break-inside:avoid;
+}
+.section.alt{background:linear-gradient(160deg, rgba(37,32,40,.96), rgba(22,24,28,.98));}
+.section.soft{background:linear-gradient(160deg, rgba(31,38,40,.96), rgba(20,23,26,.98));}
+.section-head{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:center; margin-bottom:16px;}
+.chapter-num{
+  min-width:58px; height:58px; display:grid; place-items:center;
+  border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow);
+  background:var(--ochre); color:var(--ink); font-weight:900; font-size:1.2rem;
+}
+.section-label{display:inline-block; padding:7px 12px; background:var(--mauve); color:var(--ink); border:3px solid var(--ink); box-shadow:4px 4px 0 var(--shadow); font-weight:900; text-transform:uppercase; font-size:.9rem; margin-bottom:12px;}
+.section h2{font-size:clamp(2rem,4.7vw,4rem); margin:0; line-height:1; letter-spacing:-0.04em;}
+.section-intro{color:var(--muted); margin:0 0 18px; max-width:76ch;}
+.table-wrap{
+  overflow-x:auto;
+  margin:20px 0 4px;
+  border:4px solid var(--ink);
+  box-shadow:8px 8px 0 var(--shadow);
+  background:var(--paper);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1120px;
+  color:var(--ink);
+  background:var(--paper);
+  font-size:.9rem;
+  line-height:1.38;
+}
+th,td{
+  border:2px solid var(--ink);
+  padding:10px 10px;
+  vertical-align:top;
+  word-break:normal;
+}
+th{
+  background:var(--ochre);
+  font-weight:900;
+  text-align:left;
+}
+td:first-child, th:first-child{
+  width:13%;
+  font-weight:900;
+  background:#ead9bb;
+}
+tr:nth-child(even) td:not(:first-child){background:#f7f1e4}
+tr:nth-child(odd) td:not(:first-child){background:#efe6d4}
+.note-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:18px;}
+.note-card{
+  background:#ece6d6; color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:16px;
+}
+.note-card h3{margin:0 0 8px; font-size:1.08rem;}
+.note-card p{margin:0;}
+.callout{background:#ece6d6; color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:16px; margin-top:18px;}
+.callout strong{display:block; margin-bottom:6px;}
+.footer{text-align:center; color:var(--muted); margin-top:8px; font-size:.95rem;}
+a{color:inherit}
+@media (max-width:900px){
+  body{font-size:17px}
+  .hero-grid{grid-template-columns:1fr}
+  .section{padding:20px}
+}
+@media (max-width:700px){
+  .page{width:calc(100% - 18px); padding-top:12px}
+  .section-head{grid-template-columns:1fr}
+  .chapter-num{width:58px}
+  .hero h1{letter-spacing:-0.04em}
+}
+@media print{
+  @page{size:A4; margin:8mm;}
+  body{background:#fff; color:#111; font-size:10pt; line-height:1.35;}
+  body::before{display:none}
+  .page{width:100%; padding:0}
+  .hero, .section{background:#fff !important; color:#111; border:2px solid #111; box-shadow:none; margin:0 0 12px; padding:12px;}
+  .kicker, .section-label, .toc a, .chapter-num, .meta-card, .note-card, .callout{box-shadow:none; border:1.7px solid #111; color:#111 !important;}
+  .toc{display:none}
+  .hero p, .section-intro, .footer{color:#111}
+  .table-wrap{box-shadow:none; border:1.7px solid #111; overflow:visible;}
+  table{font-size:6.2pt; min-width:0; width:100%;}
+  th,td{padding:4px 4px; border:1px solid #111;}
+  th,td:first-child{background:#fff !important;}
+  .section h2{color:#111 !important;}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <span class="kicker">401C Unit 3</span>
+    <div class="hero-grid">
+      <div>
+        <h1>Comparative Account of Pteridophytes</h1>
+        <p>Comparative account of morphology, anatomy and reproduction of <em>Psilotum</em>, <em>Lycopodium</em>, <em>Selaginella</em>, <em>Equisetum</em>, <em>Marsilea</em> and <em>Pteris</em>. This page keeps the content as clean exam-ready tables, using the same static matte neo-brutalist style as the earlier units.</p>
+      </div>
+      <div class="hero-notes">
+        <div class="meta-card">
+          <h3>Compared genera</h3>
+          <ul>
+            <li><em>Psilotum</em> — whisk fern</li>
+            <li><em>Lycopodium</em> — club moss</li>
+            <li><em>Selaginella</em> — spike moss</li>
+            <li><em>Equisetum</em> — horsetail</li>
+            <li><em>Marsilea</em> — water fern</li>
+            <li><em>Pteris</em> — brake fern</li>
+          </ul>
+        </div>
+        <div class="meta-card" style="background:var(--sage)">
+          <h3>Comparison basis</h3>
+          <ul>
+            <li>Morphology</li>
+            <li>Anatomy</li>
+            <li>Reproduction</li>
+            <li>Evolutionary significance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="toc" aria-label="Table of contents">
+    <a href="#intro">01 · Introduction</a>
+    <a href="#morphology">02 · Morphology chart</a>
+    <a href="#anatomy">03 · Anatomy chart</a>
+    <a href="#reproduction">04 · Reproduction chart</a>
+    <a href="#summary">05 · Short summary</a>
+    <a href="#conclusion">06 · Conclusion</a>
+  </nav>
+
+  <section class="section" id="intro">
+    <div class="section-label">Opening note</div>
+    <div class="section-head">
+      <div class="chapter-num">01</div>
+      <h2>Introduction</h2>
+    </div>
+    <p class="section-intro"><em>Psilotum</em>, <em>Lycopodium</em>, <em>Selaginella</em>, <em>Equisetum</em>, <em>Marsilea</em> and <em>Pteris</em> are important representatives of pteridophytes. They are seedless vascular cryptogams with a dominant sporophytic plant body. However, they show great variation in external morphology, internal anatomy and reproductive structures. <em>Psilotum</em> represents a primitive rootless form, <em>Lycopodium</em> and <em>Selaginella</em> represent lycopods, <em>Equisetum</em> represents horsetails, while <em>Marsilea</em> and <em>Pteris</em> represent ferns. Their comparison shows the evolutionary diversity among pteridophytes.</p>
+  </section>
+
+  <section class="section alt" id="morphology">
+    <div class="section-label">A · External characters</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">02</div>
+      <h2>Comparative Account of Morphology</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th><em>Psilotum</em></th><th><em>Lycopodium</em></th><th><em>Selaginella</em></th><th><em>Equisetum</em></th><th><em>Marsilea</em></th><th><em>Pteris</em></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Group</td><td>Psilopsida</td><td>Lycopsida</td><td>Lycopsida</td><td>Sphenopsida</td><td>Pteropsida</td><td>Pteropsida</td></tr>
+          <tr><td>Common name</td><td>Whisk fern</td><td>Club moss</td><td>Spike moss</td><td>Horsetail</td><td>Water fern / pepperwort</td><td>Brake fern</td></tr>
+          <tr><td>Habit</td><td>Primitive, herbaceous, dichotomously branched plant</td><td>Small herbaceous plant, creeping or erect</td><td>Small herbaceous plant, creeping or sub-erect</td><td>Herbaceous plant with jointed stem</td><td>Aquatic or amphibious fern</td><td>Terrestrial fern</td></tr>
+          <tr><td>Habitat</td><td>Tropical and subtropical regions, often epiphytic</td><td>Moist shady places</td><td>Moist shady places; some xerophytic species</td><td>Moist places, marshes or sandy soils</td><td>Aquatic or marshy habitats</td><td>Moist shady terrestrial habitats</td></tr>
+          <tr><td>Root</td><td>True roots absent</td><td>True roots present</td><td>True roots present</td><td>True roots present</td><td>True roots present</td><td>True roots present</td></tr>
+          <tr><td>Special root-like structure</td><td>Rhizoids present on underground rhizome</td><td>No rhizophore</td><td>Rhizophores present in many species</td><td>Adventitious roots arise from nodes</td><td>Adventitious roots arise from rhizome</td><td>Adventitious roots arise from rhizome</td></tr>
+          <tr><td>Stem</td><td>Underground rhizome and aerial dichotomous stem</td><td>Creeping or erect, branched</td><td>Branched stem, often dorsiventral</td><td>Jointed stem with distinct nodes and internodes</td><td>Creeping rhizome</td><td>Underground rhizome</td></tr>
+          <tr><td>Branching</td><td>Dichotomous</td><td>Dichotomous or monopodial</td><td>Dichotomous or irregular</td><td>Whorled branches at nodes</td><td>Rhizome gives off leaves and roots</td><td>Rhizome bears fronds and roots</td></tr>
+          <tr><td>Leaves</td><td>True leaves absent; small scale-like appendages present</td><td>Small microphyllous leaves</td><td>Small microphyllous leaves with ligule</td><td>Small scale leaves arranged in whorls</td><td>Compound leaves with four leaflets</td><td>Large compound fronds</td></tr>
+          <tr><td>Type of leaves</td><td>Scale-like enations</td><td>Microphylls</td><td>Ligulate microphylls</td><td>Scale leaves</td><td>Megaphyllous leaves</td><td>Megaphyllous fronds</td></tr>
+          <tr><td>Ligule</td><td>Absent</td><td>Absent</td><td>Present</td><td>Absent</td><td>Absent</td><td>Absent</td></tr>
+          <tr><td>Photosynthetic organ</td><td>Green aerial stem</td><td>Leaves and stem</td><td>Leaves and stem</td><td>Green stem mainly photosynthetic</td><td>Leaves</td><td>Fronds</td></tr>
+          <tr><td>Characteristic feature</td><td>Simple and leafless primitive body</td><td>Roots and microphylls with cone-shaped strobili</td><td>Heterospory and ligule</td><td>Jointed stem and whorled branches</td><td>Four leaflets and sporocarps</td><td>Large fronds with sori</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section soft" id="anatomy">
+    <div class="section-label">B · Internal structure</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">03</div>
+      <h2>Comparative Account of Anatomy</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th><em>Psilotum</em></th><th><em>Lycopodium</em></th><th><em>Selaginella</em></th><th><em>Equisetum</em></th><th><em>Marsilea</em></th><th><em>Pteris</em></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Epidermis</td><td>Cuticularized epidermis present</td><td>Epidermis with cuticle</td><td>Epidermis with cuticle</td><td>Epidermis thick and cuticularized</td><td>Epidermis present, adapted to aquatic habit</td><td>Epidermis with cuticle</td></tr>
+          <tr><td>Cortex</td><td>Well-developed cortex in stem</td><td>Cortex differentiated into outer, middle and inner regions</td><td>Cortex well-developed</td><td>Cortex differentiated; vallecular canals present</td><td>Cortex has air spaces in aquatic forms</td><td>Cortex present in rhizome</td></tr>
+          <tr><td>Stele</td><td>Protostele, usually actinostele</td><td>Protostele; may be actinostele, plectostele or mixed protostele</td><td>Protostele</td><td>Eustele-like or siphonostelic condition with canals</td><td>Amphiphloic siphonostele or solenostele</td><td>Dictyostele common</td></tr>
+          <tr><td>Xylem</td><td>Star-shaped xylem core in aerial stem</td><td>Solid xylem core</td><td>Protostelic xylem</td><td>Vascular bundles arranged in a ring</td><td>Xylem surrounded by phloem on both sides</td><td>Meristeles present in dictyostele</td></tr>
+          <tr><td>Phloem</td><td>Surrounds xylem</td><td>Surrounds or lies between xylem masses</td><td>Surrounds xylem</td><td>Present outside xylem in vascular bundles</td><td>External and internal phloem present</td><td>Phloem surrounds xylem in each meristele</td></tr>
+          <tr><td>Pith</td><td>Usually absent in stele</td><td>Absent in protostele</td><td>Absent in protostele</td><td>Central pith cavity present in internode</td><td>Pith present</td><td>Pith present in rhizome</td></tr>
+          <tr><td>Leaf trace / leaf gap</td><td>True leaf gaps absent</td><td>Leaf traces present; leaf gaps absent due to microphylls</td><td>Leaf traces present; leaf gaps absent</td><td>Leaf traces present</td><td>Leaf gaps present</td><td>Leaf gaps present</td></tr>
+          <tr><td>Mechanical tissue</td><td>Sclerenchyma may occur</td><td>Sclerenchyma present</td><td>Sclerenchyma may occur</td><td>Sclerenchyma well-developed, especially ridges</td><td>Less mechanical tissue due to aquatic habit</td><td>Sclerenchyma present</td></tr>
+          <tr><td>Special anatomical feature</td><td>Simple primitive vascular organization</td><td>Variation in protostele types</td><td>Trabeculae may suspend stele in some species</td><td>Vallecular canals, carinal canals and central cavity</td><td>Aerenchyma common</td><td>Dictyostele with many meristeles</td></tr>
+          <tr><td>Anatomical advancement</td><td>Most primitive among the six</td><td>More advanced than <em>Psilotum</em></td><td>Advanced lycopod due to heterospory</td><td>Highly specialized stem anatomy</td><td>Aquatic adaptation and heterospory</td><td>Advanced fern anatomy</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section alt" id="reproduction">
+    <div class="section-label">C · Reproductive characters</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">04</div>
+      <h2>Comparative Account of Reproduction</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th><em>Psilotum</em></th><th><em>Lycopodium</em></th><th><em>Selaginella</em></th><th><em>Equisetum</em></th><th><em>Marsilea</em></th><th><em>Pteris</em></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mode of reproduction</td><td>By spores</td><td>By spores</td><td>By spores</td><td>By spores</td><td>By spores</td><td>By spores</td></tr>
+          <tr><td>Spore type</td><td>Homosporous</td><td>Homosporous</td><td>Heterosporous</td><td>Homosporous</td><td>Heterosporous</td><td>Homosporous</td></tr>
+          <tr><td>Reproductive structure</td><td>Synangia</td><td>Strobili or cones</td><td>Strobili or cones</td><td>Terminal strobili</td><td>Sporocarps</td><td>Sori</td></tr>
+          <tr><td>Position of sporangia</td><td>On small fertile appendages of aerial stem</td><td>On sporophylls</td><td>On sporophylls</td><td>On sporangiophores</td><td>Inside sporocarps</td><td>On lower surface or margin of fronds</td></tr>
+          <tr><td>Nature of sporangium</td><td>Three-lobed synangium formed by fused sporangia</td><td>Sporangia borne on upper side of sporophylls</td><td>Microsporangia and megasporangia present</td><td>Sporangia borne on peltate sporangiophores</td><td>Microsporangia and megasporangia inside sori within sporocarp</td><td>Leptosporangiate sporangia in sori</td></tr>
+          <tr><td>Sporophyll</td><td>Fertile appendage present</td><td>Sporophylls usually form strobili</td><td>Microsporophylls and megasporophylls form strobili</td><td>Sporangiophores form compact cone</td><td>Sporocarps are modified reproductive structures</td><td>Fertile fronds bear sori</td></tr>
+          <tr><td>Strobilus</td><td>Absent</td><td>Present in many species</td><td>Present</td><td>Present</td><td>Absent</td><td>Absent</td></tr>
+          <tr><td>Sori</td><td>Absent</td><td>Absent</td><td>Absent</td><td>Absent</td><td>Present inside sporocarp</td><td>Present on fronds</td></tr>
+          <tr><td>Indusium</td><td>Absent</td><td>Absent</td><td>Absent</td><td>Absent</td><td>Sporocarp wall protects sori</td><td>False indusium formed by reflexed leaf margin</td></tr>
+          <tr><td>Gametophyte</td><td>Underground, non-green, mycorrhizal and bisexual</td><td>Usually small, subterranean or surface-living, bisexual</td><td>Highly reduced and endosporic</td><td>Green, free-living and bisexual</td><td>Highly reduced and endosporic</td><td>Green, heart-shaped, free-living prothallus</td></tr>
+          <tr><td>Male gametophyte</td><td>Develops from same type of spore</td><td>Develops from same type of spore</td><td>Develops inside microspore</td><td>Develops from same type of spore</td><td>Develops inside microspore</td><td>Develops from same type of spore</td></tr>
+          <tr><td>Female gametophyte</td><td>Same gametophyte bears archegonia</td><td>Same gametophyte bears archegonia</td><td>Develops inside megaspore</td><td>Same gametophyte bears archegonia</td><td>Develops inside megaspore</td><td>Same prothallus bears archegonia</td></tr>
+          <tr><td>Antheridia</td><td>Present</td><td>Present</td><td>Present in male gametophyte</td><td>Present</td><td>Present in male gametophyte</td><td>Present on prothallus</td></tr>
+          <tr><td>Archegonia</td><td>Present</td><td>Present</td><td>Present in female gametophyte</td><td>Present</td><td>Present in female gametophyte</td><td>Present on prothallus</td></tr>
+          <tr><td>Fertilization</td><td>Water required</td><td>Water required</td><td>Water required</td><td>Water required</td><td>Water required</td><td>Water required</td></tr>
+          <tr><td>Evolutionary significance</td><td>Primitive type with synangia</td><td>Homosporous lycopod condition</td><td>Shows heterospory and approach towards seed habit</td><td>Specialized cone-bearing pteridophyte</td><td>Heterosporous aquatic fern</td><td>Typical homosporous fern</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section soft" id="summary">
+    <div class="section-label">D · Short comparative summary</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--mauve)">05</div>
+      <h2>Short Comparative Summary</h2>
+    </div>
+    <div class="note-grid">
+      <div class="note-card"><h3><em>Psilotum</em></h3><p>Most primitive among these genera because it lacks true roots and true leaves and has a simple protostelic vascular system.</p></div>
+      <div class="note-card" style="background:var(--sage)"><h3><em>Lycopodium</em></h3><p>More advanced than <em>Psilotum</em> because it has true roots, stems, microphyllous leaves and strobili, but it remains homosporous.</p></div>
+      <div class="note-card" style="background:var(--dusty-blue)"><h3><em>Selaginella</em></h3><p>Resembles <em>Lycopodium</em> in having microphylls, but it is more advanced because it is heterosporous and has ligules and rhizophores.</p></div>
+      <div class="note-card" style="background:var(--clay)"><h3><em>Equisetum</em></h3><p>Distinct because of its jointed stem, whorled branches, scale leaves and terminal strobili.</p></div>
+      <div class="note-card" style="background:var(--sand)"><h3><em>Marsilea</em></h3><p>An aquatic heterosporous fern with sporocarps, showing adaptation to water and an approach towards seed habit.</p></div>
+      <div class="note-card"><h3><em>Pteris</em></h3><p>A typical terrestrial homosporous fern with large fronds, dictyostelic rhizome and sori on the leaf margins.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="conclusion">
+    <div class="section-label">Final answer ending</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sand)">06</div>
+      <h2>Conclusion</h2>
+    </div>
+    <p class="section-intro">Thus, <em>Psilotum</em>, <em>Lycopodium</em>, <em>Selaginella</em>, <em>Equisetum</em>, <em>Marsilea</em> and <em>Pteris</em> show wide variation in morphology, anatomy and reproduction. The comparison shows an evolutionary progression from primitive rootless forms like <em>Psilotum</em> to more organized lycopods, horsetails and ferns. Heterospory in <em>Selaginella</em> and <em>Marsilea</em> is especially important because it indicates advancement towards the seed habit, while <em>Pteris</em> represents the typical homosporous fern condition.</p>
+    <div class="callout">
+      <strong>Exam-use line:</strong>
+      <span>This comparison shows progressive advancement from simple protostelic, rootless forms to heterosporous and dictyostelic fern-like forms among pteridophytes.</span>
+    </div>
+  </section>
+
+  <div class="footer">401C Unit 3 · Comparative account of Pteridophytes</div>
+</main>
+</body>
+</html>
