@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>402C Unit 4 — Root Apex, Shoot Apex, Tissues and Mechanical Tissue</title>
+<style>
+:root{
+  --bg:#111417;
+  --paper:#f1ead9;
+  --ink:#111214;
+  --text:#f3f1e8;
+  --muted:#d2d6d0;
+  --edge:#d9dbc8;
+  --sage:#b8d5bf;
+  --dusty-blue:#b8cce5;
+  --blue:#b8cce5;
+  --ochre:#e6bf69;
+  --clay:#d9a187;
+  --mauve:#cfb1c4;
+  --sand:#ead9bb;
+  --shadow:#070809;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(217,161,135,.09), transparent 35%),
+    linear-gradient(180deg, #121519, #101214 32%, #13171b 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height:1.7;
+  font-size:18px;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; opacity:.22;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+.page{
+  width:min(1200px, calc(100% - 32px));
+  margin:0 auto;
+  padding:24px 0 56px;
+  position:relative;
+  z-index:1;
+}
+.hero{
+  background:linear-gradient(145deg, #1c2024, #181b1f 45%, #20252a);
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:28px;
+  margin-bottom:20px;
+}
+.kicker{
+  display:inline-block;
+  padding:8px 14px;
+  margin-bottom:16px;
+  background:var(--sage);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  font-size:.92rem;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.25fr .95fr;
+  gap:18px;
+  align-items:start;
+}
+.hero h1{
+  font-size:clamp(2.1rem, 5vw, 4.55rem);
+  line-height:.96;
+  margin:0 0 16px;
+  letter-spacing:-0.05em;
+}
+.hero p{
+  margin:0;
+  color:var(--muted);
+  max-width:74ch;
+  font-size:1.04rem;
+}
+.hero-notes{display:grid; gap:14px;}
+.meta-card{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--shadow);
+  padding:16px;
+}
+.meta-card h3{
+  margin:0 0 10px;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.meta-card ul{margin:0; padding-left:1.15rem;}
+.toc{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:12px;
+  margin:18px 0 26px;
+}
+.toc a{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  font-weight:900;
+  line-height:1.25;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:14px 16px;
+  background:var(--sand);
+}
+.toc a:nth-child(2n){background:var(--sage)}
+.toc a:nth-child(3n){background:var(--dusty-blue)}
+.toc a:nth-child(4n){background:var(--clay)}
+.section{
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:26px;
+  margin:0 0 26px;
+  background:linear-gradient(160deg, rgba(34,40,46,.95), rgba(22,26,30,.98));
+  break-inside:avoid;
+  page-break-inside:avoid;
+}
+.section.alt{background:linear-gradient(160deg, rgba(37,32,40,.96), rgba(22,24,28,.98));}
+.section.soft{background:linear-gradient(160deg, rgba(31,38,40,.96), rgba(20,23,26,.98));}
+.section-head{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:14px;
+  align-items:center;
+  margin-bottom:16px;
+}
+.chapter-num{
+  min-width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  background:var(--ochre);
+  color:var(--ink);
+  font-weight:900;
+  font-size:1.2rem;
+}
+.section-label{
+  display:inline-block;
+  padding:7px 12px;
+  background:var(--mauve);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--shadow);
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:.9rem;
+  margin-bottom:12px;
+}
+.section h2{
+  font-size:clamp(1.85rem,4.6vw,3.55rem);
+  margin:0;
+  line-height:1;
+  letter-spacing:-0.04em;
+}
+.section-intro{
+  color:var(--muted);
+  margin:0 0 18px;
+  max-width:82ch;
+}
+.subhead{
+  font-size:1.25rem;
+  font-weight:900;
+  margin:20px 0 8px;
+}
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:14px;
+}
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:14px;
+}
+.card,.note-card{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:16px;
+}
+.card[style],.note-card[style]{color:var(--ink)!important}
+.card h3,.note-card h3{margin:0 0 8px; font-size:1.06rem;}
+.card p,.note-card p{margin:0;}
+.card p + p,.note-card p + p{margin-top:10px;}
+.callout{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:16px;
+  margin-top:18px;
+}
+.callout strong{display:block; margin-bottom:6px;}
+.table-wrap{
+  overflow:visible;
+  margin:20px 0 4px;
+  border:4px solid var(--ink);
+  box-shadow:8px 8px 0 var(--shadow);
+  background:var(--paper);
+  max-width:100%;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  color:var(--ink);
+  background:var(--paper);
+  font-size:.82rem;
+  line-height:1.32;
+}
+th, td{
+  border:2px solid var(--ink);
+  padding:8px 8px;
+  vertical-align:top;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  hyphens:auto;
+}
+th{
+  background:var(--ochre);
+  font-weight:900;
+  text-align:left;
+}
+td:first-child, th:first-child{
+  background:#ead9bb;
+  font-weight:900;
+}
+tr:nth-child(even) td:not(:first-child){background:#f7f1e4}
+tr:nth-child(odd) td:not(:first-child){background:#efe6d4}
+
+.card .table-wrap{
+  border-width:3px;
+  box-shadow:5px 5px 0 var(--shadow);
+}
+.card table{
+  font-size:.76rem;
+  line-height:1.22;
+}
+.card th,.card td{
+  padding:7px 7px;
+}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:8px;
+  font-size:.95rem;
+}
+@media (max-width:900px){
+  body{font-size:17px}
+  .hero-grid{grid-template-columns:1fr}
+  .section{padding:20px}
+}
+@media (max-width:700px){
+  .page{width:calc(100% - 18px); padding-top:12px}
+  .section-head{grid-template-columns:1fr}
+  .chapter-num{width:58px}
+  .hero h1{letter-spacing:-0.04em}
+}
+@media print{
+  @page{size:A4; margin:8mm;}
+  body{background:#fff; color:#111; font-size:10pt; line-height:1.35;}
+  body::before{display:none}
+  .page{width:100%; padding:0}
+  .hero, .section{
+    background:#fff !important;
+    color:#111;
+    border:2px solid #111;
+    box-shadow:none;
+    margin:0 0 12px;
+    padding:12px;
+  }
+  .kicker, .section-label, .toc a, .chapter-num, .meta-card, .card, .note-card, .callout{
+    box-shadow:none;
+    border:1.7px solid #111;
+    color:#111 !important;
+  }
+  .toc{display:none}
+  .hero p, .section-intro, .footer{color:#111}
+  .table-wrap{box-shadow:none; border:1.7px solid #111; overflow:visible;}
+  table{font-size:7pt; min-width:0; width:100%;}
+  th, td{padding:4px 4px; border:1px solid #111;}
+  th, td:first-child{background:#fff !important;}
+  .section h2{color:#111 !important;}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <span class="kicker">402C Unit 4</span>
+    <div class="hero-grid">
+      <div>
+        <h1>Root Apex, Shoot Apex, Tissues and Mechanical Tissue</h1>
+        <p>This unit covers the structural organisation of <strong>root apex and shoot apex</strong>, along with <strong>different types of plant tissues, tissue systems and mechanical tissue</strong>. The answer is arranged for quick B.Sc. Botany revision with clean tables and exam-focused points.</p>
+      </div>
+      <div class="hero-notes">
+        <div class="meta-card">
+          <h3>Main topics</h3>
+          <ul>
+            <li>Apical cell, histogen and tunica-corpus theories</li>
+            <li>Mantle-core and quiescent centre concepts</li>
+            <li>Meristematic and permanent tissues</li>
+            <li>Parenchyma, collenchyma, sclerenchyma, xylem and phloem</li>
+          </ul>
+        </div>
+        <div class="meta-card" style="background:var(--sage)">
+          <h3>Quick focus</h3>
+          <ul>
+            <li>Root apex vs shoot apex</li>
+            <li>Epidermal, ground and vascular tissue systems</li>
+            <li>Mechanical tissue and support</li>
+            <li>Comparison of parenchyma, collenchyma and sclerenchyma</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="toc" aria-label="Table of contents">
+    <a href="#apex-theories">01 · Root and shoot apex theories</a>
+    <a href="#shoot-apex">02 · Shoot apex organisation</a>
+    <a href="#root-apex">03 · Root apex organisation</a>
+    <a href="#root-vs-shoot">04 · Root apex vs shoot apex</a>
+    <a href="#tissues">05 · Types of plant tissues</a>
+    <a href="#permanent">06 · Permanent tissues</a>
+    <a href="#complex">07 · Xylem and phloem</a>
+    <a href="#systems">08 · Tissue systems</a>
+    <a href="#mechanical">09 · Mechanical tissue</a>
+    <a href="#comparisons">10 · Comparison table</a>
+  </nav>
+
+  <section class="section" id="apex-theories">
+    <div class="section-label">Topic 1 · Apex organisation</div>
+    <div class="section-head">
+      <div class="chapter-num">01</div>
+      <h2>Theories of Structural Organisation of Root Apex and Shoot Apex</h2>
+    </div>
+    <p class="section-intro">The growing tips of roots and shoots contain actively dividing meristematic tissue. These regions are called <strong>apical meristems</strong>. The root apex gives rise to primary tissues of the root, while the shoot apex gives rise to the stem, leaves, branches and floral organs. Many botanists proposed theories to explain the structural organisation and activity of these apical meristems. Important theories include <strong>apical cell theory, histogen theory, tunica-corpus theory, mantle-core concept and quiescent centre concept</strong>.</p>
+  </section>
+
+  <section class="section alt" id="shoot-apex">
+    <div class="section-label">Shoot apex</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">02</div>
+      <h2>Theories of Structural Organisation of Shoot Apex</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>1. Apical Cell Theory</h3>
+        <p>The <strong>apical cell theory</strong> was proposed by Nägeli. According to this theory, the entire shoot body originates from a single apical cell present at the tip of the shoot apex. This apical cell divides repeatedly and gives rise to all tissues of the plant body.</p>
+        <p>This theory is mainly applicable to lower plants such as many algae, bryophytes and some pteridophytes. In gymnosperms and angiosperms, the shoot apex is not controlled by a single apical cell. Instead, it consists of a group of meristematic cells. Therefore, this theory is not suitable for explaining the shoot apex of higher plants.</p>
+      </div>
+
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>2. Histogen Theory</h3>
+        <p>The <strong>histogen theory</strong> was proposed by Hanstein. According to this theory, the shoot apex consists of three distinct meristematic zones called <strong>histogens</strong>. Each histogen gives rise to a particular tissue system.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Histogen</th><th>Tissue formed</th></tr></thead>
+            <tbody>
+              <tr><td>Dermatogen</td><td>Epidermis</td></tr>
+              <tr><td>Periblem</td><td>Cortex</td></tr>
+              <tr><td>Plerome</td><td>Stele or vascular cylinder</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>According to this theory, the outermost layer dermatogen gives rise to the epidermis. The middle region, periblem, forms the cortex. The central region, plerome, forms the vascular tissue and pith.</p>
+      </div>
+
+      <div class="card" style="background:var(--sage)">
+        <h3>3. Tunica-Corpus Theory</h3>
+        <p>The <strong>tunica-corpus theory</strong> was proposed by Schmidt. It is one of the most accepted theories for the organization of the shoot apex in angiosperms. According to this theory, the shoot apex is divided into two main regions: <strong>tunica</strong> and <strong>corpus</strong>.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Region</th><th>Main feature</th><th>Function</th></tr></thead>
+            <tbody>
+              <tr><td>Tunica</td><td>Outer one or more layers of cells</td><td>Forms epidermis and sometimes outer tissues</td></tr>
+              <tr><td>Corpus</td><td>Inner mass of cells</td><td>Forms cortex, vascular tissue and pith</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The cells of tunica divide mainly by anticlinal divisions, maintaining the layered structure. The cells of corpus divide in different planes and add bulk to the shoot apex. This theory is important because it explains the layered organization of the shoot apex and the origin of different tissues in flowering plants.</p>
+      </div>
+
+      <div class="card" style="background:var(--clay)">
+        <h3>4. Mantle-Core Concept</h3>
+        <p>The <strong>mantle-core concept</strong> is similar to the tunica-corpus theory. According to this concept, the shoot apex has an outer mantle and an inner core. The mantle forms the outer covering layers of the apex, while the core forms the inner mass of tissues.</p>
+        <p>The mantle mainly contributes to surface growth, while the core contributes to the internal tissues of the stem. This concept is useful because it gives a simple explanation of shoot apex organization, but it is less precise than the tunica-corpus theory.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="root-apex">
+    <div class="section-label">Root apex</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">03</div>
+      <h2>Theories of Structural Organisation of Root Apex</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>1. Apical Cell Theory</h3>
+        <p>According to the apical cell theory, the root apex develops from a single apical cell. This apical cell cuts off derivatives and gives rise to the tissues of the root.</p>
+        <p>This theory is applicable mainly to lower vascular plants such as some pteridophytes. In many ferns, the root apex has a single tetrahedral apical cell. However, in gymnosperms and angiosperms, the root apex usually has a group of initials instead of a single apical cell.</p>
+      </div>
+
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>2. Histogen Theory</h3>
+        <p>The histogen theory is more clearly applicable to the root apex than to the shoot apex. According to Hanstein’s histogen theory, the root apex consists of three histogens: dermatogen, periblem and plerome.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Region</th><th>Tissue produced</th></tr></thead>
+            <tbody>
+              <tr><td>Dermatogen</td><td>Epiblema or root epidermis</td></tr>
+              <tr><td>Periblem</td><td>Cortex</td></tr>
+              <tr><td>Plerome</td><td>Vascular cylinder</td></tr>
+              <tr><td>Calyptrogen</td><td>Root cap</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>In many roots, an additional meristematic region called <strong>calyptrogen</strong> is also present. Calyptrogen gives rise to the <strong>root cap</strong>. This theory explains the origin of root tissues because the root apex often shows more definite tissue zones than the shoot apex.</p>
+      </div>
+
+      <div class="card" style="background:var(--clay)">
+        <h3>3. Korper-Kappe Theory</h3>
+        <p>The <strong>Korper-Kappe theory</strong> was proposed by Schüepp. It explains the organization of the root apex on the basis of planes of cell division.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Region</th><th>Meaning</th><th>Function</th></tr></thead>
+            <tbody>
+              <tr><td>Korper</td><td>Body</td><td>Forms the main body of the root</td></tr>
+              <tr><td>Kappe</td><td>Cap</td><td>Forms the root cap region</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>In the Korper region, cells divide in such a way that a T-shaped pattern is formed with the cross wall at the top. In the Kappe region, the T-shaped division pattern is inverted. This difference helps distinguish the root body from the root cap.</p>
+      </div>
+
+      <div class="card" style="background:var(--mauve)">
+        <h3>4. Quiescent Centre Concept</h3>
+        <p>The <strong>quiescent centre concept</strong> was proposed by Clowes. According to this concept, the root apex contains a small group of cells near the centre of the meristem that divide very slowly or remain almost inactive. This region is called the <strong>quiescent centre</strong>.</p>
+        <p>The cells around the quiescent centre are more active and give rise to different tissues of the root. The quiescent centre acts as a reserve meristem. If the active meristematic cells are damaged, the cells of the quiescent centre can become active and help in regeneration.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="root-vs-shoot">
+    <div class="section-label">Comparison</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">04</div>
+      <h2>Difference between Root Apex and Shoot Apex</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th>Root apex</th><th>Shoot apex</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Position</td><td>Present at the tip of root</td><td>Present at the tip of shoot</td></tr>
+          <tr><td>Protective structure</td><td>Root cap present</td><td>Root cap absent</td></tr>
+          <tr><td>Lateral organs</td><td>Does not produce leaves</td><td>Produces leaves and branches</td></tr>
+          <tr><td>Main function</td><td>Forms root tissues</td><td>Forms stem, leaves and branches</td></tr>
+          <tr><td>Important theory</td><td>Histogen theory, Korper-Kappe theory, quiescent centre concept</td><td>Tunica-corpus theory, mantle-core concept</td></tr>
+          <tr><td>Growth direction</td><td>Usually downward</td><td>Usually upward</td></tr>
+          <tr><td>Surface origin</td><td>Root epidermis arises from dermatogen or related initials</td><td>Shoot epidermis usually arises from tunica</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Significance of these theories</strong>
+      <span>These theories explain how the primary plant body is formed from apical meristems. The apical cell theory explains meristem organization in lower plants. The histogen theory explains the origin of tissue systems. The tunica-corpus theory explains the layered organization of the shoot apex in angiosperms. The Korper-Kappe theory explains root apex organization by patterns of cell division. The quiescent centre concept explains the presence of slowly dividing reserve cells in the root apex.</span>
+    </div>
+    <div class="callout">
+      <strong>Conclusion</strong>
+      <span>The structural organization of root and shoot apices has been explained by several theories. The shoot apex is best explained by the tunica-corpus theory, while root apex organization is explained by histogen theory, Korper-Kappe theory and quiescent centre concept. Together, these theories explain how root and shoot apical meristems produce the primary body of plants.</span>
+    </div>
+  </section>
+
+  <section class="section alt" id="tissues">
+    <div class="section-label">Topic 2 · Plant tissue</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">05</div>
+      <h2>Different Types of Tissues, Tissue Systems and Mechanical Tissue</h2>
+    </div>
+    <p class="section-intro">A tissue is a group of cells having a common origin and usually performing a common function. In higher plants, the plant body is made up of different types of tissues organized into tissue systems. These tissues help in growth, protection, photosynthesis, storage, conduction of water and food, and mechanical support. On the basis of their power of division, plant tissues are broadly divided into <strong>meristematic tissues</strong> and <strong>permanent tissues</strong>.</p>
+
+    <div class="subhead">1. Different Types of Plant Tissues</div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>A. Meristematic Tissue</h3>
+        <p>Meristematic tissue is made up of actively dividing cells. These cells are responsible for the growth of the plant body. The cells are usually small, thin-walled, compactly arranged and have dense cytoplasm, prominent nucleus and little or no vacuole.</p>
+      </div>
+      <div class="card" style="background:var(--sage)">
+        <h3>Apical meristem</h3>
+        <p>It is present at the tips of roots and shoots. It brings about increase in length and is responsible for primary growth.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>Intercalary meristem</h3>
+        <p>It is present at the base of leaves or internodes, especially in grasses. It helps in elongation of internodes and regeneration of cut parts.</p>
+      </div>
+      <div class="card" style="background:var(--clay)">
+        <h3>Lateral meristem</h3>
+        <p>It is present along the sides of roots and stems. It brings about increase in thickness and is responsible for secondary growth. Examples are vascular cambium and cork cambium.</p>
+      </div>
+      <div class="card" style="background:var(--mauve)">
+        <h3>B. Permanent Tissue</h3>
+        <p>Permanent tissues are formed from meristematic tissues. Their cells have lost the power of active division and are specialized for particular functions. Permanent tissues are mainly of two types: simple permanent tissue and complex permanent tissue.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="permanent">
+    <div class="section-label">Simple permanent tissues</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">06</div>
+      <h2>Simple Permanent Tissues</h2>
+    </div>
+    <p class="section-intro">Simple permanent tissues are made up of only one type of cell. They include <strong>parenchyma, collenchyma and sclerenchyma</strong>.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>A. Parenchyma</h3>
+        <p>Parenchyma is a living simple tissue made up of thin-walled cells. The cells are usually oval, spherical or polygonal and have intercellular spaces. The cell wall is made of cellulose.</p>
+        <p>Parenchyma performs storage of food, photosynthesis, secretion, wound healing and regeneration. When parenchyma contains chloroplasts, it is called <strong>chlorenchyma</strong>. When it contains large air spaces, it is called <strong>aerenchyma</strong>, common in aquatic plants.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>B. Collenchyma</h3>
+        <p>Collenchyma is a living mechanical tissue. Its cells are elongated and have unevenly thickened walls, especially at the corners. The thickening is mainly due to cellulose and pectin.</p>
+        <p>It is commonly found below the epidermis of young dicot stems, petioles and leaf margins. It provides mechanical support and flexibility to growing organs, allowing young parts to bend without breaking.</p>
+      </div>
+      <div class="card" style="background:var(--clay)">
+        <h3>C. Sclerenchyma</h3>
+        <p>Sclerenchyma is a dead mechanical tissue made up of thick-walled cells. The walls are heavily lignified. Mature sclerenchyma cells usually lack protoplasm.</p>
+        <p>Sclerenchyma provides hardness, rigidity and mechanical strength. It is of two main types: <strong>fibres</strong> and <strong>sclereids</strong>. Fibres are long, narrow and pointed cells, while sclereids are short, thick-walled cells found in hard parts such as seed coats, nutshells and gritty pulp of pear.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="complex">
+    <div class="section-label">Complex permanent tissues</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--mauve)">07</div>
+      <h2>Complex Permanent Tissues: Xylem and Phloem</h2>
+    </div>
+    <p class="section-intro">Complex tissues are made up of more than one type of cell working together for a common function. The two main complex tissues are <strong>xylem</strong> and <strong>phloem</strong>.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>A. Xylem</h3>
+        <p>Xylem is a complex tissue responsible mainly for the conduction of water and minerals from roots to other parts of the plant. It also provides mechanical support.</p>
+        <p><strong>Tracheids:</strong> Dead, elongated cells with lignified walls. They conduct water and provide support.</p>
+        <p><strong>Vessels:</strong> Dead, tube-like structures formed by vessel elements. They conduct water efficiently and are common in angiosperms.</p>
+        <p><strong>Xylem fibres:</strong> Dead, thick-walled cells that provide mechanical strength.</p>
+        <p><strong>Xylem parenchyma:</strong> Living cells that help in storage and lateral conduction.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>B. Phloem</h3>
+        <p>Phloem is a complex tissue responsible for the conduction of prepared food from leaves to other parts of the plant.</p>
+        <p><strong>Sieve tubes:</strong> Living conducting elements that transport food in angiosperms.</p>
+        <p><strong>Companion cells:</strong> Living cells associated with sieve tubes. They control and support the activity of sieve tubes.</p>
+        <p><strong>Phloem parenchyma:</strong> Living cells that store food and help in lateral transport.</p>
+        <p><strong>Phloem fibres:</strong> Thick-walled cells that provide mechanical support.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="systems">
+    <div class="section-label">Tissue systems</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sand)">08</div>
+      <h2>Tissue Systems</h2>
+    </div>
+    <p class="section-intro">According to Sachs, the tissues of a plant body are organized into three tissue systems: <strong>epidermal tissue system, ground tissue system and vascular tissue system</strong>.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>A. Epidermal Tissue System</h3>
+        <p>The epidermal tissue system forms the outer covering of the plant body. It includes the epidermis, cuticle, stomata, trichomes and root hairs.</p>
+        <p>The epidermis is usually single-layered and protects the inner tissues. The cuticle reduces water loss from aerial parts. Stomata regulate gaseous exchange and transpiration. Root hairs help in absorption of water and minerals from soil. Trichomes protect the plant from excessive heat, water loss and herbivores.</p>
+      </div>
+      <div class="card" style="background:var(--sage)">
+        <h3>B. Ground Tissue System</h3>
+        <p>The ground tissue system includes all tissues except the epidermal and vascular tissues. It mainly consists of parenchyma, collenchyma and sclerenchyma.</p>
+        <p>In roots and stems, it forms the cortex, endodermis, pericycle, pith and medullary rays. In leaves, it forms the mesophyll tissue. The ground tissue system performs photosynthesis, storage, secretion and mechanical support.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>C. Vascular Tissue System</h3>
+        <p>The vascular tissue system consists of xylem and phloem. These tissues are arranged in vascular bundles. Xylem conducts water and minerals, while phloem conducts prepared food.</p>
+        <p>The vascular tissue system also provides mechanical strength to the plant body. In roots, vascular tissues are usually arranged radially. In stems and leaves, they are arranged in vascular bundles.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="mechanical">
+    <div class="section-label">Mechanical tissue</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">09</div>
+      <h2>Mechanical Tissue</h2>
+    </div>
+    <p class="section-intro">Mechanical tissue provides strength, rigidity and support to the plant body. It helps plants withstand bending, pulling, wind pressure and the weight of branches, leaves, flowers and fruits. The main mechanical tissues are <strong>collenchyma, sclerenchyma and xylem fibres</strong>.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>A. Collenchyma as mechanical tissue</h3>
+        <p>Collenchyma provides mechanical support to young growing parts. It is living and flexible, so it allows growth while giving strength. It is commonly present below the epidermis of young dicot stems and petioles. It prevents tearing of soft plant parts.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>B. Sclerenchyma as mechanical tissue</h3>
+        <p>Sclerenchyma provides strong mechanical support to mature parts of plants. Its cells are dead, thick-walled and lignified. Fibres give tensile strength, while sclereids provide hardness. It is found in stems, seed coats, nutshells and vascular bundles.</p>
+      </div>
+      <div class="card" style="background:var(--sage)">
+        <h3>C. Xylem as mechanical tissue</h3>
+        <p>Besides conduction, xylem also provides mechanical strength due to lignified tracheids, vessels and xylem fibres. Woody plants are strong mainly because of the presence of secondary xylem.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="comparisons">
+    <div class="section-label">Revision table</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">10</div>
+      <h2>Difference between Parenchyma, Collenchyma and Sclerenchyma</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th>Parenchyma</th><th>Collenchyma</th><th>Sclerenchyma</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nature of cells</td><td>Living</td><td>Living</td><td>Dead at maturity</td></tr>
+          <tr><td>Cell wall</td><td>Thin, cellulose wall</td><td>Unevenly thickened wall</td><td>Very thick, lignified wall</td></tr>
+          <tr><td>Intercellular spaces</td><td>Usually present</td><td>Usually absent</td><td>Absent</td></tr>
+          <tr><td>Function</td><td>Storage, photosynthesis, healing</td><td>Flexible support</td><td>Mechanical strength</td></tr>
+          <tr><td>Occurrence</td><td>Cortex, pith, mesophyll</td><td>Young dicot stem, petiole</td><td>Fibres, seed coat, nutshell</td></tr>
+          <tr><td>Flexibility</td><td>Soft and flexible</td><td>Strong and flexible</td><td>Hard and rigid</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Conclusion</strong>
+      <span>Plant tissues are broadly divided into meristematic and permanent tissues. Meristematic tissues bring about growth, while permanent tissues perform specialized functions. Simple tissues include parenchyma, collenchyma and sclerenchyma, while complex tissues include xylem and phloem. These tissues are organized into epidermal, ground and vascular tissue systems. Mechanical tissues such as collenchyma, sclerenchyma and xylem fibres provide strength and support to the plant body. Thus, tissues and tissue systems together form the structural and functional framework of higher plants.</span>
+    </div>
+  </section>
+
+  <div class="footer">402C Unit 4 · Root apex, shoot apex, tissues, tissue systems and mechanical tissue</div>
+</main>
+</body>
+</html>
