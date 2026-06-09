@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>402C Unit 5 — Leaf Anatomy, Primary Stem and Root Anatomy, Anomalous Primary Stem</title>
+<style>
+:root{
+  --bg:#111417;
+  --paper:#f5f1e7;
+  --ink:#111214;
+  --text:#f3f1e8;
+  --muted:#cfd5cf;
+  --edge:#e2dccd;
+  --sage:#c7dec8;
+  --dusty-blue:#cbd8ec;
+  --clay:#e3b39f;
+  --mauve:#d7bfd4;
+  --sand:#ede1c7;
+  --yellow:#efd183;
+  --shadow:#070809;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(203,216,236,.12), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(227,179,159,.10), transparent 34%),
+    linear-gradient(180deg, #111418, #0f1215 35%, #14191d 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height:1.65;
+  font-size:18px;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; opacity:.2;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size:42px 42px;
+}
+.wrapper{position:relative; z-index:1; max-width:1500px; margin:0 auto; padding:32px 24px 80px}
+.header-frame{
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 rgba(0,0,0,.35);
+  padding:28px 28px 22px;
+  margin-bottom:28px;
+  background:linear-gradient(90deg, rgba(11,17,22,.94), rgba(24,31,37,.94));
+}
+.kicker{
+  display:inline-block;
+  background:var(--mauve);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--shadow);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  font-size:.9rem;
+  padding:8px 14px;
+  margin-bottom:18px;
+}
+.hero-grid{display:grid; grid-template-columns:120px 1fr; gap:18px; align-items:start}
+.unit-box{
+  width:92px; height:92px; display:flex; align-items:center; justify-content:center;
+  background:var(--sage); color:var(--ink); border:4px solid var(--ink); box-shadow:8px 8px 0 var(--shadow);
+  font-size:2rem; font-weight:900;
+}
+.header-title{font-size:4rem; line-height:1.02; margin:0 0 12px; font-weight:900; letter-spacing:-.03em}
+.header-sub{margin:0; max-width:900px; color:var(--muted); font-size:1.08rem}
+.toc{
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin:24px 0 0;
+}
+.toc a{
+  text-decoration:none; color:var(--ink); background:var(--paper); border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--shadow); padding:14px 14px; font-weight:700; line-height:1.35;
+}
+.toc a:nth-child(1){background:var(--sage)}
+.toc a:nth-child(2){background:var(--dusty-blue)}
+.toc a:nth-child(3){background:var(--clay)}
+.toc a:nth-child(4){background:var(--sand)}
+.section{margin-top:34px}
+.section-header{display:flex; align-items:center; gap:18px; margin-bottom:16px}
+.section-num{
+  min-width:74px; height:74px; display:flex; align-items:center; justify-content:center;
+  font-size:1.65rem; font-weight:900; color:var(--ink); background:var(--yellow);
+  border:4px solid var(--ink); box-shadow:8px 8px 0 var(--shadow);
+}
+.section-header h2{margin:0; font-size:3.2rem; line-height:1.05; letter-spacing:-.02em}
+.lead{color:var(--muted); max-width:980px; margin:0 0 18px}
+.cards-2, .cards-3{display:grid; gap:18px}
+.cards-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cards-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{
+  background:var(--paper); color:var(--ink); border:4px solid var(--ink); box-shadow:8px 8px 0 var(--shadow);
+  padding:18px 18px 16px; min-width:0;
+}
+.card.sage{background:var(--sage)}
+.card.blue{background:var(--dusty-blue)}
+.card.clay{background:var(--clay)}
+.card.mauve{background:var(--mauve)}
+.card.sand{background:var(--sand)}
+.card h3,.card h4{margin:0 0 10px; line-height:1.15}
+.card h3{font-size:1.75rem}
+.card h4{font-size:1.15rem}
+.card p{margin:.48rem 0}
+.card ul,.card ol{margin:.4rem 0 .4rem 1.15rem; padding:0}
+.note{font-size:.97rem; font-style:italic}
+.table-wrap{
+  overflow:visible;
+  margin:16px 0 4px;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  background:var(--paper);
+  max-width:100%;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  color:var(--ink);
+  background:var(--paper);
+  font-size:.9rem;
+  line-height:1.35;
+}
+th, td{
+  border:2px solid var(--ink);
+  padding:8px 8px;
+  vertical-align:top;
+  overflow-wrap:anywhere;
+  hyphens:auto;
+}
+th{background:#e4c067; text-align:left}
+tr td:first-child{font-weight:700; background:#e9dcc0}
+tr:nth-child(even) td:not(:first-child){background:#fbf7ee}
+.summary{
+  background:linear-gradient(135deg, rgba(245,241,231,.98), rgba(237,225,199,.98));
+}
+.footer-note{margin-top:24px; color:var(--muted); font-size:.98rem; text-align:center}
+@media (max-width:1200px){
+  .toc{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cards-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  body{font-size:16px}
+  .wrapper{padding:18px 14px 60px}
+  .hero-grid{grid-template-columns:1fr}
+  .unit-box{width:82px; height:82px}
+  .header-title{font-size:2.7rem}
+  .section-header{align-items:flex-start}
+  .section-header h2{font-size:2.2rem}
+  .cards-2,.cards-3,.toc{grid-template-columns:1fr}
+}
+@media print{
+  body{background:#fff; color:#111; font-size:12pt}
+  body::before{display:none}
+  .wrapper{max-width:none; padding:0}
+  .header-frame,.card,.toc a,.unit-box,.section-num,.table-wrap{box-shadow:none}
+  .header-frame,.card,.toc a,.unit-box,.section-num,.table-wrap{border-color:#111}
+  .header-frame{background:#fff; color:#111}
+  .header-sub,.lead,.footer-note{color:#333}
+  .section{break-inside:avoid}
+  .card{break-inside:avoid; page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <header class="header-frame">
+    <div class="kicker">402C Unit 5</div>
+    <div class="hero-grid">
+      <div class="unit-box">05</div>
+      <div>
+        <h1 class="header-title">Leaf Anatomy, Primary Monocot and Dicot Stems and Roots, and Anomalous Primary Stem</h1>
+        <p class="header-sub">A clean study sheet for B.Sc. 4th semester Botany, covering leaf anatomy, the anatomy of primary monocot and dicot stems and roots, and anomalous structure in the primary body of stem.</p>
+      </div>
+    </div>
+    <nav class="toc">
+      <a href="#leaf">1. Leaf Anatomy</a>
+      <a href="#stemroot">2. Primary Monocot and Dicot Stems and Roots</a>
+      <a href="#anomalous-intro">3. Anomalous Structure in the Primary Body of Stem</a>
+      <a href="#anomalous-types">4. Types of Anomalous Structure in Primary Stem</a>
+    </nav>
+  </header>
+
+  <section class="section" id="leaf">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <h2>Leaf Anatomy</h2>
+    </div>
+    <p class="lead">A leaf is a lateral, flattened green organ mainly concerned with <strong>photosynthesis</strong>, <strong>transpiration</strong> and <strong>gaseous exchange</strong>. Internally, a leaf is made up of three main tissue systems: epidermis, mesophyll and vascular bundles. Leaf anatomy varies in dicots, monocots and xerophytes according to function and habitat.</p>
+
+    <div class="cards-3">
+      <article class="card sage">
+        <h3>1. Epidermis</h3>
+        <p>The leaf has an <strong>upper epidermis</strong> and a <strong>lower epidermis</strong>. The epidermis is usually single-layered and covered by a <strong>cuticle</strong>, which reduces water loss. <strong>Stomata</strong> are present in the epidermis and help in gaseous exchange and transpiration.</p>
+        <p>In dicot leaves, stomata are generally more numerous on the lower epidermis, while in monocot leaves they may occur on both surfaces.</p>
+      </article>
+
+      <article class="card blue">
+        <h3>2. Mesophyll</h3>
+        <p>The ground tissue between the two epidermal layers is called <strong>mesophyll</strong>. It contains chloroplasts and performs photosynthesis.</p>
+        <p>In a typical dicot leaf, the mesophyll is differentiated into <strong>palisade parenchyma</strong> and <strong>spongy parenchyma</strong>. Palisade tissue lies below the upper epidermis, has elongated compact cells and contains many chloroplasts. Spongy tissue lies towards the lower epidermis, has loosely arranged cells and large intercellular spaces, helping in gaseous exchange.</p>
+        <p>In monocot leaves, the mesophyll is usually not differentiated into palisade and spongy tissue.</p>
+      </article>
+
+      <article class="card clay">
+        <h3>3. Vascular Bundles</h3>
+        <p>The veins of the leaf contain vascular bundles. Each vascular bundle consists of <strong>xylem</strong> and <strong>phloem</strong>. Xylem is usually present towards the upper surface and conducts water and minerals. Phloem is present towards the lower surface and conducts prepared food.</p>
+        <p>Vascular bundles are often surrounded by a <strong>bundle sheath</strong>, which gives support and helps in transport.</p>
+      </article>
+    </div>
+
+    <div class="cards-3" style="margin-top:18px">
+      <article class="card sand">
+        <h3>4. Dicot Leaf Anatomy</h3>
+        <p>A typical dicot leaf is <strong>dorsiventral</strong>, meaning the upper and lower surfaces are different. The upper epidermis has a cuticle and fewer stomata, while the lower epidermis has more stomata.</p>
+        <p>The mesophyll is differentiated into palisade and spongy parenchyma. Vascular bundles are arranged in a network according to reticulate venation.</p>
+        <p class="note"><strong>Example:</strong> Sunflower leaf.</p>
+      </article>
+
+      <article class="card mauve">
+        <h3>5. Monocot Leaf Anatomy</h3>
+        <p>A typical monocot leaf is usually <strong>isobilateral</strong>, meaning both surfaces are almost similar. Stomata are present on both epidermal surfaces.</p>
+        <p>The mesophyll is generally undifferentiated. Vascular bundles are numerous and arranged parallel to each other. In grasses, large <strong>bulliform cells</strong> are present in the upper epidermis. These cells help in rolling and unrolling of leaves during water stress.</p>
+        <p class="note"><strong>Example:</strong> Maize leaf.</p>
+      </article>
+
+      <article class="card summary">
+        <h3>6. Xerophytic Leaf Anatomy</h3>
+        <p>Xerophytic leaves are adapted to dry conditions. They usually have a <strong>thick cuticle</strong>, <strong>sunken stomata</strong>, <strong>compact mesophyll</strong> and <strong>well-developed mechanical tissues</strong>.</p>
+        <p>These features reduce water loss and help the plant survive in dry habitats.</p>
+        <p class="note"><strong>Example:</strong> <em>Nerium</em>.</p>
+      </article>
+    </div>
+
+    <article class="card" style="margin-top:18px">
+      <h3>Difference between dicot and monocot leaf</h3>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Character</th><th>Dicot leaf</th><th>Monocot leaf</th></tr>
+          <tr><td>Type</td><td>Dorsiventral</td><td>Isobilateral</td></tr>
+          <tr><td>Mesophyll</td><td>Differentiated into palisade and spongy tissue</td><td>Usually undifferentiated</td></tr>
+          <tr><td>Stomata</td><td>More on lower epidermis</td><td>Present on both surfaces</td></tr>
+          <tr><td>Venation</td><td>Reticulate</td><td>Parallel</td></tr>
+          <tr><td>Bulliform cells</td><td>Absent</td><td>Present in grasses</td></tr>
+          <tr><td>Example</td><td>Sunflower</td><td>Maize</td></tr>
+        </table>
+      </div>
+      <p><strong>Conclusion:</strong> The leaf is internally organized into epidermis, mesophyll and vascular bundles. The epidermis protects the leaf, mesophyll performs photosynthesis, and vascular bundles conduct water and food. Dicot leaves are dorsiventral, monocot leaves are isobilateral, and xerophytic leaves show special adaptations to reduce water loss. Thus, leaf anatomy makes the leaf suitable for photosynthesis, transpiration and gaseous exchange.</p>
+    </article>
+  </section>
+
+  <section class="section" id="stemroot">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <h2>Anatomy of Primary Monocot and Dicot Stems and Roots</h2>
+    </div>
+    <p class="lead">The primary structure of stems and roots is formed by the activity of the apical meristem. In both stems and roots, the primary body is made up of three tissue systems: <strong>epidermal tissue system</strong>, <strong>ground tissue system</strong> and <strong>vascular tissue system</strong>. Monocots and dicots show clear anatomical differences in the arrangement of vascular bundles, presence or absence of cambium, and the possibility of secondary growth.</p>
+
+    <div class="cards-2">
+      <article class="card sage">
+        <h3>1. Anatomy of Primary Dicot Stem</h3>
+        <p>A typical dicot stem, such as sunflower stem, shows a well-organized internal structure with vascular bundles arranged in a ring.</p>
+        <h4>Epidermis</h4>
+        <p>The epidermis is the outermost single layer of compactly arranged cells. It is covered externally by a cuticle and may bear multicellular hairs. It protects the internal tissues and reduces water loss.</p>
+        <h4>Cortex</h4>
+        <p>The cortex lies below the epidermis and is usually differentiated into three regions: hypodermis, general cortex and endodermis. The <strong>hypodermis</strong> is generally collenchymatous and provides mechanical support. The <strong>general cortex</strong> is parenchymatous and stores food. The innermost layer of cortex is the <strong>endodermis</strong>, often called the starch sheath because it may contain starch grains.</p>
+        <h4>Pericycle</h4>
+        <p>The pericycle lies inner to the endodermis. In many dicot stems, it occurs as patches of sclerenchymatous fibres above the vascular bundles and gives additional mechanical support.</p>
+        <h4>Vascular bundles</h4>
+        <p>The vascular bundles are arranged in a ring around the pith. Each vascular bundle is <strong>conjoint</strong>, <strong>collateral</strong>, <strong>open</strong> and <strong>endarch</strong>. It is conjoint because xylem and phloem occur in the same bundle, collateral because phloem lies outside and xylem inside, open because cambium is present between xylem and phloem, and endarch because protoxylem lies towards the centre. The presence of cambium allows secondary growth.</p>
+        <h4>Pith and medullary rays</h4>
+        <p>The central region is occupied by a large parenchymatous pith. Between vascular bundles, <strong>medullary rays</strong> are present and help in radial conduction of food and water.</p>
+      </article>
+
+      <article class="card blue">
+        <h3>2. Anatomy of Primary Monocot Stem</h3>
+        <p>A typical monocot stem, such as maize stem, differs from dicot stem mainly in having scattered vascular bundles and undifferentiated ground tissue.</p>
+        <h4>Epidermis</h4>
+        <p>The epidermis is the outermost protective layer. It is single-layered and covered by a cuticle.</p>
+        <h4>Ground tissue</h4>
+        <p>In monocot stem, the ground tissue is not differentiated into cortex, endodermis, pericycle and pith. It is mainly parenchymatous and fills the entire inner region of the stem.</p>
+        <h4>Vascular bundles</h4>
+        <p>The vascular bundles are numerous and scattered throughout the ground tissue. They are more crowded towards the periphery and fewer towards the centre. Each vascular bundle is <strong>conjoint</strong>, <strong>collateral</strong>, <strong>closed</strong> and <strong>endarch</strong>.</p>
+        <p>The vascular bundle is closed because cambium is absent between xylem and phloem. Due to absence of cambium, normal secondary growth does not occur in most monocot stems.</p>
+        <p>Each vascular bundle is surrounded by a <strong>sclerenchymatous bundle sheath</strong>. The xylem usually shows metaxylem vessels and protoxylem elements. In maize, the protoxylem disintegrates and forms a <strong>protoxylem lacuna</strong>, which is a characteristic feature of monocot stem.</p>
+      </article>
+    </div>
+
+    <div class="cards-2" style="margin-top:18px">
+      <article class="card clay">
+        <h3>3. Anatomy of Primary Dicot Root</h3>
+        <p>A typical dicot root, such as gram root, shows radial vascular arrangement, exarch xylem and small or absent pith.</p>
+        <h4>Epiblema</h4>
+        <p>The outermost layer is called <strong>epiblema</strong> or piliferous layer. It is thin-walled and bears unicellular root hairs, which increase the surface area for absorption of water and minerals. Cuticle is absent because the root is mainly concerned with absorption.</p>
+        <h4>Cortex</h4>
+        <p>The cortex is broad and made of parenchymatous cells with intercellular spaces. It stores food and helps in movement of water from epiblema to inner tissues.</p>
+        <h4>Endodermis</h4>
+        <p>The innermost layer of the cortex is the endodermis. It is made of barrel-shaped cells. The radial and transverse walls have <strong>Casparian strips</strong> made of suberin. The endodermis regulates the movement of water and minerals into the stele.</p>
+        <h4>Pericycle</h4>
+        <p>The pericycle lies just inner to the endodermis. It is usually single-layered and parenchymatous. It gives rise to lateral roots. In dicot roots, it also contributes to formation of vascular cambium and cork cambium during secondary growth.</p>
+        <h4>Vascular tissue</h4>
+        <p>Xylem and phloem are arranged alternately on different radii, so the vascular bundle is <strong>radial</strong>. The xylem is <strong>exarch</strong>, meaning protoxylem lies towards the periphery and metaxylem towards the centre. The number of xylem groups is usually limited, commonly diarch, triarch, tetrarch or pentarch. The pith is very small or absent. Secondary growth usually occurs in dicot roots.</p>
+      </article>
+
+      <article class="card sand">
+        <h3>4. Anatomy of Primary Monocot Root</h3>
+        <p>A typical monocot root, such as maize root, resembles dicot root in having radial vascular bundles and exarch xylem, but differs in having many xylem groups and a large pith.</p>
+        <h4>Epiblema</h4>
+        <p>The epiblema is the outermost layer and bears unicellular root hairs. It helps in absorption of water and minerals. Cuticle is absent.</p>
+        <h4>Cortex</h4>
+        <p>The cortex is broad and parenchymatous. It has intercellular spaces and helps in storage and conduction of water.</p>
+        <h4>Endodermis</h4>
+        <p>The endodermis is distinct and has Casparian strips. Some thin-walled <strong>passage cells</strong> may be present opposite the protoxylem. These cells help in the passage of water into the stele.</p>
+        <h4>Pericycle</h4>
+        <p>The pericycle lies inner to the endodermis. It gives rise to lateral roots. However, it does not usually take part in secondary growth because normal secondary growth is absent in monocot roots.</p>
+        <h4>Vascular tissue</h4>
+        <p>Xylem and phloem are arranged alternately in a radial manner. The xylem is exarch. The number of xylem bundles is many, so the condition is called <strong>polyarch</strong>. A large and well-developed parenchymatous pith is present in the centre. This is an important difference from dicot root.</p>
+      </article>
+    </div>
+
+    <div class="cards-2" style="margin-top:18px">
+      <article class="card">
+        <h3>5. Comparison between Primary Dicot and Monocot Stem</h3>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Character</th><th>Dicot stem</th><th>Monocot stem</th></tr>
+            <tr><td>Ground tissue</td><td>Differentiated into cortex, endodermis, pericycle and pith</td><td>Not differentiated into cortex and pith</td></tr>
+            <tr><td>Vascular bundles</td><td>Arranged in a ring</td><td>Scattered throughout ground tissue</td></tr>
+            <tr><td>Type of vascular bundle</td><td>Conjoint, collateral, open, endarch</td><td>Conjoint, collateral, closed, endarch</td></tr>
+            <tr><td>Cambium</td><td>Present</td><td>Absent</td></tr>
+            <tr><td>Secondary growth</td><td>Usually present</td><td>Usually absent</td></tr>
+            <tr><td>Bundle sheath</td><td>Usually absent or less prominent</td><td>Sclerenchymatous bundle sheath present</td></tr>
+            <tr><td>Protoxylem lacuna</td><td>Absent</td><td>Present in many monocots, e.g. maize</td></tr>
+            <tr><td>Pith</td><td>Distinct</td><td>Not distinct</td></tr>
+            <tr><td>Example</td><td>Sunflower stem</td><td>Maize stem</td></tr>
+          </table>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>6. Comparison between Primary Dicot and Monocot Root</h3>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Character</th><th>Dicot root</th><th>Monocot root</th></tr>
+            <tr><td>Vascular arrangement</td><td>Radial</td><td>Radial</td></tr>
+            <tr><td>Xylem condition</td><td>Exarch</td><td>Exarch</td></tr>
+            <tr><td>Number of xylem groups</td><td>Few, usually 2–6</td><td>Many, polyarch</td></tr>
+            <tr><td>Pith</td><td>Small or absent</td><td>Large and well-developed</td></tr>
+            <tr><td>Pericycle</td><td>Gives lateral roots and helps in secondary growth</td><td>Gives lateral roots only</td></tr>
+            <tr><td>Secondary growth</td><td>Usually present</td><td>Usually absent</td></tr>
+            <tr><td>Passage cells</td><td>May be present</td><td>Commonly present opposite protoxylem</td></tr>
+            <tr><td>Example</td><td>Gram root</td><td>Maize root</td></tr>
+          </table>
+        </div>
+        <p><strong>Conclusion:</strong> The primary anatomy of monocot and dicot stems and roots shows important differences. Dicot stems have vascular bundles arranged in a ring, open bundles, cambium and distinct pith, while monocot stems have scattered closed bundles, bundle sheath and protoxylem lacuna. Dicot roots show few xylem groups, small or absent pith and secondary growth, while monocot roots show polyarch xylem, large pith and absence of normal secondary growth. These anatomical features are very important for identifying monocot and dicot plants and understanding their structural organization.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="anomalous-intro">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <h2>Anomalous Structure in the Primary Body of Stem</h2>
+    </div>
+    <p class="lead">The normal primary structure of a stem shows epidermis, cortex, vascular bundles and pith. In a typical dicot stem, vascular bundles are arranged in a ring and are conjoint, collateral, open and endarch. In a typical monocot stem, vascular bundles are scattered and closed. However, in some plants, the primary structure of the stem deviates from the normal pattern. Such deviations are called <strong>anomalous structures</strong>.</p>
+
+    <div class="cards-2">
+      <article class="card clay">
+        <h3>Meaning of Anomalous Primary Structure</h3>
+        <p>An anomalous primary structure is a condition in which the primary tissues of the stem do not follow the usual anatomical plan. The abnormality may be seen in the vascular system, cortex, pith or arrangement of vascular bundles.</p>
+        <p>In most cases, anomalous primary structure of stem is related to the <strong>position</strong>, <strong>arrangement</strong> and <strong>nature of vascular bundles</strong>. It should not be confused with anomalous secondary growth, which occurs due to unusual cambial activity after primary growth.</p>
+      </article>
+
+      <article class="card mauve">
+        <h3>Causes of Anomalous Structure in Primary Stem</h3>
+        <ol>
+          <li>Unusual arrangement of vascular bundles.</li>
+          <li>Presence of extra vascular bundles in cortex or pith.</li>
+          <li>Development of bicollateral vascular bundles.</li>
+          <li>Scattered arrangement of vascular bundles.</li>
+          <li>Presence of amphivasal or concentric vascular bundles.</li>
+          <li>Adaptation for special functions such as storage, climbing, support or conduction.</li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="anomalous-types">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <h2>Types of Anomalous Structure in Primary Stem</h2>
+    </div>
+
+    <div class="cards-3">
+      <article class="card sage">
+        <h3>1. Scattered vascular bundles</h3>
+        <p>In a typical dicot stem, vascular bundles are arranged in a ring. However, in monocot stems, vascular bundles are scattered throughout the ground tissue. This scattered arrangement is considered anomalous when compared with the normal dicot plan.</p>
+        <p>In monocot stems such as <strong>maize</strong>, the vascular bundles are numerous and scattered in the ground tissue. They are more crowded towards the periphery and fewer towards the centre. Each vascular bundle is closed because cambium is absent, and a sclerenchymatous bundle sheath surrounds each bundle.</p>
+        <p>This type of arrangement gives mechanical strength and is suitable for monocot stems where secondary growth is usually absent.</p>
+        <p class="note"><strong>Example:</strong> <em>Zea mays</em>.</p>
+      </article>
+
+      <article class="card sand">
+        <h3>2. Cortical vascular bundles</h3>
+        <p>In a normal stem, vascular bundles are present in the stele. But in some plants, additional vascular bundles are present in the cortex. These are called <strong>cortical vascular bundles</strong>.</p>
+        <p>Cortical bundles occur outside the normal ring of vascular bundles. They may help in additional conduction and support. Such bundles are commonly found in some members of families like Cucurbitaceae and Nyctaginaceae.</p>
+        <p>In <strong>Cucurbita</strong>, cortical vascular bundles may occur in the cortex along with the normal vascular bundles. These extra bundles help in supplying water and food to the large, rapidly growing stem.</p>
+        <p class="note"><strong>Example:</strong> <em>Cucurbita</em>.</p>
+      </article>
+
+      <article class="card blue">
+        <h3>3. Medullary vascular bundles</h3>
+        <p>When vascular bundles occur in the pith region, they are called <strong>medullary vascular bundles</strong>. In a normal dicot stem, the pith is parenchymatous and does not contain vascular bundles. Therefore, the presence of vascular bundles in the pith is an anomalous condition.</p>
+        <p>Medullary bundles are found in plants such as <strong>Amaranthus</strong>, <strong>Boerhaavia</strong> and some members of Chenopodiaceae. These bundles are usually additional to the normal vascular ring.</p>
+        <p>They help in increasing the conducting capacity of the stem and may also provide support.</p>
+        <p class="note"><strong>Examples:</strong> <em>Amaranthus</em>, <em>Boerhaavia</em>.</p>
+      </article>
+    </div>
+
+    <div class="cards-3" style="margin-top:18px">
+      <article class="card clay">
+        <h3>4. Bicollateral vascular bundles</h3>
+        <p>In a normal collateral vascular bundle, phloem is present only on the outer side of xylem. But in a <strong>bicollateral vascular bundle</strong>, phloem is present on both outer and inner sides of the xylem.</p>
+        <p>A bicollateral bundle has the following arrangement from outside to inside:</p>
+        <p><strong>Outer phloem → outer cambium → xylem → inner cambium → inner phloem</strong></p>
+        <p>This type of bundle is considered anomalous because the presence of internal phloem is not common in ordinary dicot stems. Bicollateral bundles are commonly found in members of Cucurbitaceae and Solanaceae. In <strong>Cucurbita</strong>, the vascular bundles are bicollateral and arranged in two rings.</p>
+        <p class="note"><strong>Examples:</strong> <em>Cucurbita</em>, <em>Datura</em>.</p>
+      </article>
+
+      <article class="card mauve">
+        <h3>5. Amphivasal or leptocentric vascular bundles</h3>
+        <p>In a normal vascular bundle, xylem and phloem occur side by side. In an <strong>amphivasal vascular bundle</strong>, the xylem surrounds the phloem. Such a vascular bundle is also called <strong>leptocentric</strong>.</p>
+        <p>This type of bundle is unusual in ordinary stems and is therefore included under anomalous primary structure. It is found in some monocot stems and rhizomes.</p>
+        <p class="note"><strong>Examples:</strong> <em>Dracaena</em>, <em>Yucca</em>.</p>
+      </article>
+
+      <article class="card summary">
+        <h3>6. Amphicribral or hadrocentric vascular bundles</h3>
+        <p>In an <strong>amphicribral vascular bundle</strong>, the phloem surrounds the xylem. This type of bundle is also called <strong>hadrocentric</strong>. It is more common in some ferns, but may also occur in certain plant organs.</p>
+        <p>It is anomalous because it differs from the normal collateral vascular bundle arrangement of flowering plant stems.</p>
+      </article>
+    </div>
+
+    <div class="cards-2" style="margin-top:18px">
+      <article class="card">
+        <h3>7. Successive rings of vascular bundles in the primary body</h3>
+        <p>In some stems, vascular bundles may occur in more than one ring even in the primary structure. In a typical dicot stem, only one ring of vascular bundles is expected. The presence of additional rings or irregular rings of bundles is considered anomalous.</p>
+        <p>This condition helps in extra conduction and mechanical support, especially in plants with special habits.</p>
+        <p class="note"><strong>Examples:</strong> some species of <em>Amaranthus</em> and <em>Boerhaavia</em>.</p>
+      </article>
+
+      <article class="card">
+        <h3>Important Examples of Anomalous Primary Stem Structure</h3>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Type of anomaly</th><th>Main feature</th><th>Example</th></tr>
+            <tr><td>Scattered vascular bundles</td><td>Vascular bundles scattered in ground tissue</td><td><em>Zea mays</em></td></tr>
+            <tr><td>Cortical vascular bundles</td><td>Extra vascular bundles present in cortex</td><td><em>Cucurbita</em></td></tr>
+            <tr><td>Medullary vascular bundles</td><td>Vascular bundles present in pith</td><td><em>Amaranthus</em>, <em>Boerhaavia</em></td></tr>
+            <tr><td>Bicollateral bundles</td><td>Phloem present on both sides of xylem</td><td><em>Cucurbita</em>, <em>Datura</em></td></tr>
+            <tr><td>Amphivasal bundles</td><td>Xylem surrounds phloem</td><td><em>Dracaena</em>, <em>Yucca</em></td></tr>
+            <tr><td>Amphicribral bundles</td><td>Phloem surrounds xylem</td><td>Some ferns and special plant organs</td></tr>
+          </table>
+        </div>
+      </article>
+    </div>
+
+    <div class="cards-2" style="margin-top:18px">
+      <article class="card sand">
+        <h3>Significance of Anomalous Primary Structure</h3>
+        <p>Anomalous primary structures are important because they show that plant anatomy is not always fixed. Different plants may modify their internal structure according to habit, habitat and physiological needs.</p>
+        <p>Cortical and medullary bundles increase the conducting capacity of the stem. Bicollateral bundles provide additional phloem for food conduction. Scattered bundles in monocots provide support in the absence of normal secondary growth. Concentric bundles such as amphivasal and amphicribral bundles show special vascular organization.</p>
+        <p>These features are also useful in plant identification and classification.</p>
+      </article>
+
+      <article class="card summary">
+        <h3>Conclusion</h3>
+        <p>Anomalous structure in the primary body of stem refers to deviations from the normal arrangement of primary tissues, especially vascular bundles. It includes scattered vascular bundles, cortical vascular bundles, medullary vascular bundles, bicollateral bundles and concentric bundles such as amphivasal and amphicribral bundles.</p>
+        <p>These anomalies are important because they increase conduction, provide support and help plants adapt to special habits. They are also useful anatomical characters for identification and classification.</p>
+      </article>
+    </div>
+  </section>
+
+  <p class="footer-note">Prepared as a clean HTML study file for 402C Unit 5. Tables are fixed-width and non-scrollable, with no sliders.</p>
+</div>
+</body>
+</html>
