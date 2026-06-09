@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>402C Unit 3 — Cell Wall, Plasma Membrane and Extra Cell Wall Materials</title>
+<style>
+:root{
+  --bg:#111417;
+  --paper:#f1ead9;
+  --ink:#111214;
+  --text:#f3f1e8;
+  --muted:#d2d6d0;
+  --edge:#d9dbc8;
+  --sage:#b8d5bf;
+  --dusty-blue:#b8cce5;
+  --blue:#b8cce5;
+  --ochre:#e6bf69;
+  --clay:#d9a187;
+  --mauve:#cfb1c4;
+  --sand:#ead9bb;
+  --shadow:#070809;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(217,161,135,.09), transparent 35%),
+    linear-gradient(180deg, #121519, #101214 32%, #13171b 100%);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height:1.7;
+  font-size:18px;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; opacity:.22;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+.page{
+  width:min(1200px, calc(100% - 32px));
+  margin:0 auto;
+  padding:24px 0 56px;
+  position:relative;
+  z-index:1;
+}
+.hero{
+  background:linear-gradient(145deg, #1c2024, #181b1f 45%, #20252a);
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:28px;
+  margin-bottom:20px;
+}
+.kicker{
+  display:inline-block;
+  padding:8px 14px;
+  margin-bottom:16px;
+  background:var(--dusty-blue);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  font-size:.92rem;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.25fr .95fr;
+  gap:18px;
+  align-items:start;
+}
+.hero h1{
+  font-size:clamp(2.1rem, 5vw, 4.6rem);
+  line-height:.96;
+  margin:0 0 16px;
+  letter-spacing:-0.05em;
+}
+.hero p{
+  margin:0;
+  color:var(--muted);
+  max-width:74ch;
+  font-size:1.04rem;
+}
+.hero-notes{display:grid; gap:14px;}
+.meta-card{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:6px 6px 0 var(--shadow);
+  padding:16px;
+}
+.meta-card h3{
+  margin:0 0 10px;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.meta-card ul{margin:0; padding-left:1.15rem;}
+.toc{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:12px;
+  margin:18px 0 26px;
+}
+.toc a{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  font-weight:900;
+  line-height:1.25;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:14px 16px;
+  background:var(--sand);
+}
+.toc a:nth-child(2n){background:var(--sage)}
+.toc a:nth-child(3n){background:var(--dusty-blue)}
+.toc a:nth-child(4n){background:var(--clay)}
+.section{
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  padding:26px;
+  margin:0 0 26px;
+  background:linear-gradient(160deg, rgba(34,40,46,.95), rgba(22,26,30,.98));
+  break-inside:avoid;
+  page-break-inside:avoid;
+}
+.section.alt{background:linear-gradient(160deg, rgba(37,32,40,.96), rgba(22,24,28,.98));}
+.section.soft{background:linear-gradient(160deg, rgba(31,38,40,.96), rgba(20,23,26,.98));}
+.section-head{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:14px;
+  align-items:center;
+  margin-bottom:16px;
+}
+.chapter-num{
+  min-width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  background:var(--ochre);
+  color:var(--ink);
+  font-weight:900;
+  font-size:1.2rem;
+}
+.section-label{
+  display:inline-block;
+  padding:7px 12px;
+  background:var(--mauve);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:4px 4px 0 var(--shadow);
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:.9rem;
+  margin-bottom:12px;
+}
+.section h2{
+  font-size:clamp(1.85rem,4.6vw,3.65rem);
+  margin:0;
+  line-height:1;
+  letter-spacing:-0.04em;
+}
+.section-intro{
+  color:var(--muted);
+  margin:0 0 18px;
+  max-width:82ch;
+}
+.subhead{
+  font-size:1.25rem;
+  font-weight:900;
+  margin:20px 0 8px;
+}
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:14px;
+}
+.card,.note-card{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:16px;
+}
+.card[style],.note-card[style]{color:var(--ink)!important}
+.card h3,.note-card h3{margin:0 0 8px; font-size:1.06rem;}
+.card p,.note-card p{margin:0;}
+.card p + p,.note-card p + p{margin-top:10px;}
+.callout{
+  background:#ece6d6;
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:16px;
+  margin-top:18px;
+}
+.callout strong{display:block; margin-bottom:6px;}
+.table-wrap{
+  overflow-x:visible;
+  margin:20px 0 4px;
+  border:4px solid var(--ink);
+  box-shadow:8px 8px 0 var(--shadow);
+  background:var(--paper);
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:0;
+  color:var(--ink);
+  background:var(--paper);
+  font-size:.92rem;
+  line-height:1.38;
+}
+th, td{
+  border:2px solid var(--ink);
+  word-break:normal;
+  overflow-wrap:anywhere;
+  padding:10px 10px;
+  vertical-align:top;
+}
+th{
+  background:var(--ochre);
+  font-weight:900;
+  text-align:left;
+}
+td:first-child, th:first-child{
+  background:#ead9bb;
+  font-weight:900;
+}
+tr:nth-child(even) td:not(:first-child){background:#f7f1e4}
+tr:nth-child(odd) td:not(:first-child){background:#efe6d4}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  margin-top:8px;
+  font-size:.95rem;
+}
+
+.figure-card{margin-top:18px; background:#ece6d6; color:var(--ink); border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow); padding:16px;}
+.figure-card img{display:block; width:100%; height:auto; border:2px solid var(--ink); background:#fff;}
+.figure-card figcaption{margin-top:10px; font-size:.96rem; line-height:1.5; color:var(--ink);}
+@media print{.figure-card{box-shadow:none; border:1.7px solid #111; background:#fff !important;}}
+@media (max-width:900px){
+  body{font-size:17px}
+  .hero-grid{grid-template-columns:1fr}
+  .section{padding:20px}
+}
+@media (max-width:700px){
+  .page{width:calc(100% - 18px); padding-top:12px}
+  .section-head{grid-template-columns:1fr}
+  .chapter-num{width:58px}
+  .hero h1{letter-spacing:-0.04em}
+}
+@media print{
+  @page{size:A4; margin:8mm;}
+  body{background:#fff; color:#111; font-size:10pt; line-height:1.35;}
+  body::before{display:none}
+  .page{width:100%; padding:0}
+  .hero, .section{
+    background:#fff !important;
+    color:#111;
+    border:2px solid #111;
+    box-shadow:none;
+    margin:0 0 12px;
+    padding:12px;
+  }
+  .kicker, .section-label, .toc a, .chapter-num, .meta-card, .card, .note-card, .callout{
+    box-shadow:none;
+    border:1.7px solid #111;
+    color:#111 !important;
+  }
+  .toc{display:none}
+  .hero p, .section-intro, .footer{color:#111}
+  .table-wrap{box-shadow:none; border:1.7px solid #111; overflow:visible;}
+  table{font-size:7pt; min-width:0; width:100%;}
+  th, td{padding:4px 4px; border:1px solid #111;}
+  th, td:first-child{background:#fff !important;}
+  .section h2{color:#111 !important;}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="hero">
+    <span class="kicker">402C Unit 3</span>
+    <div class="hero-grid">
+      <div>
+        <h1>Cell Wall, Plasma Membrane and Extra Cell Wall Materials</h1>
+        <p>This page covers the <strong>structure of cell wall and plasma membrane</strong> along with <strong>extra cell wall materials such as lignin, cutin, suberin, callose and wax</strong>. It is arranged as a B.Sc. Botany revision webpage with clear sections, comparison tables and exam-ready explanations.</p>
+      </div>
+      <div class="hero-notes">
+        <div class="meta-card">
+          <h3>Main topics</h3>
+          <ul>
+            <li>Cell wall layers and composition</li>
+            <li>Plasma membrane and fluid mosaic model</li>
+            <li>Selective permeability and functions</li>
+            <li>Lignin, cutin, suberin, callose and wax</li>
+          </ul>
+        </div>
+        <div class="meta-card" style="background:var(--sage)">
+          <h3>Quick focus</h3>
+          <ul>
+            <li>Middle lamella, primary wall, secondary wall</li>
+            <li>Lipids, proteins and carbohydrates</li>
+            <li>Difference between cell wall and plasma membrane</li>
+            <li>Difference between cutin and suberin</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="toc" aria-label="Table of contents">
+    <a href="#cell-wall">01 · Structure of cell wall</a>
+    <a href="#wall-composition">02 · Chemical composition</a>
+    <a href="#wall-functions">03 · Pits, plasmodesmata and functions</a>
+    <a href="#plasma-membrane">04 · Plasma membrane</a>
+    <a href="#fluid-mosaic">05 · Fluid mosaic model</a>
+    <a href="#membrane-functions">06 · Membrane proteins and functions</a>
+    <a href="#wall-vs-membrane">07 · Cell wall vs plasma membrane</a>
+    <a href="#extra-materials">08 · Extra cell wall materials</a>
+    <a href="#callose-wax">09 · Callose and wax</a>
+    <a href="#comparisons">10 · Comparison tables</a>
+  </nav>
+
+  <section class="section" id="cell-wall">
+    <div class="section-label">Topic 1 · 10-mark answer</div>
+    <div class="section-head">
+      <div class="chapter-num">01</div>
+      <h2>Structure of Cell Wall and Plasma Membrane</h2>
+    </div>
+    <p class="section-intro">The cell wall and plasma membrane are two important boundary structures of a plant cell. The <strong>cell wall</strong> is the outer rigid, non-living covering present outside the plasma membrane. It gives shape, strength and protection to the cell. The <strong>plasma membrane</strong>, also called the cell membrane or plasmalemma, is a thin, living, selectively permeable membrane that surrounds the cytoplasm. Together, these two structures maintain the form, protection, transport and communication of the plant cell.</p>
+
+    <div class="subhead">A. Structure of Cell Wall</div>
+    <p class="section-intro"><strong>Definition:</strong> The cell wall is a rigid, non-living, protective layer present outside the plasma membrane of plant cells. It is mainly composed of cellulose, hemicellulose, pectin and other substances such as lignin, cutin, suberin and minerals in specialized cells.</p>
+
+    <div class="subhead">Layers of Cell Wall</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>1. Middle lamella</h3>
+        <p>The middle lamella is the outermost layer between two adjacent plant cells. It is formed first during cell division from the cell plate. It is mainly composed of calcium and magnesium pectates.</p>
+        <p>It acts like a cementing layer and holds neighbouring cells together. It is especially important in maintaining tissue organization.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>2. Primary cell wall</h3>
+        <p>The primary wall is formed inner to the middle lamella. It is thin, flexible and capable of stretching. It is found in young growing cells and allows cell enlargement during growth.</p>
+        <p>The primary wall is mainly composed of cellulose microfibrils embedded in a matrix of hemicellulose, pectin and proteins.</p>
+      </div>
+      <div class="card" style="background:var(--sage)">
+        <h3>3. Secondary cell wall</h3>
+        <p>The secondary wall is formed inner to the primary wall after the cell has stopped growing. It is thicker, stronger and more rigid than the primary wall. It is rich in cellulose and often contains lignin, which gives hardness and mechanical strength.</p>
+        <p>It is commonly found in tracheids, vessels, fibres and sclereids. It may show three layers: S1, S2 and S3, differing in the arrangement of cellulose microfibrils.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="wall-composition">
+    <div class="section-label">Cell wall chemistry</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">02</div>
+      <h2>Chemical Composition and Organization of Cell Wall</h2>
+    </div>
+    <p class="section-intro">The plant cell wall is not a simple uniform layer. It is made up of cellulose microfibrils embedded in a matrix of hemicellulose, pectin and proteins. The cellulose microfibrils form the framework of the wall. Their arrangement determines the direction of cell growth and the mechanical strength of the cell.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Cellulose</h3>
+        <p>Cellulose is the chief structural component of the cell wall. Cellulose molecules are arranged into microfibrils, which give tensile strength to the wall.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>Hemicellulose</h3>
+        <p>Hemicellulose binds cellulose microfibrils together and provides flexibility to the wall.</p>
+      </div>
+      <div class="card" style="background:var(--sage)">
+        <h3>Pectin</h3>
+        <p>Pectin is abundant in the middle lamella and primary wall. It helps in cementing cells together and provides hydration.</p>
+      </div>
+      <div class="card" style="background:var(--clay)">
+        <h3>Lignin</h3>
+        <p>Lignin is deposited in secondary walls of xylem and sclerenchyma. It gives hardness, rigidity and waterproofing.</p>
+      </div>
+      <div class="card" style="background:var(--mauve)">
+        <h3>Cutin and suberin</h3>
+        <p>Cutin occurs in the epidermal cuticle, while suberin occurs in cork cells and Casparian strips. Both help in waterproofing and protection.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Structural organization</strong>
+      <span>In primary walls, microfibrils are loosely arranged, allowing the wall to stretch. In secondary walls, microfibrils are more regularly arranged in different layers, giving greater strength.</span>
+    </div>
+  </section>
+
+  <section class="section soft" id="wall-functions">
+    <div class="section-label">Communication and support</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">03</div>
+      <h2>Pits, Plasmodesmata and Functions of Cell Wall</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Pits</h3>
+        <p>The cell wall contains small thin areas called pits, where the secondary wall is absent or poorly developed. Pits allow communication and transport between adjacent cells.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>Plasmodesmata</h3>
+        <p>Plasmodesmata are fine cytoplasmic connections that pass through the cell walls of neighbouring cells. They connect the cytoplasm of adjacent cells and help in cell-to-cell transport and communication.</p>
+      </div>
+      <div class="card" style="background:var(--clay)">
+        <h3>Functions of cell wall</h3>
+        <p>The cell wall gives definite shape and mechanical support to the plant cell. It protects the protoplast from injury and prevents bursting in hypotonic solutions. It helps in cell-to-cell adhesion through the middle lamella.</p>
+      </div>
+      <div class="card" style="background:var(--mauve)">
+        <h3>Transport and protection</h3>
+        <p>The cell wall allows movement of water and solutes through the apoplast pathway. Specialized cell walls help in conduction, support and protection.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="plasma-membrane">
+    <div class="section-label">Plasma membrane</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">04</div>
+      <h2>Structure of Plasma Membrane</h2>
+    </div>
+    <p class="section-intro"><strong>Definition:</strong> The plasma membrane is a thin, living, selectively permeable membrane that surrounds the cytoplasm of the cell. It separates the internal contents of the cell from the external environment and controls the movement of substances in and out of the cell.</p>
+
+    <div class="subhead">Chemical Composition of Plasma Membrane</div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Lipids</h3>
+        <p>The main lipids are phospholipids. Each phospholipid molecule has a hydrophilic head and two hydrophobic tails. The phospholipids form a bilayer.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>Proteins</h3>
+        <p>Membrane proteins may be integral or peripheral. Integral proteins are embedded in the lipid bilayer, while peripheral proteins are attached to the membrane surface. These proteins function as channels, carriers, receptors and enzymes.</p>
+      </div>
+      <div class="card" style="background:var(--sage)">
+        <h3>Carbohydrates</h3>
+        <p>Carbohydrates occur as glycoproteins and glycolipids on the outer surface of the membrane. They help in cell recognition, adhesion and communication.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="fluid-mosaic">
+    <div class="section-label">Membrane model</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--mauve)">05</div>
+      <h2>Fluid Mosaic Model</h2>
+    </div>
+    <p class="section-intro">The most accepted model of plasma membrane structure is the <strong>fluid mosaic model</strong> proposed by Singer and Nicolson in 1972. According to this model, the plasma membrane consists of a fluid phospholipid bilayer in which proteins are embedded like a mosaic.</p>
+    <p class="section-intro">The phospholipid molecules are arranged in two layers. Their hydrophilic heads face the aqueous surroundings, while their hydrophobic tails face inward, away from water. Proteins are irregularly distributed in the lipid bilayer. Some proteins pass completely through the membrane and are called transmembrane proteins, while others are present only on one side.</p>
+    <p class="section-intro">The membrane is called fluid because lipids and some proteins can move laterally within the bilayer. This fluidity allows flexibility, membrane repair, vesicle formation and movement of membrane components.</p>
+
+    <figure class="figure-card">
+      <img src="data:image/jpeg;base64,UklGRjTNAABXRUJQVlA4WAoAAAAIAAAAWwMAQwIAVlA4IJDMAABwcAKdASpcA0QCPnU2lkikoyIhJzgJuJAOiWVu/HRZxcu+txH3/x+w5lvzD+W/tv7ne0XzH3Medvvn90/1f9w/bP5r9T/Z3mB83f8D/C/k/8/f93/1/8p7q/7T/kf+5/g/3/+gH9Zv+P/b/Xh/ar3c/3b/qeoj+e/5r9qPdt/7f7N+63+y/7f/w/6j4Bf6b/kv/t7X3qff4z/z+wN+1v/r9eP90vhd/tX/Z/cb4Hf2i//HsAf/n2x/4B/9etv6k/2r+4/rb7tPj/6P/Zf7f+z39z/9HrL+N/Lv3D+2/5H/Y/3H9vfsH+iP+L+4+Mn0z+Y/4n+l9Sf479lfxn93/zf+//uf7wfdr9y/1f+R/dL/Kehv5v+5/6v/E/u3/sPkF/Kv5//lv7h+5v+D+T357/of7f/Vfq/4oO1f7P/r/6H2BfYn6d/s/8H/lP+z/kPRA/t/7b/qf/J+//yL+mf3H/df4/92f9v///wB/l/9N/zP91/en/Gf///vfdH+p/azyTPvH+v/Zv4Av5r/a/+7/j/9J+2/0y/13/n/0v+q/bT27/o3+d/8n+k/2P7d/YV/Nf7L/yf8N/of/h/l/////fvm/+P/X+GP7x//z/y/DT+4X///65SzDxLqCHiXUCwFuoeriUsiAlSvaE4Cvacvfvq2Z7I9nTpy91vmDJiRUGTEioMmJFQZMSKgyYkVBkwSL/4WswqFvG5y99H3/Ww3BEcx3ZgaMWZ6SvRdIlgcLloF9BLw4cX5ACo5gqYqZQG2qG7yR4L0t/Sk1ITu5D6IAbXWuF5BjEfb3UzXlgFHTUYJPbE58pwM0+KD4Uwt0rUMjZhUaeIZo08QzRp4hmjTxDNAnRpFfNxUd2hWoyHNN0GeTKyr3Pl5n3MlA8yd/2qK2lqJnxMP93FAiPWdzxhmFQtCYt2Duwqe4J4r4HXJTnLqAlpe/euybu/UaNBKc3b38cV0+743Oo1xpmUtACJ1VK1vbySyjVBa+8WkVMXqP7iRUGTEioMmJFQZMSKgyYkrEHJ4kHLmeJfoX/EuoIeJdQQ8S6gh4l1BDxLqCHiXUEPEuoIeJdQQ8S6gh4l1BCZ/zt3rEIYeApXfnGyWaJcUlNIEPvE88VeEzWaEgMViD98zvzpmAVV0MVIqcyXUEPEuoIeJdQQ8S6gh4cfb4a4mkGsNUgboHo2JcOdEhjLwEmiqUkl77KxCfKPp0Tvmn6fwtivOIxogbSeo9CjhOE7iNzh10lmZ//uzUPnxTGKxh3GJB5YCYyyb1e1onAljzxh1lipZm04SlrTU9WXYds6lyXa9yZKE90NwxAGIVtP5jCn92nLGUFn/2W8KQoggDaSRyJyny2bMjeJBwy8SDhl4kHDLxIOGXiQcOoryyAlcS6gh4odSGaNPEM0aeIZo08QzRp4hmjTxDNGniGaNPEM0aeIZo08PDA+oU9AkuJPnQKeIZo08QzRp4hmjTxDNBZBqXGAsG8SoV5CxzZeZOO04JvlK4+OTXlSav9MC0yvjUZDdiKnyL5eS3XCVN7ZVnX9ZfD2KmLvLmjVig1bKT7wFqzKhGGkqDgUfo33iXBYTD4KSv3OwOjdmsVaN8KQzRp4hmjTuxxkjSDEItBgHIHkLfGQeGACVgBkQnUEFk/Vud2FuWgefoi9txIvsm9tLjmo87vHSV53laU5xr3AIn+5hRtbpfNhJKoMkQaf9X6n41AV1AhWpN4aVsneSdB4J3Afi5AyiOnZ+vasTq2dTgIqwaTo8PQtLPmz4VdzSoZYEeUOhCZsX8Um0u1WLlRVOo1VuSC2nzBIVXS92KNKbqaNrlQZMSKgyYkVBhmAWiOALIqLYQY0tXX76dd1lLYBrgs1ECndG61DwIMz9EIG0hZcx/QvccwndS11Eq/MLKGu7TGfMQTsk9ebcEgPgUyLYlRTpiAyveZoNfmaML9zzMgP7L4vwPFQM5X4HztE+3kPSo08QzRppt/EMykdKksFtmJ8vhdyBVTWPl28jw+HdjSUKiZsR0aU1HoBh7NH27FozumEJwdyMrsB7x1QQmBcY5kpo08PogXYkqcSDhizyJS4oRvXti5ynUczpQTcvoky01t4kKs6gh4lzGGH4CdjjAteRVsPOpTHpdcLFuTn05+gyYNdkkoOD1+gMriO/omYjZx/cSKX1rZiuFZUGTB48VsxkVBkxIqDJiRTCaiNQEf5feNZ1BDyf3z6poxBYRSO2UWmvK5JZiVWFYzAJSpUaeIWx/yx6/MDgfvJN/1pxgqP4D3urtg2tUkR+QfUnQ8S6gh4l1BDw49RgDV/WJdQQ8MxkHNMA/1C0ZSy+M6HPH+sky5JRVGpjYa6pEWu9NFNhbs6r9lE2i7h8CdvCBpkC4rOxFMXeX5UBo0fNU2N9FQ16ZTA6vrpXPBAeN1MsAugXy1oPkYgdaMBhW5CNjG+JdQQ8S6gUWzQ3Y5D8soYoib766Uyh+01BdZ1chIBAQKTO9rp4asUg8vip5mBmmKxxaPt6OWDdBrnxMh+HtTfmQQi79gKy6sqjr6hUoignObMwsF/myUQ7o07Rq2mi2A1UZ41SPplzGLMjm1D3c1ocyMT/muShCo6N2JlDLKqycjYvbS2VhEPG5QV5PQJ+bHVD/OUMrxPhvgfsjvhQEG1rUqu8XicejK4ksnD0G875K/5kEM8M/rLKmwGsb1IY/RMjWUOfeobCcTYiBUaeIZoLBrqa4RF3GXiv7GyokVEpqBKmu/EMjlLLLbSOZIDSN4Xv6tA75Y1cEb7Vg7lt3q4ymddeZt2MHHgrrMnoVXUq2FSkBr3ei6t7u+mL+z20Vv/YBcxi9mfX5evUI+L5VsABzF54s6GYjGOOFahk4Z/5oRCUOj3R69/er0Roagp5klr8V2UpUUi0qzbJniesjnLjkXF0oXYTljC9Zjq+cVEt6FRtPNqzWz0iI/T3RnHaCovGt8JMjUV67jkQ9GZ+2VSFhbqHNlbcPNbUyvmVawRTcRLjsjRxR6HSz+/Mt8diBrhJsVh5F8SuIcJzWtBIxROqGEPnTI1+yo3+lVfUJNMDjOg1a7DYUbVNdgfHgvnR2uHMu0LYQlmjrSUFO/89bxXpQwIpnI2qRSlimV6P5U/6/+1iCsZlVWmCiXSkRMtYnCSl0MJr7/f0v8BYRljh5oroQX5YJXJRto6ZPo++DvAirs3uOcQND72X5fB9xJtZRqtolkoTgeeACBlnKMG0CUG8yZN3bU786u5kC4GL+Cgd7V5aMiqy6uJHdd7/R1qeFld40yPjaTyotJALQpo1P7Rek3XpxJ+aSOy5rEFeLuMw4Oxe55HSNpkOw41JBVMO29yAwVcIYvZQwCYRgKhb95g+kFol+0p4+6b6sLlRB6ZF+OJgXWr0Ve327EUnoQZ5i3X1GolfkI8m4wZAMXe0uxhx8596ofoWVjynv4sE0L34KF9n76BbI9o/qjQifzS1+Y6FQZR7LM3QLENoovxg6dCrNO0MID+5G7ZCD5CjOzC3lXOOBKnKVTWZ0RiXRf26rGNgdLQBm6+UheBYOHC6iw4/1OwVcHd6ScauUX4pfoiw/KXIHGg6Ry3Pu+oJBTUsPBIydH3P8uzmbKO5qEsvxcxRqAz/rzrEQMMkQOHPXc8upWsrg9oVIifSvjOlETIFX0XxrGBaaiEZm2D62/rAEaUWV60qbGfIVypOyyH42Hu5ESbfOJ5flx21WrxpyurVGPFxvddgwN1sdr7jQRYHhiHMY+UwXGOv2GGn5Lnp139T4knpE2W7SwLWNUH174du5EYnHZt+LB3pEAChaIxZmZWinZA/wgTq0XIkOif//7dOia27G4OlpIkSLP+Q/YXCoIGnhold649RXxJMMcMmzlPkjAm5+wNN4YX2xqZqTPkaTm0137/FsNbcwUGaBPM4pEsRuFT7Fc15dBaT2430SHCeHDSsdDBZWQ3ipp77WmbrLOpb7YsSD6eX/R0XnFtIl/geP5pnuvwSf09J52aOq67utd9G/Rz5Dw1U7skakeAVD0YGS4Z1JYyZhXw8Je/gLvpM2IBU+C9wKI2MuNgKk2JyW6hYshua7swadtaGuyhz9aaDvuWAPi9tEo96FJCksDXSuvV6trND6Ls3OfYwADKZwzXHadZRVcSEmhqryHErrwUUvuyyx0wzadqacbwfQibkudaJ2k4k4Rustfn6nMkqan2Zqwh0t0HbshJ/xQ3KPuZ+5BVfp2dygODdcbSlJC0823uiN2YU/lwRL4ERTfm/5I95ARY6xH2bzR8Ijmvqwmnp0QNzQi+OtnVuoaqKhEyDWtz7SgRo+Hiyczy0aQVzteq0me7g5/4V+iS7CUdS70voQFmFw917VkrZFf3WuEn4d9Wt2n27C5czPkzG87WyHuXiD0W7w3mSApSqumypwTlVGNLOMVfxOtzDgTUiAxAVushXrohlcyQ3Q3QyWf4jo758OzOZit+TvuAVU37yWv5m/3xInMd5FiKE/IwO9XXWP7qGVhzj0rkEhzGtEZt9sXGUNoKtuWU+mds3/8Uoe12PVPlzNlKIdYkcoCBXBvF9xIqDJggDlMDyU3354Aq8cGE6gUVJRMziIqMwobFXcDOpznVO6sHnMnNWKGS3Z6sgC3PUw1oAZWoR4Gpre3eA4QlUVY1GLqGVgPq7NxcBVmulexNK9HZZ0hlhuB2XasaizTeUbDoudHo5P1yfTLWD0O9qoFpbd9jURoXkdNyeWe6sggLSuq0LUyHvwTmevBsgQyQKklyPDea3fL6VPquQksEbJaktENf5OXNQZVMkI+zwGXtFnj+x3Uq37KZxKJ/cEjs9tMYDi5RpEwYaWzRXH34ytNedtThgv6MkubtIKcARpxIqDJiRC3gMXzO5a+5Td4ygw/o/SIGXU6vwTmgtzVIjTJ/F6BQNkA0PDT0cWXuE5zJ2GKUTtG3t5RLXI3a3gcFf4Xaept5BBmqc2CcPUSB3D+xTN2FjojLdMIA/OS6O8MUE/zmTQIHXzlVej81FpvpKOZzfOWqsbEXCYrUIQ5rUlWQIuIOCtClH781RUTxts+r8Q4kzhaZWXuo8T21xrzrpPNJt3WWMFW6OMvei8zpNv6DFvtCOZ1aGo5chS1qrHUll1VI8rZrSPJCXzA74tMhP77QkL4lEThmi0vxwC8K49wHB97UEPEuoIeJUMtbG1dB3eZ1THAe/vmmkYIIp3cGOmPJfltl95LADnj3l0jUGlIuekfk/MUl4JUKczQBzZXsv9jekwM5TlPf0kbcm7kuPLPprflQyELUXbtUaRT575EGvswMzpThfk6KvS3Jwvby8YRSSp2icKIRzteuG66nDXrTqL89w7jxGTGqeIZo08QzQd1gzEv3TJiRUdp4k8uBgnOMRL169JH5swmAx9xIqMO3UMvXhMfUEpPnPEuoIeJc9f5d3vCzbgewvewOIGEUVGnwOUUcioMMQhdUwRIOGXiQcMV4+Er8TVdZ1BDxLp01qhrGTn9SF6sdaAFpxGBuTHMcQWKDAXrLaESJyE6KO9oxGZE10uiH67PCqdGjg+IsrDP/Rqo2rVQIiahisf3/EGamH42ZrQIVIqLA7Cj5t3D8eT9XBFFFvmExkXfHPbQRTGFkw0KnkOjwPQtK/wivTA8JZW3EAUED2uFiDAuFRp4hajXkDor5KaVvO4iOMflQgjjwqjxhh+Ye7XHmjTETWLSo48txBaHiXUEQrx2RNaMpaI8LPU94Jvsc2LCgKVrFX0BSoKXTspxVfDcazBOxcRqop01ygG3PAuDskhEb4QpEZbZbxHK8BJNEHgGY2F02dNM9wvl2gcNheJUGTEYh7kqhyCw//dHEkG2Qp8A6ocBMHUvBQsc4txGDv8jh4APZidgBSawmQTWYo525IfGj2aP7iRUGTEioMmDgSFx+iPwxHh6BnsHVh+mDg374r+gRLM+2JJIEdeKkyutTAy2PESbRwl+q8HnOagRMSq1+RJTUuwqNjWeham12Ee/wu56r0G093IFRCHhx4iR9jxXFZXDNDK8JeIRVwqURF6lOY2dm7Irk8f1io6QXbixLMy0KXNxIqDJiRUGTEioFN472QWRFC/dMaoRX+I70QvkY0ogd6pQZWwchb6XozqgE6iCuXYklzxutmwQWwl61B21ilLEkQ2yMKua5LY+NpT/surYlia8mPRCHiXULHAagNmvl6a5rBYSb6jhriqXxKN9Ekg4ZeJBwy8SDhl4kHDLxIOXsBdE8QzRp4hc3HQSDhl4kHDLxIOGXiQcMvEg4ZeJBwy8SDhl4kHDLxIOGXf2kUyK4DvYoaZecUIdWVM4xkzUTe/yu/MazF4w4EuoIeJdQQ8S6gh4l1BDxLmPWqePtP/Bmt3np2pY88LSsmcUlBojutCm6qvgUG92iJbtD1DKMX4wKZD7WxV84bfh4A6cCm6zRei8sPk8SBRO0oDshr1YVTI59CYs72J4/OBqBIPTkLBTAmxAjO+h8e2VHSdm02F4+bfSe0o7wLR8ViEWguqMS/FSarDzRiby1cj3etoI0rICWqafBLHrZVEfpCZ48fJURQh4l1BDxLqCHiXTk5XtZwSYkm6vTD+D7W+WzgSsqTdeZo075RIJFQZJxSSDhl4kHDLxIOGXiE6Hp+v+PRZjF+uf/00bj4C2P2J5GTsrimc/uJFQZMSKgyYkVBkxIqDJiRUGTEioMmJFQZMBAA/v5YgcGeCSli57fLBt0pbKfEY8ltwN54cGfEl1c1eKoP3614+HGEWPTsJRXXlsebz/yBKs9Jv8ZsdJg0OjeCDLhi3Rclpv7BPzaAyTf5Xs8lSBhRIcedCYqwkJWTigYoH2+VU90XoM1NIX/NXmlYRJx8QCAB9qrwj2unAesjvoFWc6GwX1kbcnKVb1oEU5S67ijTzypWNqMIeIAA9+au6inLCNBwfALIBs+rScQGri41FrUHCWiqRMlQHjBXJ5vYOpL7y3avw7QTO4ed7/+t5wEv7Yt/Our05NBM9njLG+QTlz5FI+TT3Pda85dD4gM7/MYE2BkgK7t94xCXed62ZgNCQmaPKSa7/qO0ohAdCH+kuA4PbbU5Ze4zX4Tge0EpVyFNWBqTnL26MTcGo6u5Aff7t0+ovf3MkEY+H8/ZdMJ38RoazqX1Ps97epk/CmucRVdhVTimsGHf1IFSgHvMe7JyozPGypAqura59pavn7jbHLj8E6wwi5sJRwxxTfPTHbMmFYZZfO9NkNosSLk7mgZqTZRkiB9wpFNkpn5+R3gtCJa3OPweilqjoyKEks/85Ja/LS9raHyrEPgzk6qYCTuh7IrfEyhCNZjqjgJca24CIYpErxbCprxBDVZWV9/qVKuzJ7H/F5HxZIWurrx2hk3gRW+JViXG1VCM+sqRHkhv60yK/5uQg2KE6lufxBVE26UEyHzW4D8G1XbmbwTmWUo/W0LMjZBfFgpUyMIferCPINOQrSFb9F7HFij0k1vXFwQx9YP8d3ADy0eAjpifK/Mg6Fc9hoYaWVoPG7SUgCKHPnZf8m12cfPZtrNztXbIcNx8fqhInqkYEP/unfStJBZ8L9AHgoMRwWbMYd7h5motQw2aoMCREdPBmH147yhLs9/naXmCELK7SnZl6a7pDIA3px7c9J/WGkCb56x0IZL7h/TG0iW1YO6riWUyFU5++zHvQPffpE3BXz9aZdpMD7+iVTu9L49Xfss7V9MSNPefRkVPbBcUeLsQF8IVoaqOs+cwX9v3DkmYSdEPK0Vw0ABUk1khE0FPDFWfz4JUWhI2J42ywNvzaIFnJMBWM/JuFn4Mc29rePAX7qmQMcp9d063tmc8Yaqc5NbNKqnZ80ZFompyFCuTMiGgxhP3bCSU1k4vhssDICFP5eAd5Pnb550Gy+ICaJAkIWjWHWkKfpkbVp7zCWaGaB6K0Y6q6u6u7u8WY9mFYXVSmAxnoR+EJU9DKdIoU0W22P+mGWmHElMusHkPKsLNMlLyuUMpyRXYUhqbsdybkgVU8ufSebNic+ZKILy270a57aUs1viUMdtxaQQ9WIwKHIGIwcLevOHOv0yf+uVpo0JbOHkWmOQj0ZE16vAJIWCD90oiEwjkHveasBhAFARrdTrowZ7MXFzaiPd+SlXYr0BzWdMJisUHHE1MAFaijtKaM0aE3sx+VuxN0G4DGnFYB5YNUDN1815ous5naNRER/jovOj7e72He1N0YTsIS1kR+ob345BCkOZctTbvrJIhwgxVzli/uk67Ts3+/PXvuJcLDuutf/RWwpkrHl3zSTM5AQ0ov1pd6uNoKfO4BBSy7vydhCpH0BJTMyeXY/yKop8IQi3NJb9brkFqGQ0rh7hryDDq3lMtLiLmYi4SC/DMfCAXAgOQudU/SMkEO7vMjHkDd9HtiKd1B+vaSakzuyPX4jyNdCxlTwQfcO55pqlaCcTQxOYjMRf9yaAVkiWL/AL4Uxl15+5ZW8YNsHzuUOeF4BxG3SFio0x1WkLJBeNZKSA+PoLGZRjvXyJyQcgyE7mG9NNJd4gHvRtXcknXzDTyFvKDKTQaUlL+TUoepXY3S42NL6Q0NhdK5QKOoPrsUaItTOm+r80ZST5JQ3ZXvm5nN3p37W7hf9X23AoT/J5WA4SyvtoIM2P89ERpLEdQUxNru0RukobjVSPv80z1l0GondcdpSRbKHPze2w0e6RIVlel1po9/1iSzAFgIodYHSz0YuIg7T2gJEXY2e1jzgp7xmLcCvm8TIgwuGDlnWdfT7jhVcwLKvsR3z2rTc0ZVHY3ytRmgNErP0A+yYGy9vZXb2lOhMaiPBxPsHi0p/ofWjhYHJWgiR53EVhBNr973TF9UfUBMrlhgFe9Ip0hwymI65D/+KXx944wS1Wk5+rPCGwoiLMPMvBSZ9fhbT2RgyMrSvWG4YY1K4WJG8FrBhmAhmjCCdAHoCL7Cv/XRr/gIHj6R3Zyo9ka1G4ZYl+Bj7q3f9uB6jqV7fEMgj5a1+5NR+EkRgXCz/uuzDkE42cr+5KYyPYnR0GvyFROheyS7zjrm/myp4CXU/IHL33O9jsbES/Df7PLdqvIFDiHV4O5zLBVniKZi2xS/5oB/6hSBv3yE6+5aIjADDjYIQpKU8d9z9hSfC8CVxqFNP6WYVRv9VUxmx2/OioPCS0ZJJ3QFn8rCZ6tH3MaLvngBqvXxBH2UTwroaPIzL3i/DVsYuT7bLU+V60WVfB92nSvgAuU8uw/5aQkjoRY3CGGzOoPVEZwIDMC5rvCvyBiH2Yj5mJm4AAAAAA4PjXCGrb7J+seUef79xT3TyALW+V4+W9ZtymhEqaDSSg8joRUssKykA0p0yyD7FqP96N1y2LFAHRw/bnQCfTrlkPenvdmsYKYDNOfcm6fTElLYEjntixH0zj3hZi9AgSEM1Gn0mM9114EE7FW3XvtgM2GDe5ZgCjZpNgLTTaF+EpczAo2z7uV/iE5oT+F4/H7u4fnCrpY7vZ20rSGOxRJsm3UeIy43l0ZS/La3FhiYQXGrvqX8uaud4vpvd0HtRNzIUcD/5rb9KCoJyE+W4cy1T1qP8sCXDZW9mQlV9SPxeC4k4H3+ANukEyTqiFudqvNtJoQnDvNwckNAVBklzVqSSfMBsWhoK3g64hTWYe8K/qsHoyZoTQeYb5p6uJ2gbucbVYZ/xIWx3pY3HkAriUVCm3H0t8CcWbewVscoU65btzIOSOWxu+83aTtmAb7ShmiutEa1QUO8pezpaalFvra0PKcM35fa840A6rIQzjCutYq5bPRy7O6Q8fP3q1itinrkZwi5LZ4t601iJEKxdjsnlH+Zjl3hXJMahn4cX21ECPHytNXSe/yx3ZXwCS3k0IEWi7w0kg+bZJu/725hgSEsgJwVofRBaU8Ap2eb7HaIL+mc/QgIScoZ76HoI8sBB3z7IAckary0qpL1STJM0XK87t+P03wt/aiA1npO6iW16rJCWjwWMoCxGaqEmFmfNXMSh2CxVWDbyPHhPvQG33zAZ0SfZNOFfyBbAK91gViE9Ac4nVaZYxQeRCDhfjvsHwZXCYoa6lnQZjcBIRKyE+x6oaR/9pb6Ogl8otrC1dSHF2BOyyieuH2t3XDzQqsglag59U6WM37OwarfsjKqP7mi00fotRLpmYvrqtvaH/PJ3o/13PAPBlBHT9Wm81FdZXm5Er++bmgVlmAFZRJoBGV7mNyo+NjFOM18HL/vVzOxpffzJeUh4AvOnDeJrs4K+4eX/rIx8upSJ9uw4XVMK7EprI6xhKPrG05hh1ix44JQB+Pbj+QoMMIzfZAFX/RbSwRDcO0oQWTYRn8k8tU75lM+1qtrf8jhvo9ebJeiBF2PNq/hHar/ApKRrQMNivOYi7fg0gkbwTJdc5EDZrZOTi3XB3eorhsodRyASIPmk0gQvnfxHUA6qMMukH1aVQtr2/MAvm3im9eaPoNcpHZsgVmP82VEk/GqymWiyTRIo2DhojVfuZvaxs2aMVDkvwZLZV1iRc/ek8ocU/Ef6Atvi4R5+OjkiJFtDxT36lhOMrgNFgz/BJwf6d2+Lg+AbhwSJ2JJvoW7CqBtLoMlF23+yBs87GbCVKjBHll+wT3ta+aGbTl6CM2eO0JDoyuxlOp7CJ0r9XLHmiFlV0nCB1WIzkQIkrq+8baWrLnaxQLx8GZviZ2PFCk3wVCBks/wKPDwGMcRFZTIlAcsuSH4O9LDALPxUgFrJdhJFZKq4zWAoVAx3Lud/Vt4sxDBDRxfD0cTCVuTETczlHwdyhRwwpg1OZzP1v2oR1/Jy2Tp7QpIrnMy1Fz+h+ZCbVS4ea22rXVvEAf8iEJQD8DcmV5ZdZi8T+NFU+yCwv9zd4S0kGFfhLRz38C8Yc9X/rPJ+UvxdWLxsXJH//vHiKTPelxOXWkhVwsvabiCzbg1S2AK03pVdNI1c/cM5dTb5YT76ufygV3/IRnukQe3+vEFeXsKDhpmIV7KJ7mEurOC59jmXVb7lHThfqoob3frGUgc9jIRbSEZFx2Z1OaSnNJlQOAiuSTaT2nAIm9BnhEzWCcpC+7ca1abZAHcI6QzwxotTefB0o8iEKx9SJqdf5wEpIo5/PvyfSUyPF9PUBc/1Rh/YEPPv2lIjSLv/QX/Vq/HZtE7aQHn0HNydOEzuFMtbo0koIclizg1Ls+sLL+XMOpt49fBF4qSUEZn0JSe6yMHOtbIRLf0L4ZPSLyEvDUUIdQxqTlcP0/zRWhxj5uMiWfAUOfmULWBuEXnbEmyCf+XyK/yGnD7XF5tV+6eAB9tuT5IbCsjQuxiMHDpYW4VoP0L5lTm9laKneNt6a+31suz29BT5qPnLyhPew3QQAOImgUILgApbfoqAvMNnos4YZmWbfB/tfeYKuhyf+dNbbeuKgrf+IM1zL5y6a8pCTJALOswcUK5RW2tTn3hCrJud/3toQwQvJ3ET2SvmIGZk/+Qk9aAjc55J1DRT3hGoXriL5LZWPNVX358qnsfImkntoTPGe969mFFFoF3rYxSjJn68vfOqa6Vb3GXEkP4man+6M9vcRMIytECwUpufBWJjsko5zzAoNbDZCDKq8tZqDzZ1NDACg7AnSsFSaO00QyzxRTgacDbRZWg6fQp/8NZIhsqTkXzLJYOGPD73eM1e83fvNwNeFpjDKY9DvPWMwgrRREE9TT8V6he4CR/B9R0DU7mmGb/BFBiLv/xKD5xuj8mPdRlM+Ibp7nDJtaMmLu3w7FQjgkMM3Po7LMhDUvG30fH5mSwmj+5h3j3MB5VoZ6/o4T2WBROv2k2rwgdCYXX4D8E0dcXIKJV4Un7r7ks0Bvtb1dHz9jXLEhhSfYze5F86wdG4hLaIiPvqFBl5S5l5fV0YiOu0xlnZdkQHq0Cus3J5OZbpXEcI2LvyVXbdY1gPdQxGjIT8nwF8MGm/ZliA7lrpp7S83UYpnUM5knxJC0iB7GZHPTwCiTJieTF8U96KOLPTPUSqXGivVJaewyClI8Cf/CP/WltXLEEvdoU3lVqLwBLteu9bwA6C6qfIbea/EAKeF0lCz/ZKf91KqjxJvvuyO/zi2mAME7kDMuX1vWfs/qEJRuIil703LhYuMfAehdH0oaK8zNAAAAAAn6esNjryXwbU/iLBnVMKMTrOadiNI7kDGBZSwrB8YBruXb1oQ+BHGtyEG5+sCTSm99gNVEX8znhMQ33zoWFsI1YiayvSqfYx2xrimM8jT/Gi59IyqZOg6hA56LFh/ItqZ2rtQIBsuJMRi1//WTYze/ybfB1wy2vJeTa/UizjXhbQESx/kLOBfqEpQj29O/AEXlsDhu26WrtQcBKwPJay4EFQ6yfXEFCTjtAVts4MH//U2CMUT+N80DJJ7VYq2bIKBKW0hSFaYl7I3Cl/ljfLrsBGYyCc7/2Pi8WpttmyrfKqsAarCRwMRJOUivHcSJA5111iuh62zi8jq9CKRPwe9AqzeRtpoOHcWWha+LTUyg0haTsUw1c4F512Tb+ua3lJL6UxiNzpTuzn4xylMg1bke/1RKNNjwpd1dDUiAGD1KmOB+QAfLaXTPz1Nz2rH1Rqu/ovw912W+ZEWnDMWXOMt7934gB2J6offBN3BXIX78k9tgVC2xAngPLDITK0Q+fdCWbPlXjYxbnP2SbnVh3LGgJEW0rp1uiOnkAxU15LXuWeZHekNVCH+MNPWaQe3ZvzjfDRlwH76lROf1LYN4Wd00CDpDJpblgQ5mrYfhzcKmuGc3mHVpSeZYTOj9F/FXZ2ecY7oNOiWBUDMsLf7Wr92Lka5+Ss7fvraa2Nn98v8+MYPrbeOiJ/EuzmSl5Z0hzPnJw8lG/rY11nI2zXg0vVTp2AwYMSI1dAGcnXfx3eKfyyzwc6m/HN3vfxg/l9Pzg0icxsCM0muk9q3RiDSQYz2LDeKB9w5VMcxa6soktN4th67ebJXnH3KCy8dxV+2G72gmEjWAqt8xaXsZ88yL0VwuGqDTnXWsSSnzHq8vztdYQa46sxdvctw8kc7Rcvr7iTruMktZ4hdoLWxMm+ct8vECLxUOopfI9YTCdBZUtkgKCC8z3PCP9jsJvMjkn05MtZ7E0NotxtYq1pUNMaQnposn+xqdhoIF9+d7nHVHx3G7bMPmFK7anFZTvzp+1sHwm2qFXdvsSxev8WxOveJKIAI8Cl71Kk+tHFX29iMGYfHUcd+AYdHtFpuajAERxu7wo7U7yCcjgqQsOOfgH7ySd1I42Qmvt0+U7M03SeYcHAVyVuQjYSTns9Su5hZHBDXMGwb/57Wvx8Gw2KGYBQcHaQMtBeC5ZGHLAaI9wbMgVhDnvW9FF+aosAmF9vPmQYCWX6Uk55j3Khe5xDqrV3rbZdpQZZzvOaYyz+ZwbMX9uoHoPkEFnm8hsYb859g1lb39qrGmAqCzLMI9SeFDFEpx27I2FJqsIx9c/QpvkKjThkcWfkCHqEVaD9xynXVGczqSflqBYAFAJjKmuR2bzCBtM4c1fud9CIIDzkA4WSb2h3uLoWUoSQwwZQ88LB9T5M2drfBzKFUeGG+HuDUyXKmGZfaiKjW7OhjAoVN76Hu/PTMTRuSvXrampiIr5/aFB/cUiTkd+t63QOnDiz4c0P8+iOeltF3PzuFuefMxz67TR+ipRA9t6sj5fitSc1A1/uW9BB9zy1M5KhSmeOf9D4uhv1rzY+1blcC2DBNF5+6qu3pO7QaaRIPLi129WwTZimE2fvAVeFsXubYbvN7mCP8aiFQ5lfBBR8G7liYNJrQQNPqhBHmv9666fBAhc8LMP2JKk8ZQee6zL8aEx12ZiXIjDlhqe4FTReskV4u88VFp1v6kVXA+DvPn4S/Kg2HgNX1SoUFIC8XDOPfpZkVWmDyvZqL2sYkfKtIqrEbqJJ7LySOETmT9LV+HssTUfCc2YdPF0i1SMt6SyomdMbCHOz749Zas2GkiLTq/CfS3emwJDWKuhUeAqd++bHRQvqLk8tBU/EePX544AJWIYZEIZu7/gSSG9E9o2H8yJvfj76c+OkWnqxeQ4d6ZR7/vr+AR1yRbRdoq9HXeLBdel8qEjPsbfTSehwc1w4Uap++eoVDUmO5+jVlLuYNgM2Z4j1WtOtshjOy29acUHh4zi9o6SAkqdpoPNQNt0trUJG+Vt2ii9e8mHyZC8X8Sr8jpXPzhq9d9uupNRjePQpwdwB9ZrjAmWKKLCykcIrki0Ihu7TKv7+7RxEBldkqTHt6DbHmotHDlZXF92VYCJiHG2Lw8GgL5cyUu6H7y+OUCzh2N8HbtHX1Cp0E7vA7J8nqgyFQ79yZmuqVGBPhBtg0SqJ7WHkTYxw3WoRBC6vxA/2Shlh+NQJ4jV90++MJ3sctaHutEq1yTWI4/eexBzjm1GYmvSq/ReIh9K/gBXuc0BgYoc7MqWRoXTYPfUvOB0g5iTHLQBGdrEasCZCy0gXz58Tb3qKF3uFTFOICetbnEmVAfN60NOA/X+0vZ9KQBooZ4WWPS/czBkgA1zhROdRHqGHIwag+dKuLQ+zRzj5NC6f4vau2+QS86w8kcDrWR2gGs/gCpdy2tQXbXHfn3qp49+LHBeffPjlTrM7Nf0H6tmtf2ap01OBNFvXpRjvnnzb1ZSuBUGCTQwdTj2+aqOok1WC6Hd/JdUQOcImTb+ErqL14IXU/prKKS8Q8eDU29kfvOcQcrZGbjCo+WWEdj113u84zIkMyOlv7HzbYGsObtfs8YiIHaOEGVz9FRZc0Ui3sgBEUD27qpf/waTxhVycrPs0BA1DtzP2ZpMZ5RxzUFTZhp11m91/GqNmHQJV9w4qY/ZviYr6ASaBd42V1nbi61tBIISYapC48sD698pB5JqZ2UOaOCLYxOmf7G8K+8bxn+5oYcefL/eRmIjfjoLT/qnOIB3w/Zkfl+hSKIH7XguYiA82ruYC8pxWYKfhB8AkJFfyMswDLxMld/CxwfyjWYp8TznlQAfajVFM68SU4fUwpJyewThUZ4xBLDIQF7eB0fSRZ/tZtpuKW0WgLz7CnVgNsrfYAUOkvnpqF4mgZIpQAH2uedQ++Hy6LXjqMf2BK17bRa/aT5X4lFQ2xd/Dfjod0Ergxh86B3lGNqjn9FM9jdjo7KwbV4bztK9o2voJ/NUg88W1FO7Vf+B017PB/ai+SMyiR5ssWJVraDDrufIzAHBGj2VOcWeLOO7EG9Zdj9+mTYcpj+29+xIuM506qVaKleb2XTUBAVXuMqWag2zkTDFGPeEGqmx0U9aCl9F+/IxJTBLWIHCnwqtsUnhQl+cO9hEvgbgwIBAXUSuTyRPSvoPnPsS8Z+eLOCTv2zgiswgBbmJB/kScbjd5b4hbr8Rvh2SKJ9qIr17NBdUTclgGHcNAxVht0y96+rphYMlAzTgviEuqEfp/t3mmZu+1dt4dhLibyrrzHf4CNDWBmiNLzl12m14SclL0i5ZzvFqQ7K9bnjsklfVioYF0bU9fuBU2uWd1tGpb2X4yChFucWAkgVLE1hIv8Yx3gne0HsDztm7ApSrX/9tQYbgRJ5Wu3bmgBN8cdG6T9gs461DC77Ec2CBsLYLMBNi4IVHzmiBTseJgqfw6z2kJhICd542lIrpqTVbgJ8isngOFH8KZUGkVsAuYQs5d8xSXyFw6NEm1rKdis+WNl/IyUgA8xbZdE0ivqvygcpx4NSHisg9+0b8BbNxBQftTpu6NOX4m5La7O0FtxUDYRdml4pi40JfkGbOsEpRnQH2Zbgroxavl81AK7vUnInrnvWnftvJwmJtcuuXNrqinP7CcsN4M8ImdiK4t9QKHWu+q/56jDl0ifD4czmnluWdSrzJ5ExD1+7w6Wp5xtGhcOtm9d61foAZvuoXYnxB9nkQ2DGmoo9Jtzda+EKLbj9JoNhmb0oHParK8fDhDQQWvNX286DMSjOAo8V6eWbx7uLTRU0L6z2yGnVl2MRzE0vQgBPYt4PQrIGADtuW8uXh75hktKzHhqdUkJyYeX85lsW+QtDnX2gtO639Rvlxh0PI20XtZD8F8QssmLLI8rorFuZT3ffNENlPugj3Qydvnq8cNjo41LE6dPLx7TIdWz3ClZgYWvTdTZwjvDENw7GhKa9CuMMKOY2VSyeqJ8OofPvmgyWnOwreMtL8k82WvkhcpCYinsPR32Nn9GtgZ2wESAF1CkAzF2w51EV8GcsbUmcMgItJD0SMag5bRh35ee0yFsLoR8wK8lG7Iuifk3T0l14dSMmm9QRKEqbCmKAkcePqsKGeSN303tE6cz+ZsavIjSapkr4i+5S2cZx+pqeY24cZPcbnSdOy93s4+XwlrthmRC2I2neVPIaSvMHMFIVcl49PLyEOkm/Hy3jUj2oOS6LMaw0/KHIdlD05PVMnKwiBl1uvG4/tr6siorcki2pq4/TSiSj1PK5RIrKDfnho7CXP/2mlmmbbkCYXiNixp7bBTKBI1O1xWXyl0oKtm4lN56F8eRYKKCWuObUTO4dRl6tV83CDafLyDzjgnPwcOAxO/Cm3ejOtMZDBJeV9646V46MuLFu1EpRVd9A7GjWGYrkJPCqwxLVrRirKoIXdTOCcw+mZ7E9drIb64qKqpmkc06pZLHNepRFqUOWejvIX868PPFpZc9B/8f8ARwE5v63+886U5UeLWWGZwlxv+cWbxdpDhzFBupa3EF7RPCWSpI//rX5mVAlRmvIS6bTUcBtNi/QIDmgtP9lgxxNJYvIGjaX+IjKOElicggXv09i4j0JthFYHFl8FuVhyeyoh7bTswhnYVPpea5XlM0iBUbCot8hugIRgJ6R1dGMZgw2i5WEydSRIrk3dnlJj7adEuv+wQbv9EG7zuUmhsXO89HONWoNKpxBfsixqvLBZ2QT8XJsX2LmSPb3ANGOcednANFLiZ8mqIs0HQSBccmiCRNX62OgywB5QRTDtyqdIXW+LzVdHiarbsw1Xn+ji4O7WAHK+bYBhw3ToQbPN8Szsa6oJ0jwC229rZ7QB0bmbnOw3T8v6PMQQXEzYmt2N2LLpgnGW9o1NcDDUNvBtzn9M87p0fZNg64RrDmVcZSf4JQGwdOd2JKguDNwN+7LwIw9oe1BnYfo3Fw3x0aQGXoyEdhLUMjpUmpnttNNEIWVaCei33sKT7TMUdJPi/QxS0b7LuFW2xqsNqtTn5ebkX4MhrbCGKXCiE8WVMxvuX49ACj5MGkIJhrR4jILaoZX8S64hoO0Yum43Fh6ur07ShPh5NmSaRYBecm58Osu7sR+OoGyFR2dQNeycCsGWI74qfUvyrA0fMf1W/t/6cLMKyQMV4RbWaAgjvUk00lDmyc5ouJNsQkmS29MeMflsUJkIX1pN7Afu8Z7Zlp4dnTFo0QRFle2w5vx1+2c4hGJKQqootjzeLHv2ObnXSJacfbGCpxFS3SeBCs0snX20h/xTgQBJX27vokCNL+HdAvDDAfYUjISFN9XB/xC/dW11uRMQJWJ9n7DrGFF2vmxzzpXPx2qKwzjigO8JPGE7zjDNUGGtLfGxp1/3sj0+ht7nhAV7ih7JS3CGyvnmsVWFkxBcc+UvrzdSh90VmBowNLG6zMFt1tb3FagEDFBI/g33e98unFtz4XB0ML6OCWs5povI6hELFXFY961FL6+oG8gYCVLTLp7YeJAIRVmbaE+HpgKCjtKTSm4qs8ve1Fe5QvFWzn+DPkPszluqIWWiDvuXpECD5/S052q1Vv/0wIyYg1snvIsOio/MHEhAgqeYzCUPtGev6xu5HMHUDbRdNCT5cvwVp1tpF+nW/xH3+a4U/MfFcbM+ywkmjdMy/5CFBwUd04ZpcZuWA7MxHsDfGe1q+gy2FTR6QC0jTco8wguRvPzEgP1uyyGmnF7AmNeHXaKwoRY2PZvlpagKt1xXHIwjx9OqPzFYI17BfupWHkki+RLMoxt56sPgMb0LtKwn7s/VSd/PrVK3hDJfDpi2sATGO8K/o62L+7kunEzERJpRWOlDS6Tcf2JddiPaUVg8fmORqvDvjNjDmQUGu/qHX6PC1uYVkRDl+qOjNoygBrLml0KrSpJGzDhHr+WrwKPTWa2dcl4eh/0FdAH4+xCEuN99Cbwjf+P2OveliVg/AHp3FTh/NFIo/PuK39uGQZHTbfjFlPn0mWgelmIxFQ5ygIHSTuyl/XX8Y5Kceebu4xNUYRzkRfDSRCVyLDRDjt2u8PGlPxg3CJ2Wt7CX729nVr5x6DUEXfFtVgUpgY0aa29ryNqGJR8mSWQqhuVOFksxHml8mgsBZH434vvG6r+NlGRT1QwOyrgtCgU/GazqyxojORHyt0fj1VVagV5Cq5aiQl10vnGpE1NqojxwAh49iDrkT6JoEePsBjiUMeodzeIMTp18OpBl88TqF7grtilqGDrh2DCP8DW4GwPoKC3wLRYJo6i6MREkHNljBLJ9MYS96YICnsWfWkhlwEr6c4CLX+vO7lvk/PO+SZyYnxbZRoMb2FvaaCIJ1oSUu/8L4Q3wTeqAeEOys+kl8Uz/jcU7d9ahLtGpu2tdxd3/vV91w5UsZYV6Z0/Cofy3gQKzaIS6YW1hpsxYTeMBX7IdZH9OhADbmfB5cIYNJDe8xEWLJstyWRV5ts9yJkOjBXSF2N0VmIEjb/Ga3a7dYE6IYai1Lo3eZPQDZlrjBoDu33Hq1iAOKR6yoczay8wuS3nOba35bKmsPpE37xzkvJErPWYgeuMAD5euJROn3blNIKYpWi65ScUwr9z8xAAeJg26e31kpI+no2eaXEG02Bbvggor32SJg+6xUsawQ0bFHzkn4xnFv1mOKkgnlSe4DGNQ9H+L3yioVgUk2FjZr7+tNJG6YEhJ07Qz+qdewaXkv2sIJTjNCyKCmiyjA3S3SQAGFz+uI6JgDhdeKJXAUffW1D6MLRVefh5T1jXf3lne9E1sPEnX0Xi8BPo0KkZ1YAa/dSGNv6UwCUQhyt5kFqlN5jz2JGo1SL+5eRc7XZZ3jGcCTIuEy+PoJzg4jWAKmOeNEAjjF5qyy9NkRUrU2PO2bGbF0OaaAIl7qe5l7RCcoC7UHxXaZ+xhFfVDgrPsDTpwWuvHOjUArPZemXHq5udNUtMDtcmGEcBghGAKMrS4qkalAetOcenQylkxFEJVzmNb+M430dFGCh/Ii/879maYwBwZ9iHh5jGgvOyqPBmMQ4rgm5riCivezRy7bJsf+QMPSKWpoU1yPyC3pFDlNThfvbCQ9tFZ0Iitshn09ViS0HZvzM+uzkfcU/uy8zWFXcbeTdxGq2Bv1GkabqnYMllxbkP6f+FiMHARsXLWWuy3zawrAsyohO38T9lj3Aq8Zmr8oVmTEfXQIgbqzCF0TZulUl4JVOAZEMtpKtbbkRg8e9fSPFuVl8ix9f76z6HN/+LnS37BzsIaqqkMjb27wJ6I6YYICUYNOHe9uEktYvTWY5NRPBNHydPAmv595SaSgv9PhDT/FNnUwbl0AZuj7GfwNsbuVL7n8QkqTS1GNzJTtXLPP31dF3MlpwVznN3Gvm/AhMj1K3M1FztbfLonpnd7dYndVDIRvGqqDhsD4bImJurM5Tt+Un3qT3A4IvInAXJxXUP3Zlj6lRyhJQq+QT6ArVrD5HOZPcOqINMf/axfSvuF7UYqvfFVn0V1uw57jHvWVH9nXnnUDtyfyJaQTtv+L7V/g7XUaCIHcLMFY4B7FdOO3wmCcL/mUEQMGIgeIM2uqW+gZUdkjNibEJ6JZ5tfW3E76m4/okH+TlwF9zRKLhtfGf9YFDVl+YGpCuIEvvpnLrYwSBXuc0vWeBgl6SJk74kvESRwJ5Pctrx3Gb8G7ZJE8zSDUG8ndxER7bFvx2z7RY6lDORgYszRlNQMHLJo4T2OnYc5CJ23pn6Fj2WZZlVLMuMgUHG7nVfig9VMMpFrW8HTDMhr9t2ZckInInbCcd4eSG/Vx8KYHO0MOQJj6PBrOwVWuQdLmGPmFPdd1lYmJ6eOdrtNr5CnbgLcTwBeOEvm56Qm0uUzJIiB6q3QeoM000dQM8/0t4doTFgmBobQAU25fQB11bWQb1bV4jAeauNjpq54TOUw9jidV3ZmfqszZ+4NSbhSjGReGdkZT7BKwt2/jASxPkozH7I0qCETtbAeEheLMaa0ubju/MxaE6YNxuvMuEcAW5Wv8o7VzWSxQr9krC2IS+U1NqS9EYaiNE6XgniSSEEGyhGmw+K60mJJH0O5VrEOlnL+Jjlnx19ojscQY8IkaRkhOV8Lj8W3zyJax+fdbXEPeF42mHleA7w4YHcSjrYwvgKZYJMZQkZtIjXI5poBwM2Wfabz/CRAygm3IFOlyKhdcl4FOP4ZXFKxGuAWGiSiCV6x74+IyUL6zXSsoJZGp4C9/b8ws6uiR9PZs8VUGBE4SqztdjxUdTKMhzyBrJIqpZkvrwCwkoFIsNuBaij8iVytvLcvFx6OTyfuXepKUxJew0KYwS70JxjotfBAFAVTQDsU7VN5HyCb0YIRWIIbNFA7bbgg8uIskahNDygXSvJnO3W5kAgBYTWPade9PMxwSAJS7RshwKeoKbMJ4zVii9NCauQNT7cRs3uCrzXDhVOxLwGwjHwEVTR9XQME+K8sdLA4yYpv4IPxScVU1gGPS9jIVeDqtR2wYvHb1oWTL3bRYJv3weU1iaX0Vz/KI5IBHq0hYz2Ez4btXOSvF9Fkkb95/IYFqAeToCWyVmw0KB1AeQtsFucuQoqJ8BZatAUek3izn1+zF54MO6pp6SWtY41m1vOG0ejAC21Uo0aLIwBoNllKpahvN5+Nhdsob3SB6TUKUxgMN5BUlB+iO+0LBaHPaV5i79B3vntyJDUoDrGEwbUZdbZQI77JnncFbcDwnVDdwqSQabtxrEoIvrh8EGGaZtPcGjjeozEYGPR6o/TJOEbWZywvN35oTxT/otddkFCR6gCaXidoAuRgX1IugxC6i+RGD0Y9e9QgB86n5aufVumJtKdi3bXrd1DdB8AebzT3Q6fznWTXa/EIkoR7+M6oaBnNmBgrO2/VlAfMfRpFpsJeRTTUi2Myn5hT1oKddRVuzgLF3JrgRm7zBM6hM4vFdjMvrwZymSIrEYje157jaEuBtWiP4eO5DTnnEZlNmd9ZTcneB5EujndTaotpdGpBWsozmVP/T2X/0xuwxxP0lo7A04tMAImsWx+VDSF4ryYNFU9aducj9UtBPvKjQmvbLqVG6EJTNIKAMkbbnVi/54Ee1KD3mvk97scj7XVrZuqPTlUUJsiqq3qjyxzcVe69emYS0bSxrOkZbl4Bqro+cHfDNnZuGICU4QA/cvFppf++gbfj+TRExE2Xfnq5QpcXB4dxfAVFfXFM9ghaXW89XG61qKpcE0YJ3TcnqeAmvuw3rLiQ+6frwz4cqJ0l4seOZZpgCZiDuf5/qA1uL+X0HkA8fUBQCMWB9Rk9wlCGgQ4FzDUeR86NdZ/Qn8107vj8SjxqEIs1QCetPr3V5km1v1kVfnv6Vx3iuyIG3UxY6jl9h+1/yN9fxqD/oMM5AGnZtnDo1TjBooV/FH+At799PlkcLF/vimYtlEl/akUSu6f3ZF198TarKrhx08kVg+yAB0iCJP/c+9tufg4/dbfhe380j82s89vDpP/ODth6Ze3LUvDjLs3rJXFK1UPzB5lqJgULM9GPUTUH7Z+ekKKefuP8B6GwR60t9b3GSZNe8yZUOkKrfND3P8+OnmyhkNKpyQi3wQ0FcgTLg1zWKLjDjsRmTifIjfW1B2Qlu1ViFmyl82PvRl2S34DdPiGFh03W4D6BU+6X0FaWD0iHP60gbvfBnWuo6LPAaiLEZB8AfP8WQEPhzpfCGXIAcMXiheCwrNRruMOr1zYLmALyg0eHPix0iViOTg9IIFwcYVSNFUX209+/XXFKZzyQySMZgo5Sh/r/OF1Z+t01GOpiQ5muqH5fjTFxpbsWOFzkC3vzb0KpFXcDNWffl1BuafLXnyz1QLV2NlsUfhq5BG6HoRsZwcgWiEOUJbW2UcM1kCgjZc9vEo9zw6bbAnNkpNGQ7Mve8nBX1v7srFZBoLRjEHnElPUPcNuYrE6YxHrVq2h6P3hfhDp023wE5k5gTzQ2HUXGpGsrpJpCkC7F1qa0CUTo8rxgjnDKiM0ucKgpTSTAMT73yTkldo+pW3zGXQQHCq8U+lH4bzFwNLWl10tEZwCWHainPbxrJsBm0Jrw2viTrG6ICFSKL4kIi58clegVsnf9bjRsV9Kq3GDUeqyMRFzjCpGn+g47BflkV3qMYLoxnc+VlJGM00KXvXtsr9aiMiwqfYNesO+rPaIIOu8/38qetJn0fTge1NrUbYs6qEPUv//f91fXilL16+XFbaxLar2H0BYWVVUjlu6+z+x7M1+3VJ0yQ5Aa8uZMD/BWwW+mKXP7AFQtjIuw1PeEbGPFD4BSwG+ceFc62YMcgnXpvSlZwL5Btc/OzQeUK+AKz6QNt0YMZY10uipdXehc4sSs5WjblSkOl9pJXA6619F77kZd1xntOA1JhFNyV/tFEklyPNLt+ldmmtUVJc9NSB6IcovOuT0HvdriXPF7JBR5zIFHWdG54wkf0GAvKAjnzoWHWEHvdm6ANHfmtb1pP8ATT0W6xgI/dotHSjyXzdTjnuyG3d3+KPUPZ/Qd1IqVw8visqT6mXSykkxQEm8F5s4c/gRT5oDOswcB88Fo1f1iliVaWUDofokoMnCq9nzok8uQ6if+0TZdU3IKm/Ujq5Uku9ksx7EtZ9bpDbgk1p1m5A2+7usIdD5npEIHDL/ucm9OWaDhLK1XPxlq8SRFc4LAlugNcIVoW+VtcHsMItiYmvI0oSTSI6MkjsnHC+EqKV3Nb6UCE/iM4VSMVUiWMH2nCk0NWGKEN2AITmbGsi5qmRAOPQuwD8lFyV9FF95SO8vmVWSMAV+5dAUbFkH2biLhQFiWRk/i2B4IGD5UP4bt4RgiKvwrABIHFNUXbFoR1Fm/NuHUsGQJhVlVZdhdR0A/QAICqh6s28OpiaAi5qXCQNv8aU8K7LikFUvDsbl2BcX0ngZrEqATDFXvQYcIMIYKjTD7RDav94ZMC6xOwQM3IYzYLOFdRkPSPsBVbwSahGCbV2OUGa6h/9gWvuNSRXl+UW/J0FB+ThychBGivTnPZ0swPcjgMigxx/j0BAzHbitcFXh9LwT1SxMOypEm0dGCle0tLFw8tVeil7OnJFEr1+RFZN50p6Ob2eaOLVjoKnBZMHuSl9CtlkGzxnTYPSZPgqJXlgwK8aRerchnk3Y2a5zTyf5ulsAhuYuS+ev7RH7muhckELMSiOSYyzcZ+RZAiQnQJyiw0wtAWnNooaCbczImQXmDP9Q24JIUd8GDLcFIOc+XjNFVKZmvV8Gu6/AoMDo4T1NKDDqF7eKABN4wjuT8qULczEVMbm7gpy0KrXPos30LIovQlkedmhR7o7ICxTr42SAj/OxAiQ/+METoLosredQY99vzKN+PZJH2ObPwY0pNWZMBSf6TZ1dqnGEE16mQrrGXSuhLUIRKYufyyUoBTKoqftDeP6DocXECYf4ocJ2Hdp6EuImMLa5ePQK7fqpFxE8GO795UQQGH1/xUembl7RDEVSAd3QdfDhSyO6L4GnMqpzIh0PtWo2USWa7G3KkcFpwVzheQqenXYZPdKRt/Fu+hiZm8wu/KwWVxXpz7CN44WsDlzK4epU1CMCVhyIaRyYeDVx9RayIjX3LFALFiEqo71slRvTVBCmcHYr6hMlDYaXubRg9C56yEsfUOPZ6TQaYWo7WuAW22a+JZ77Ewx0xPf3KKkZuRQrkIfGesMue6uI2qy8yWKWZIECN2Mk5r0aS9srAIh+WUT1/SUvWxTq32ByRTwMozLp7FKHWt6EnbKZlzYdDfoUfwPuD1ABVbgBiQe3e0qAY9YJ1YZgvRNuxyi4e/xnNNXjiYoO5KGa0CXgnXf9oGvf23GH7hY8X/Pd0SRwV/3hYN2QppsupK0fNr59bXGAFiE5mSla8iaA1VSV6wyRiMolLk5exNVNMSPUS0FBGYlvhCb60MewE1BsJqV7sp69nYjorSfqMs4UOm5eaYHmYrJccvA/ZYTKeAXtWfvf5/myJRwf88pvoubltFtFCneJY1FaRfXjIOHKwDwLdu+/zOk3XoL5jCS3lXr/gQdWpTokJgXIFhB3dcXpulrSwIAnI4YN/FzvT0Cwnbqeo3sKlHy5XbnjOk78JqAF10AKSrqgpV4aj5LHjEqomNO4mtk5VJ9cqPKbcCQDqJ6kF4Ozfy5yEvkcKPIHmETtPIy5hmBGCZTKFqyb7ianCfq7KZCu8oErUK0s/IQyzNbcGU5m+ZFg2py5MZjw1D5fmguFyhDTqoSEg0JY8vzDi6ZdYz6CQFTThajzuChPvpF9CDsvGvjMbYz4YEGljcIv+4wCh4w69vqiP0hn6kYYaD33+qZQEN7gy3aMSJAQwguO4AsuvEGPovl2E/wZ7bBLXw0XAsVrv3sy4A65OT12tPzeuBBU8f37MGzhuusFQhYWM8FmhIdWsCwPoxhaqrwaBauBrum/yUejiU97pQk19Ywj9wwDZREwN9PRp8R1jFxBVmJ7O55bh9mSCTuAfizmAU2PYX2UsOzBwZ2BmJoWb7jz8U4T5QNOdgYKTPZyr/PHU7ErYuJsCpZCGLrYUmu49E+7yAyJ6/3pA3AZQSQKwoqU/6k0Q/WdWPKfTRDMomOZBIyl4HfMZAJTba1PR4Gd+DVCOEyeYZpV+AZw77vf3wy3LkRSHN59jRehDqV10Tj5gmy/usz/i15ngiQHjApi9qPucwTHpCf85Ore7RhR6pd9hOi2SA9eyJTvZV43vrO/0pXv4H1+B9hYhqfui0Cl2GFU++N7+dT0LHNstVRrU+1gTB45aopkxi0T67Pf/u1THL5G7TwBu7X0YhkM4v4YxevgUwyP+tqmsRVwANvOnIN1m2y7xLBXRJJeFDkrC4k9BPoxAq1Ent6WCI8sIs9fSZjPbli5q6T3WP62P43gGn7sjmnC0s6XdExvm1tJppE7+pqNlwbQLMKcvN8d4b2yKp7CR0WE1XD5yCsDfcHYnmHD6rymhmQghwrFe+kF4Cj8BaP25iDQxCP37+KDyJlGwnnCCamvf4O/LNKAhdi0AVy4yx2qHsNCVpu4O2iJNYIG5Ttv2VdaWMw1dSXJecHIxMoQgOMk8HJm08NsdrEFu4yVvOyNh0CZnP1sMf/2ptVrb+MsZ0gbFQUYSLm+SclD93uVIjVnjbcRccXosM1x1mRUiVKRnflLJiop2mjx5Au7rMw8G1OtRWGra8i5ucizRZ3HJcvz+66o+LsVeFVsVYtzDVleJA41Ov3shzu6whipYjL/zZWIkgU1rL6YEIdup2M+GCiuK39SLSgsN2nANTeStCwKjuFqMfSHNGC0r6f7QjJZUkyMK8xS+ww+jFxalL9/DxKiMVfM/rNXtOZr4n0LCbRUw/B+KmWy/7aNq0Z0Y2tvMMFD6K2j6nfcEGt69O32gOZiENcXEImICp763Z9rmbpQoq/ag72OATKt8IBVuPQBtCS6S1L8DUuZHdrzY1mdyNv8xrK1ShUu32+AfYZPSPOxZ0Wrn0ydfi3W2k3auiZhcd1Bt+daLV2yRqjJDiWaOGhVZsvRQIER3YNRLS+3PxDW7KyGN3vxK6/V4Ix1YnGrqk0Bjvmnk4Kpd0jkgUCAobWVELOvieIFkoqoGH4v5r5HsenlciIvE5WmoQdWhkx+CwAetVx6XWwiuEguozIOQm/5nYEfJn0WYBIrz/PFCGORCNhXvGhp5qmBqm+3PXxRc3AjySj7CouJktqFbzU6vgIaIVL3rN54Aec35X8zYgw0+Rir4dNqgCAPz9hmpeIbuJjshqizDtmGzap8HlIxLzHWDHg7wNQmVJ7nBSjJ+YsxI4qorGUy3PGv4lP383XM/B2Sy1BXLPfJUS6eKyrzdjg7GyAIVnv/wgtnbmMXQ5cbV+NXgMHUFoX2LqSiPDvRj7MQoARkXR3nJQsy5nkK345gw/H6aSdWU/us7w2qnWilp4rklaDYu0kKZzxQK13i+TxJJHcrsPCBTMI2AStv4JYZreZKp3XmUA+R9dx6NVgs7zFLJySrQQ9+cPZEXbinaSiiYhAAlubz7J3cKChLZC4ekdML//TeUKihl4ZWJyBYQ8bUGnSmiMKytuwGbj4wc4sT+c/+7m5HMzsdhJ6wuNHvGUPTpLyYrUy2guBLlRCIHEcjqwaLw7Xr5GJEWZSIR2K4usscrtHzS3EzIXEFmR6++I0g2lThcLdqKGUmpvG7icXqQO8/1DA6dotakb9dkQAtlp4Lrr2yBMewswXRtLhMQGJCxblOo5ZpYLrosIgOb0VBSECD0wDkr+cTtuOt++Y6PYqcbfd2FNhq+zc/IJpaCf3rZeOayaNNFTNF+nPEUhHC4hYhRibVnLT4rEzUWhnKRe3iWQcGO528BDHlfnRP7+PCqRS9KFahuQFmXV58qYono7U81L/YenIxErCVZgXVov7xNHOGYCvLEdjHufKiQlQseOQnfawxFL3DwirQMv5Xl7vWWezmmYvNHDSGv75vL47bmwQnicbydCuV34eVJUtfIK71MpAZ8GMEEPk2rhs+mxB9Z5WswCbgwyCEog8n2KZQcwPAo1FJkJsmGBEhZuMUNndnoOSiSgNRD/ySUils3UNEWq4cvnSmjG0ouPI8EXO9aTPv1rVdvwU42BlLy1cPJFZEF3mpUOGdLKP/HkS0OBNgbSy1jMOuSUTJes+B661BnGdt6psUy2H1AN7UX+MPF2I4/CPEiNwn9ZFVghhBIUAHH4YIuUiPCPNOhnra+JPn2vlmieuTGdXcQzRiteoIMxj8gnOxOJeJpG8nYnp19qurjQ09kmvyMdbV4uM34S5O87v7ZrJ8Qq9NZdnCvbTLWps5EaJOW2rQmhWcP7MwH1a3m/fNeHmnl5f8k89kfu5EsqvWTKVysR2W1Vq/KlXhsiFlu0ImsrsVLE/XiIO6oxJWik1b/zahR0gbdefDVFGh2Mka3mmwgvPRvi4U9/BIu6LZGZtFs3+s1p7r/9e8X8dIdJ9NqIQNCfTMrb80lrkfUuBnTMTDIK6SQH5DJNDOB8gV25nq1rR7JsOzBh/neJy4L7O/VYEEZM+rTIPA4n+X1a0W1Gj1aRqTnDOFV4GNJxtysRYyG11Nq8esSrs7ZLYu6jWCjiI6Hl5QX+P/2EB+qjAZY4t4EAspK72ZNHa9uCZWUuH3ILayFty4GWpviZZfEEjEtPAZb2coR6u7Uxqj/PSnEau2n928LHSPKIHs6osGBWmsv1noguvgklha8VmW+te6l5yYYdBZN4W0T3TMS6vkLsgBC0sEYAIQmH4jQIcN1A5Uvvyu+8ZYq9C9JTfoTxQEli6r0cetr/hEf/F+Y775HtfvzsSvw7GdjrqJylEN+LG2OlDkC/mxWG5ZOR9PJFNY9L6OVGaGiqkmIWyr+0yxBH2e75xYdZIrGTkasVwItfh/pcCGr5fi0YzekPr5ihVS05II3UK9+QiKXaMaGAP1qDeAwLtFdGDsfyOOvEEjtl0Vf7ex9oCEXM4hLM5XHaRlsYMqAi7l80GTE5dcGj0a+CVrOfm//Qk40jsrNg4hxrpt7WmHyhAqDMIwSErOLtaPTUlOMVO7CzEHy5JRflRguE12oafekSGbPuA9MLRFe39VBohwL6epiwqbJsAj9hTsj6i5Iol7u3cwT/jT+Dy6SPj2yo5I3Q5/Et2SEPgyixHdtMxW1bSEKPpUDsi/eLrnH2zb9Xd9Yczq80U1wI5zY82YSVRX5vdOwze0XDFoAkhOVdLd0HOPVpnzBRUFZV5nM2vz0UYB40N81huwM8he5vTOc2ugKN2HCP8G8vuEWo0mhW0hxCPBAQJulu4e9zNkwrzrnt0gooffB8s2JhiNXq198V2vvvA/JDgiMncUJ2wdAppzvJpqB6CUG3yR1YWLbL1DTY4ThRnXoI+sX7Pyk8csVAdBmH7u3031/doBzHKPr3ej+k8RaKur9Aj3imUlF9d5vNUFKV3aH5FasbhMnJXf6uvF9OW3BEVBwMHXeiSXt+4b1Dwq4Fad1ncdZCpqnkrsLU/KkQkhq/Ji7/gs2wGO/+qtblevbUe2Qvp6fjSAI8X+6x9G5DcwbuaLEHoibiol3rZrgQVig3XtWhk27zvAK827TP1+aKtWtv/hEeL4OYfdmX4zi4+r4SlYxok1UrW9dEkg6xtWj0OoDZvDYOS8vyMQOcyCbW+sExz8+sIwXinFHCzU+YCRPxtThM3IylGFxrDYTMXAQ0WYsqOBSr26+MMJnEH6RXnwkC+wriNXRdbMd9kKwHLogfOgLoKmIikJpdraKXXEyp+rtDLK69Uswmrz7s/IkrEQdufQoIeJ3IsAWIkDlLr3au91L0ET22tto1ow6D6bgHFBSzWf4l7rS9xNqjdFb9DooVarOSCOshEO8ogkygf9j6FX/GG1KFJa6HBAJJNPGVGzeHvvikizYljVJ1ICA2ZVOf+y/T9sGY3QhsleJHPIxo8icSbx2NvMEs1vCIGGv2iWlVWzEik2S+9/OtDJU4bviOVfCwOrtH2EBnxrNkbFM70aXwKPqfPRajKnhZz6qRW0XoRE/HZ+a+Bokz83yvjXE9sNBH9d0IY9p36Ia19CwgQP4ZvSFOvsBqi7wKykiu0Cb0HTHaebkOniMLGGGO/wuKYCzaF8DC0Vg16Onv/Xcx4ClUpL92G6iccHQ+Fejj2R0zKu0qu0cv4GBzbwbwTy/0WBJXKGEjp8CaJ/DPEwqzfafFixKn8gDAwkCeIjtQXmT7t0+3zdCfsYsNCVyPugwgEvzNu2VSu7C7UsAV+5cPQWOa3mi8L2kDhUNIciFxS/vX20qM50NaFw/XMEEcKAhJsc9q5LNkSuGqsKnfqQQkMgzvsAQRU6UspSMYCO5jW2n06VHtotw+s8g5kG1BUTCAwrgKhnsQ17GqcCoQ8850dLdb3AjIn3ETZ+2llIJ9rLC8gkPNVNf2SjRTzCOHD3cFIZM1CQCAVFbAFY34j1hWfq3+mk0yBeIss4TIMPbmLPCEXKcVBq6GTJlvOYTnJWD02IKW1/o+WCKv6nDvyNYFw2eX1CFAhuMz5NKrYxHr9XP9+exe/RruB9H63IiUM18bC20vAPG7yWYmopBBxb0/zb9PfQK80ZzDuKQKPPgSMEtAmHKQyWuTLk239C1kI5MaIJtVWbwk7mNof+stia/O0cpBTLrtRAkaaGPsBXTQ5pXheVe5B4c0jp69yagFyC6G6ALZedn57nTDs0SoKbli7zUFFjm7CJTvmvtdgSR0XZo9Dw9yi4PYjP9z9I5Vge0c486IheCMcwFLCJlL+BnE2dW1JnWtYI9YLMrYCKMYCdYvO+9FcXiSl657K+znNOUQThN8Owc8sRNihcmimMJ4BPJUuDWbg6UKqZkShsyh+ObnxMDo+D0y9NIkbO8NOqGOUpDlQLNynES9ee9hYYf0EzKeUY59ouVfgMGBdthQZkSsUMPSfmWnGyrO+WPel1Q4hcvZUXM9ia6HMCkl23DY2MaeFzErjfvDyAKoyrVZhCFeVo43EvSoePTtBeKAHe9iRvKzVkU2/3Y8y8mpTjBz6uuJ4ySgiEBRqIXeLzd6b6NteUIJQ7QvxbwpMvoYtLz/rCzsH4KK6RL1QmdBQpS+tomEqplzf033iRWw/ziUUuqzPHHiV69J6/uIQ8g92c1OSDRobUr1nUUyP3xA2SJeyX2ELSLsMcQXCMhjeX7v/U9hQFwXMxP1IML89W/XuuCayaWGNW2mxDdRSqCre5scxn6WPT+Dcg6Ha+3t/pZnX312Nszpqh73uMAyeq4SuPbc18rF+YNGe2GrufRtQ4m7+L1TqjBBN7+Tdej+prxnLc25Fp6IwstNhtCJAuHmov7cF/FqbW1QUQ3dGhPeCfdJBKSzIHurLIIDHJHQrtAAMdSqwfzriWpZ+guxbrQFlNF55cQsyCLdUvMOO9oY0HOaL1i187tkgZzxsB0906s3IXKxwUozL1I2/8J97zGLTPY1AcnGLBAxRakf3p6YV+W1ELP+sZbDtuFnkLPuZx3yu8HjYk1o9FTadOzMIdxcLfCb4uy59yoHWqoapbg6qcPtje62tv2GLYlnCbS2nNu+XZHSMIkBnMECjky2hX1Qgp/cdAcL6kogp8Z8UwcqtAILq+i2+d2p3/ftpbsAWFvwU3UhgETQNU/qi4jlztfhdbuE5S1XwhT9x8IuY4Zs2JaWdNpg8EzqWjKZDW7zUc5Y/JRpP/zEZ85kTYJ9v4P7M+3PfwW/uuAWzJ0UHt5wxMxFnDXRPEBs3iUeGBl/pINRS6F/ebeOuu8FTikEGcM8J7SwKj94nKM2abtwQ9SkQ3b0Ziq2tC+/r1bq4Q03y8gGBz2kti11X2bC5WHQiDriBoJ0+HJ0yIChpcAi846Sro1zL4ygqZYg42G+37BmRd4xe/bBcdHXc1CJ8T5/JuGCGQAVDd7O4a91aR0OeIL2b9swnwp/ecnTSptRjDymBtLroRRhMmf6bs2puAgclLtXPbtJSkNftFZjsYzm+5EPMti5wFuoBUnwSU9aXqkOI5lhv3ehkkVA8C1gLmxroCpUvy1zSwgOjyAx/PnK0bmj4EuTaiQpnS3gYu/OCsXKCZrnETarZHATbXLAyY7moiggl+8VJIEJ92s5d7Na89ReA2Bfzmd8WIC3tOqkRsWH3niaPK+iguAjTISfS+TTj9u3Kr3vJdCOQe98LSAPrbLq2s7TMhDgL6IogqRKzP1C6nZ3rS2jXqxbCnc7VvCBqBzKQwbIeCdyNzZ2U8+4Ju5gfp9pteAsV7oI6wn4ZiqH0CvkU4JrjbVgUhC30b5MoywqU8Z+0IRXawXhtyzlH0yhLXzCQliefd8YQczKF3vnJi5MaZoX77DRwxcpsdV23/k8m29cTFEBLgYHmvTnE46X8W/PNrSNSeC8zR8lfydMxZ+gfOhSxlTQyfZFviYut2KO0p42B1HLL/5OQ2eLYk+Fo1a9BZSDuLSaYfkDFgCX91nrUYPx+cy4ojqEjzKf7l2A/uZDt+HIW8YlFQAJPUEWyThXMzM3hWvh0ITejVIGz8fDLTcxqKnBo8/mrgx14cd1A1MIkm7H/JOinhGgROe1c4u+ZUV66IcT/ujiYikkKMQaWIqgNMqMI5YrkM/TUTXFm8OgkZg/g/Kh8kK5RqAQzs2f0HY8QzpbeSMtOrJ3qvnpnjMtBmsgM8weLlEKcUiuD8zaYUAI83I1QqKZeXFXCpkLYmS1GgTQmZSRQuCcUQGnCr87gUOCVOX/KchBDB7WmEQtjOekd7wYWxuB0k7RbSXaGfEotKdHSx5P2fTvbGE6NXUROKGQfwoNwpdLTJqq3tCt0Bs95ujq7JbMNCaXYszj6ZnhC4wymMIe1SQ9qlAeodUGS3awYEm5MAvb7BVu559s62KTAxRKASc96YcFwKIfDWXyoQC1rbN6xoXuirvvm5+IwKNnKvVIL8gjXhTlNDSxeXWRAyl3iCqPt97raLi3XKe0iMYGbZozaQjnfhV2qtheep6tIsEeHWQ1IRVZV29UKy7237aCkRvKGvMD5VGuiG2plbPCHjE4cxuxenohAQtN6Di2zD98YsFjCujMpVU0r/xVL7vdz+sNI5yri2YBIpcx8kswO+57q9KpUF4C6ai+a4yj4vPwrSgZmEv9AZM3f5PO4+soe7v+xkoYJewL+KW0yYQqBIm9fTMRbnV2rYPj2/i2At09iA0HGBbHNRaX23k1j0yWEeSW1kInVSYVcOWhnwaWYIDY1hGU3kOP6x62zBFfYNScx5Ba0ChixahSlo14aL3mWrHPkBMUsvtCzPmJtOZGWn9PZyXIX7qNnT7GQhZRe5xh2OU8AlJJJsusQoz/7GE8n0dLU4WOI3DsA1jLhqbLKJ8utTbgT4614K6PtRfcI2SCOB7lgR+wPtsSX+gz2P1Boq3yRaFMuwQJz6dJBS24QYwbqV6eMw5DARykp47EFjxFcpvOqXKK6RXiatZy80kz9yhmYLKT/RZKeFKzFvRzFGv2vPrNc6mjWvAajGWs4YOtK6ZTrUPCuCNWH4w3VCjIcx5PgPrQRDEZWlO7ekQRcodwyK6uboQKGBc8fePGjW8/WrEosCzozXw1ysiAu+l/KzC67J1EmBG0qdlmYdUoT6TR/d3EpdaqoGvvRKOA/tItIrWlGWUDGcHVsK+26kMsluTd/CVODQabqsLGXnc6s9XtlqsoRO37j3DbU8X9DL1UUgKhJ4EjQaHkfVCwTA8m1b32RhMuCtOIOeDEiDUsaVPLl8e6AO9fVP0mqHg7IftTg2aNX1tr2Mtbhk0oatwxy1XAXluIkgUBgFGuf0L1157uqsoR8nQ+tbbvUWs3JTuQv5RgCt7WhI3COHJ+lXq5vc9LARtLmcLeN6QTLzRxXyvoCLcw5xcIDoIwOmLDPmXP9jWn2yC95Imc0SHDkb40lp4I5Qu0qO4qvhTNLGxR4lcs34JFqSakYtP+B57ypjCv97BRnHwKpYx7pDmZv37f6ywn1TJ4dScIsg/quj6COK14pOM2UZfVTKAQmKAik1RjbSc998P+FMAq/G1qhvjrCp7A98RhjxuhhzUfbI73lA87BqtYv/I+zOr5tMPJSXNEYcjnBni9QVFCAffBQozt0HRTcctHIxj+tNpg0obbL5Yw6XQgVZ1eETUNoTKHe/yUOHm9HSi39o8AG4l2JXIfJxmdUt5hsyrazVlMfyXcUCM4cvS4AZycWbMmuUkfQJo2wWtbniT1N8plz83jlS70VS7n8Eu+pO/wknywo2FuCv1eZaKBYkKo/KkCXuUKA9LQkVj/cri8PJtxL7R9f4ddKVXhwvsbCkUITOFZokMjbav3wjdesL0dxMi1Y9l2lkuIE0W3wMIWqz2cKs9LEi9JmDM1iE397AQkbLjqNV2qgMdvbxFQfW2ZvK0aouEWSQFG2PCrsLApfFBBF6XCtk4x47k5YqnDDmhjx/yzRvT5NYKm2JmPlIF4P73QE8VhP96YZWrZzAh/WdnoDc6bOGZOIubZDW2Vi+WiDeQowlN3WeBvG0sbfJZsUqnXhjP9cWShys4ikV9EG/CJRcTfn2Kflr7HeX1cZ0s5vCDIWAcx0HrfCjBqCu+eJ1JKvzsgSEWmC5c25/qfhjoTAYC4B0MF+Ja4OuDHKpXhDqxhg2oK3PcAtptBRnsl5VoOFrfYN+6NwiWIl6neuWqCfF5rbt1uPFoYzXZxY5+5dQ63NDri1wwmfBomYBbrw31O01JbPzmDnoE1kKzSdLJxVdsCEX99BzmIwx4lIYwf4p+tBF7juBrx52t97kW5LyQPCK+OxO2eXkHIQx742J1ya8mb8OoWtKvZWZ7C1791qtDDqDLjEDaEzjDe1oXNrWrQljT7/EwHfC2x7VYITdWyp3ZKLds58QYo7lGDeQdyOs8s4lfO7M80MyQ1A6S4OQknmKX3JsQBpszeO83KRchAu+SayL7Cxktvy643ipazwq7LxNZP1i4nahYqN4Uk/izDUIHf98fMocgWSg7A/TSSj3XQutXcRRsai2oVf5Za2MHPB9KS+sNEXeKaHihgt5WbMajOMb2hdoVPqjxrwjL1BP96rEu1OSp5g7kyuyfscgpy85yJybV2xjlfMItimc7FjCyA15pEJphILY6rfTihF/4zar1FEdjpSTwLMJFRHV8Il3217kHYqs/G52+emluBY8lekNTmTkrdXw0vvdRWw/pEmiuJAmGZeNhqv5ZKD2bqUZsHvYwB236rsJxyMq1nAqH/t6HHSTaWsfUBPMgsxRerc5NB2PZulIQCIwdmP1ox/FAR+nE+oXsFlynPBwUefDtfhkXaXQ2zGnVWowqhkpK8F3FzpWmZAqd3Su8N/sTa4muNfOx22uY5lq8jL78g14SRlz3LY1xccc+AYvhektdfNmzdrSJD/f7K+8WHjdEQnEblKcvsDc4GQ5c7lMueu0lzySATB3OB7YClQeq7KSE/nBU5XSulueIFm0TTSIW4I8RkvGyqJgsFkXHslrC0BEvm3af1iYibb5ohlAAGYTShkWI7ljXIjWgIhtazmtUgA/+vCuPY4GcEupy11fH6CmgZUU1BjhZDn+4Zgay2gApOzdFIpDVRBgZwm/7pokiXPKpDKLL43owhHrhd2MRc+Cl+5huXmTp+BsN9pGU45PFDY1AouTAdcD6cqiGeWKRbrz5PUzhDDe43La62Jm6f4/u2lmXYEwWjcUXpDTNvespyj6sdUZ9jScc+IPsRcnrxKarHS+CL1+pIX1dnW28ST8nfaka8bzhfRGLNNk44RTyO0RelHCsx1FRSqPEAvRbLvMQGnD+WrdPxDK2+63P0B/zOTbBl/BqdgD3+FXTnT28JYO7yIw3wpmaRpDgL0uOqCXAFq97626D6UYTeVjYTy//R0BwWqEXEBcfOK7k6S5algF0F1KgsnzcOMSoGpq9dRKDDmxsM3hcH7Fd3/0d5VpSaNiYSN8oUCPrj5GjhFiQ9tASHm8jpuE43fGC+iyD4/K/FUwN1DgypwXwmUQTj7aJStuwiGQ89u0bXZTulXvq6AhGI85z8kep/K2HItsy4jhnsfKMLMZ6J98LFmaCMM84vh49eZFtROff7q8C6+QF7QIIIJf4oXvwO9lRMEWKT13GdKQN7sH7JK7HygSJxRNAb+Gkea+/J/0rn1X+bzfgx3QTbEF4lbwR9tQde2As0w3b4RIEPjAdYfvVKTAWRgWbGv26RuW37ED3yfgCiyiU3JHg7c8KaaKhLt8kdWz2WQQJYa7q55/yYDwdQg/oRTJF0SrlaUSmABuUsW1u+rsVpiqwzLUCt8o/sstcraAvBUdTbn+he7AV2VgCnA79JdjgzAtm3oF8KaEcWfkdFYv4kh3vAgfxq3I83+LeQMykUdNzWS45ZfREBE9MkxxQEghpE7PZaYP/OApWyEGoRVyCINmz69OJkCLBK70eKn0LsNJkTyr65MajsG6IJixRBcgOAnVJJVUo7snNj/cPM2eMpIarAOYksokk5T5UcUa3iVEh2oNJm/xASAF1ecXpfMtmnPDX+T88GrvyICBbcua3HjW//4WS3BERjVIbrWK2Kzg9fl3OYLpFWKgyF8ERhFEV9X4+0xBad8CrZONOkJiX8oy0K37NzF3yCzqnmMMxqQYFrhwpgowGtwPOOnofFpU82NTXddanRh8ytlj7BMQNBfJtLUQmOZF1/EhpXYOOZyxahwE7yeL85bsv87WS9+1pJEu+8pbw16NZuz4zh/viHYv4bLt+J6kH9m7kXlAfMI3cNAb4YBVwgSyv60QGeAU8flY/vUTAdcF0cLmGds0joFO430qmZDZvM6bNhTZjYbD96d3/V8ct0SRneRkPfYiIXytCh3B1txu/uZyn8m5GG+r8h5Da8QsbdY46ciD76gJ3uJ+GsLNZL5rtYjlOB4NasZ0suns2IBkQAfOCaNmw98P32sD4Jozoz+QcuKBhbUO09z+tDURYpEyKZl3nfajWIBG6vVuD/NcdbJxEoS0V8Lm9QrNZzcx2x41U0G+aw2LUBaHrbsSR9OXvBrSeCgRWfEJfqJq1EsvoMLY6ll6DhCmo66Q1BPDFDUDRny+9/p6mBiTMbf9uEC3bUAmmnwLu9buOA2b3q/h3MD7OtNc7ClJKWkS5fRlhC+ZRjtGRnEZ4gh8yBzQBnzKgY+ipo3/DYG9i1Ire9j+xK5g5IsJ7uBRaQywW7PMMD3BocjQv43fc/ij0wd+o224P8mHpTmjSAyAA6IRxOOCln6e0lucTuNCzRh7UvvtaPF08Q5XJxpq/rNRfrDY4spuP4/gEVE2iyA57aEIdhAb8ejBfum8yvYqFTx7YdI4KR9LgA4ur8BpoKtlZjyoIc7xYn+aLi7KA25tdbZtlfHj7L+S6wyAj28Y5xOmwW1p7vRAvB62qzSzel0y0fBHxnBhA0S7qmmwhAIlKODvgcmYi3S2uoltNxwnVW/MaDBvpeFeHKIAzemTKOFyeuRjlRoO3Fd1XA5V8fIgo+TXphjqSFRDnSOglgwFzp1+mXHiSsrWmczt4TrgraXZRjxUlgIC9ELbOa212XZEWtf6kjAkPDLeY9wMNP0ZQL9gWgCQoAn4BaY/tPzwfOu3OLDWAh19e/C0Cw40WPvGFulFl4dvzwsSQ9cpQMw+ZVNnJGCp4naGxlIM1BMX3x4fHXdvv04XZ33hZWY3yFteChzQoWNyxdMVSp+n7/5dtFk4ks7JSl0LBKoTCkaY7bdzgApM/3s9MztPQdb77jE2fcfMUlJ2XrNVs/HJGUJSM+ISRyvYvmNh/EO4w4lfkcYLuhgiQh8kikk85XUmF5A6Dl9kjIw2iydD9R7PtyLvGur7Gw0Qt8APxSVIJvdSjHes4x0dcN9h8U7zVJDf3gNVFb7T609qWz/3YThi0MbgWWVdmRjVn2AjP1KsOMY8l5rjDi6DrMN0W1rxBZ07WOrqS+FPs18I/e94Y2NoZWECwbgFuO2BsYz5z64In1jIqBvG1urkNCwToaBJL6rIugOfgqG9mgXaLO2RHVZEEHa3Ki6YOck3U60BmyH+0WK8qu5ozpm0QRLEPNQYsKILawkWaT5Zo6ZOmnVLyS8bq9tAZzw3CZz5oONiN1Q753EmyuIYBfOm1wieABGjmnlpciDKM5SgrqQVflmRtVGaWCMiZIFV5fc8uQha2Lkg/5ixjeVWn7cszP3lnTbAeaWqPgVuJ93ClSeCa2GJAT+xY5W86LL3B4vc6XUelQby19Mxq2HrMwMKyCoNcHHFF0PPWnWfqeX8mPUP+UatqmeEffXs20fzT5dlIQ75u2aEnjazl00MzCGw5ltkL/GwXtxNzJgzOFOVoPB4AdxaCLtdt8KBHHZIDm97/djo2KOxkAuLAOLQSsPqLc2eTfmXycgGFivZ5u2H6J76fSzh9kGrBCXi6O/DGtETMNCpg482QJCFk55PztSkjNBEOoeMIPd0uA4LDD8wvwDJ65zOWwnPuO9qIjBR+e9U9CbswnsezCipm/k5ZCOpP5g7+Na8XKiDmGH7BbEGBcTM5iuNm+Wb8H0hVTVUH2jLJpBRNLPZbhak0WGyvscW4baahGKvNVlCM7w4gGNBQ+PT6o71zxbcEVql6sgl7hgT1LtZAj19mFntqiYcnx9zE12MQhQDAYWD53jleQjn8ERb7cScaMPmViJARYIFS74KBCLXGpfjNrBOx9uwtgzDfLlim/DJim38tA2pLUIhM1EAiF4OaMlWpAHeofPGh5wYUY9btGUgFIyMawSkFn5wgZUel1PFdq9iV0T79sl7GpuJHIiGJ4kOg2NTbkSBleWwuUG2Q8wfmMcKvdgPuKl8gH0/J+Icuerftazwq+JoPp4eWDGgmebXuxRsT04tOx4VqFqZeiQos1N9g2d8XcluDGUMdOw5aYLfPK4QIaca5U2Xp0+V6idO4tjAPF/J4c7oZiD2ffnL8YCbfIk3SX6cyI0rflRpnO0bRF0fdFhM9TtGFfgDk8qL10n+Pk9D2KrLszCdaNTl4okt2KenzzX/NVYnKbgiAWsOqvBtbQtxinUciZqzuck+PSnQHIeFQ8y0nj81FZiCDTi+6AJJVqMbFCYHMn2m83iCK4kRsgcROvZ38bmHxAarRy4KC9FnAW1ctcQQCtaXxJPM4WH3eswIwFV/hbegX4nLWlf0W56a+tPtYt9ytvGq9Ie52P9cKqhzhExYGABPVm1Ed3o0O1MHaERSNhubtQ2s2vvGOtCIOLwYQjfgAlUf3cltYOA5wEWmHSLiXLToKvktncROGx/czutMd6EAvHpOmOupA8ro9SCbB9c34zMyjp9W+Xp7bjc0WmCUxX6LbjTvp5VyEGza2eT+WPyu+W/VzeEFczCyui8W6UJD39KNcCXNXDGVRFnzc3KvzHG/ICeqyvlCKgZUQpP8qQ8qxxri15o7NapCcIWebpFp9OBra1zJ7i+l18B/YXXd4VwT0r8CXtlJQSSs5ffn26l8lCVGkPEmecMGJSfQ0YKBWcpVmqs1vGaXLvNb/siTAi3uJZs0racgtdVuHR1bmAhyeyOAXPPTKe9oM8ajdpVRiBf+c0mqJqWY9zbveLxQwA795Fmb28loPuBLouq7UruSacfol10SJvoUc4CfGqHa9t2abVXeA4Op054xY2lGVF0Gm2oqbyYUuHenG++z9l96lyA53WgAIuQgdB3S5tCg4pakh4j5+nVyyfEd9TzSDJEusRng4kJzSMiB6cjaxMAfdN5/Bm5dJd5qREYGPhs9riJGBU6KTB25ALxYot7MeJ7p9mB7Px/gyiYLQPu2h2tnlg/Zt5jFZFgEYUeAUFwHOeySft2P/28ec9/LYOeybjCVSAyZhFjQ0myllPNUZWBn0pgJTdz04ij+o+NrFk2BILn6rYOVW3MDmcHtjx55/fbXxvE/EZmxU02DFWqXxBJik7E7uc3FAyAEKiNyCnL/Di/Nku0/LR7Cx0lEHPR2NDx6zevDK6JCQps2ou91NDSfLzvIlscWifcR2GlpWaxpGHEibaciKAAMMpb63lV20EeP4tgGnhgKk9tSEI5/Fke2g5yk5021eqh6HHvveA7lYRo81kNlxePNC3SsMqI+or4W7mK9D655MM2nF4hmTd283+XkmQdOKiV0nnC2gLA/AdPs1t3JqGNRtdBJl8ESVJDGjoTg7veJp3xiXnI3eiVv7RwIq7pWIrzwvUq311PD6aXyzgkT8r9zf1qy+VJwhlud26cHTTABViMeT8tlitudO1GRbjpXwaCcteP4Z4L4VkPuVRgdAfxbhPgwjEe+mtDV653O7FHWbr/fJjM0NCqMfsev8lBiwjNrsA8EmRz9u23fjKcFnFlQhceaeeLutvG/h5ocy65ZA29M10cGCkW4+zn8+X3BJ5ldeu5t90loNBZFpyuKwHnXostRuAM+ZUgmF0H6vc7oaF94JZbmsj5ein60VHHz3tnc5LG7VXs7QS19qZbGf5Xw75EHWLJPhgCGSmRB/IUpTIIWJn7NY7csfLyJbV2FE1Wr/q0koBgjVcv+4ZSudYm0Xdr0SoyNhVKWATjQ3jTaugndR2uxIWB66Ki+rHxUUKiQCgHSm7b9fRDLSYsqa7jbIO/dqMSO66n40eFIWqp3upO+tsUL+bOTO3ibUhHBu0a24TC7x3dYGhFfE/ljZ63f6FOavb86IjoxVubZfqSsxh3PjX7kIRQmeBKA0gXW0ftGE1FIrcko3ccMp+aEYtLLXpPpwHhz5MzfoiepSiMnkowH4IZfgRHF13W0kgSEebY79R74AJxLddzEt6VP7bcPkMtoGVvYz+mJb2Gmbbl0AfFHAw+pzaqAD4CIWOTpslxOVnSwlYO9vK45HF6kbWF7L2394v1nTwx6BmRLVJPEP1tWcSxymQRblVGzPOK3j4N9vMmNX6ziM0U5cBU3LBQH8z9tQBZGu4OE1DBcQxJWRhBxMc50SxATGu9ThT39RX0BJNXQ1bcGKIiZmwlAsG/m8Zm+qQJlmmMQC13Ok0PhAgyMc8fJpGqxjWPPgQXJ5O1CzcijtSkHev8ihPQwy0Up2Dy13NkeXvUwF0495kzVvKpsxjKIkVdToX5gDR2/gfJgNcQQkqzGUjMDZ0/YBz3rpy8C7HI2Kjd7ALVUK1rfUQ9esjlFol3OOvQF/NO/Z05EHsGBS+7uh3XZ3dU2/u+YyxlgNdMnGi5Zcr1laICgwsbgdmj2u6p3w33ZHjwf8zUags8pWBHrTRHAzidfwLnLqus68VfH6c1JuVDl5g4Lgzxy9ZN/SpfIvi++h3H6PrSVXoiLCpuVxPRnPGK4i/uQnstMDOwLTRDoHvdRaNMeP3UDRV4g3qjyuG2vtAlwq0UFpqEuBF7ytcozVwP8a3cQLocUWC/0Q2hFrlq1F9164MNFRwxJvPPks/Zku8doZdta//0C0hEsjw6wPDCxZAbzghEzoUBZweaZKNrBln8ci281nZa0SLRbeiFPj/sQvn2FJKoYQD9OAYgy0JqdtBBAQ5+pLIJknSwm7FC3WldvSEHhnScJNb1pis4LMqCxwIcB75N5gOsnWVJv9tV9DKSwQBLmt/f6NUMEd3vWJY2pnY8x+T6D300N+o3vkgNBHWrP4lrczPZE69EGt+rgK6R8Y8E5SZ2VJN3wpiwtUkXLNNa6iCa4Bz571C8afitYwKmQynoO0FTAi63rEawYIKkaJ8kMMSmfs2WuvMRkLv3IbEyxIXK2RScdpzBwuTRhSyhlvU5rm7KgbYEYUKwLuxNQLZpnHPDgzKDlqgppb1KNPu1Hbefn7YzbpBuICIJIGeKtoUV/Ydmqvkz/YkMmRDosqrnk9lZcgmNUqbDesz0AuNX+XTQK822O58EZWz6s2OfgBkMzvSCrL+xnibqvbj2wSRW9ulYESwRteO90/ig9CtlXk317674IdevAyQy6ULZooqENCqBIldepaGnUZglrbGhgTpp+Wk3z4I+5FZIGe7VlulXwR7c7zWxgWubXpvrv7gz8NbEwh82/pVLW7SrBIDLppHndO2vOqLVzbbgNbXLU9fDWO/MoPPfGXYEf7YLmnmt0gSstQs9cWUBIKLeIJ1rU3jIoviv03uS5AEveG9oWCRldA+Kk1cil/34byTShvGMuvXSX4tJP5K+mHAhCd4AO0QLzX2Z2D27+TXpbj+VAiv8xCLOPx2y9/rln5iuaho5TKPEiX01ZkPnitaZDTn+vrLCybQ097yTxgzNHTAd+eq1nnVAinR4rkCjDfKtYH7nBVFPbn7S5C0ndYp25LhYTBYBIJVV9eWdMiSF/79sYsDjzsiE6mDf9yQTSiEeS9qToeqXAl9LcoiLU4cqDkonbMhQTuDmrYLg2ksrKGgSKiXJvSnUlEoZwYsy5/KlnADu5iUwpuZvMV+yoYi9fs75dw94ciry9vHUx+U/qm5btRpo+RVyG85LlIGWxMrkG79yi00r8USrVVv7/pWLKg3cMull3CxKiTm6yZ90WlqjnILsifJ0wFi++2QrNiDQLlSYwukDkbUDz0l5WEtypCukd8BRiKC4RajtKnkAYdWSqr+xyirTLdwgDzpz9kCrxJAxgWIklMHX0edqTP9aONqTVQ/8SSbJmp2DvjJKYlkvU8s/XE2n9lAHsybqS3jyeejKQfqZnb1JlNfJTvBzDveApwLxSj6vMGJvtYisCkuBuP2wIE/QwybtY48otQR6LnpLG+N63ErkecDQlcqjtbPy+j7wG+vSCUxFgOyxUxdfPc7S7ucLMcM+VX9Y9Fg5lBMeXoqSRo+tJXMv518NNf22inFehrqq5DZq4iNaqCiyCMyZu+JiyDJMhZlYNrypNactQTiLk/tFvHvdSFVNXppbj8VLk9lIn3H2+PwrDkNuUkuNRECBiQsWf0Bj9U7CELiyupf231D6XR0RVw0t+keywPlno4rtjtZROvEuinXnXRk2kpPdclU5exbXpBO01FogV0bVPfAdVAsF3sk9MkTqkaXsajEdRpE/7t0ajbRXLiDTkQ7mRmB3NRBPS5kB07qtqz54dm0bqU/ZwugUsQ70TsgXoez2rVrEGqMYg0DzSGwDWUmMPn3MZUCmsb6UqeomjNs/me/uVu7FznF8KZPtvzsTGSmS6A6IBMWN40h3zzjYhEjR4bVFirzKDJhQxTMfuorb6o3XoCE7dncB7qeUUQWtzYxSV3rHUoQd2cMuL9ji2onFtppwx94BZcqQSPgFsLGOgxJgk/MQY3ovBE9JKSYytRKonnrN2fV9vOQxtZUDiEai3rwP4gb48AI9czHV4TrkcYbI5yUswSUtxvfYXUeMD9UXVuPioEVYyYC9L5vXmdyGN5AlgEQzfnzFsg6hepZ84Edp/uLXb4o5p2IjtcnihbAz3pJ/ZrOmVjk7oB9Iu7QbcsO112w5ANTtgCBI5oGrwAnP5Ajm2J8CEtqxFrunsTucm7Es2HkTyKjtQHZ8Qq4UV+lw5+cIgt03Qg+RxPkG4YSkrUKQUfkOy/8CoSbwrUt/6Iem1c3WgujodUHOPyRumZ5CW6n8oYM0eRYXJsvrZNOzL12w8OYlSZA7NFMvgYhZ4+MXQK1/0fskXDc3xTXyKod03hfPguV1qKEYVyK0s0pnBJkl8cgPZ8oaVuJas3IWdP7XkpVHBZQfPSuznD/0sOdwkqEQIMWLfjI+ANJJCsXE56ugHXIAcszB3CJF57OJ368gkjyN6gitsmPOFfz2Gjx0HzqENy4tMj2YuWruA1UPQ25jGwhaQqPBnW8y3UYH0hHG6PxBrOtYIE4Etqim1gxbmFuwHEoLKiS0MiFawoXP9jDlS0Gn7jEoktiZp3F4NXFGeBbF1LAuH/RSr/POaPKiFEBzKKPgXMgWVkJqyJg78nlWYgVKo/y/ER3QcstsA1QAUzPqtcgZg+9crHb4xrBk4Cg3zlZm/aM2OtkU697utA/suiK2I+WQ8lbNCWVfPhXeNZk6NLM+RcQGc+5HKbBV3IIMGNGBlXG4YvHJmfzuMacvAZAb3TGEsa8bvcmG6hGwltPtr/GYDPbyo40qrzLNzQm2/aS1YETwC1wVSdg04ZRbRVdMCvw2Ujuo7kHSrp2T5s+iOzpKcz3MshRyj+IFUHoOQrlIuyf+WNdh6ixIG5pTtYCYWLqPtV6V4R5QvdJBQpLhVPjqP7/VgrvDXxKnOlLAtmC1Qt19pndsqYg5YZTEL49xigonX8GLJ2fOpg65oOHXm/kOT5c4ImdklFLos0MzCGl0uziX12t7rSdhDY+k9tHr1wcZwlC1jUrRwnPi9TpXbQ3wiv5Wn5pzbKqgcrpeM0VyJBXKLDcGwmsm2kxHjVqxjEyfv3L+oCrd11HKWfH7hsfH5XhlsT6G7RLhNJ9zdPJx6nALGAJUgsqCciAlFAx/6stYFldnwAXQYfGMq2dGTEM179wan5HqP4oAqQ9iRPi7DoHu5IVreg+QfdewJOJaje+17fOhZ86TyGP3TR8vmflODWUukwdl1Ew6xQMh+cAmBk+qFdia6FPDqqnNMz0iTEodOTUZE5G561MinqyJT47RyRUg+ygafAFoQm8JvlA/Xtiyo9kBLLM3cHZZFZpDlkrGb/r0AmYralvasb3OeHnY6l5mgAe5uIKCIeDSa35904c3443gahqBPIRSjyCoxgUF1Plz92gMGPZv65X4VAcsoSxJ/jk18J55FTCN0DrjW4P1H8u9jXgb/IONNNB+4Aw/NqWrh6wd4Mpe6dyYLe2aePghbrxJOcZ1+jzFq61q0JNOa0cUDg3LJKIWVpPRP3olhCnVHIuKXLm6uwqqmA8I+SqYx1DrudNOnMb60TOEl74g/PYNO37vJobxon0SnMPjjbJ1uDyw6TfVqMY6gfOzWUmy/NF1yEyG7h827pwK6yqvbLgq5EF2SsQMGTSkY/ZgRwIAJ1btLTWdc2B841voEXCJi2oBvFBfuWplZz0U7yFw+MuZO4x0eq8r8hpmfa52cJU/vyY1qJkcpsYBO6Oy/p47ozik9jZLucMtAmjDenI3wSN1LKmmQz12NfILgmNSFPnP1tYmsba6QkW+HrNe01PKNVFm5DxHu4pcUt5HzigciLl94OwjMJfhZkBuB/djq4FV2RWzFf6yK0qQlY+r3xjtSix1mATo7n3UrF/lgLMhcsOV8TKtPg/86FFe9tfDQl8etVV3ynCMR/XL0GlGw1V5DHMigpdfiPX0IzfYI8dgdo9A3OcMHd5J7O/dvjaXItvQxOGJMBQ16fg3Ithg/AK0uLPdVyzO+Ue8pO9KuLBrN3baJWZFLpWUYWa6ahcX9iI6pNEsVggRjrcPSHkUpt/1d840yXSaRqWeBx0QQvc03/B+8TJQRlcwWOFnfYY1qPhl0rLvmC+Nl67uvmUPD0hnTM4VSz/oNxY2ximTJ9cglyovMS5zO1x/AdCVqcZ3WWJIebKqtmew2gysmxhN9nr8WtStBsHtc+NrffLgfrn6FBOsXM+KQESw9SEDulQLiI02crhJ8kvmJedpFydsLTYNODAwQ0Cn9C7ddj/jI6Rk7CJDYnaL/miQjNF6u4oDNMi56ChSL3cn7BZxYLjx1PIkhAlhdeb9kPpeVJKSaZU4glaw96qvfFMrwXnF8WbcTESyhGmK1iM0qezW2/57cjTOBtioeYlMoP5Pd0gEAEO3bOil7YFQdIa/fMXeDQi4VvmBYTUh3yR7ypFgf2Ym8eakQF7cNOwSsOVzN+r+6Py2MvMBI+ngwMvUDMqkBTQU7JgXGvgKo7HjDEYxYYz8jHtjPC/YqCMqAagJP3lj2gbc/Q7Vts/nd0dX6n9W0eTa/HgVVDKh7N86F0+uEEgAcRPjfoOSRPD4Crdzo0Mw7YKTJ3P7dHHEm49H/jfAfMHiW73b5+BEYL6t8/y7x6qlU7wiBIvCBJy0R4NlKAF61imvvnPfneKksleg8eWdfdxwiC2Me6sjdHleyJn0KtqJszw8LPKah+B6J/LL0eDAE0UicC8y+L1JJepq6hrP+HCj5kRaW4qcgz2Fzi+sCONjw4GqYwniwWo5WsmQgDLT/JOFhqwLa0nrRY5A77eqBd494W8dZ+FNmq3eSx09mj4i3lnbKtOVdDvJVj6dfj3HfSkAgRHRbh21acL9hzJ6/MF3VcPUGm9kRfnrKQ55DdPv7HbOtNKHWEO8bsI4WAjHrxAYPMH5FvnNu7fi+9xvjFuU6qquviGIMf7JsLy2dKy+s7b7fdz1VfnZ0f0O/aHTDBIUbERG2btN5JUt/uI3l6we37o7MgfTK3pwavMJ3239OYJOLuddrrcR1zlbHAfHgFMM/Cyr/zevQZOKCbvy0KV/UQp0vJjrDjSyBSAcsHai1KSXMO41Z6VVUZs0S5bLPifCe3XN+zsZnFRXojRFH1WbCqvMFffPwnRDiFsiLwSU8vcm+rhJ5MIvns6MbKROXhE4X5tbF42lcMIDHTD9SqLgUVovZvuZHeb45iT6LpclfmyyBYSYVaCOPo9D7VFvqPjKNJ1qPJuz6QQUNXUEzv7S9Xv2WWpuT2UVYJdZTx3SzrP/U5DTOLKAV20d7ySEm7OzrzeJNtU9XAl5vPdxw99voxe2bSXul3mwjfx+BovSz+0ZCBa19uTWTiNKoXFfSMescz5bZZ8P7S8mmeJwnB9Ysau6viTvXVAY7VJkBVguFQFevrMIleghUEBpNf3NKre06rer0mx45/d2um3JzUxgqoVEhoK8Hn1vHtatfyyN+iIm06G3KHMtKYxrG5nDyFayKpePBBfiilC+MbyqNstfCPwnQ/Xs3Nh+qAk/WkMBzR4kFCAh/cgsEDBJk2EYHOJdDv8z97KszKkoFLvf5ubMU2PF40UaVrHKAwv+QeJBsbvhRIXs3qcZ/jYj/O69eLjhcvA3a8kv1pzh6fHNOHjHJfG/LpARDCjc2q04Jyn31mWbK4UbWJf4dhmX+ngIRrIMLZC5EGbkrnc9K3mtKAIMXvYytz8+ROI4cuyPu2PwZRg+IJ1LWRHuxIBOGpIInsKM3DVkxGLt3/ZeclFCqU4oY+zn4nFCmVjmZCEnNwVDjH4umyz9fw4wRowGbJiy0WstjomTBqjgDjIK+iY7qNplu3vv9W77S/MRlJ4XQ8xYC6MHU3/VvBJL88OAE60o/ujErwsRE8iWTKZrUpAbdyqebD2wKTitqiMHZxplE/ERruhGQgmHs1X2hTc5rmFmJaP30UXsdLpXp9Ew2obJaZRa4IgPiYF4KoM7fc0BddvVKde0d8ZyvEZ6u8uuFZkkQs/UBIf6BateinGAsaBM7AuJ/0rqqqoen1GjXSrglWJMh5WZXabhk++RKvvu6pfr2WQvDUfEQgP4Jw/DbDknlZvEUlKgG2ZPRIT3JfZ5mSaHADXmy65dXj+N8xDOl7K7WLSBI5drBW/GA8WYHPKZawaT6lI3R5hXuDbIrASlZhTXiRuHvzt+T/aoOmW/GBGPJOaXXogt4W30z4Gc2otR0mAuCKZ6Upumu0wtA4aJ4ZrqBNTy/zhNVBpYqC3Mi7QnQoTnA43dXo0tAlM75pN26hDkSF3W4wRMpAIHIuWPhUKsrgUuoGguaT2HlQ5wzWS+Dg+wrvThlNwcPoE9EV0qiIQIPgzeG+ZgDIM2cUIUDc0iPdDAxrWWCELVFhX6Lm0/7oX2AESYEDE2YwRt7zNbr/vpWEtbRYsFaGIQje5/1kiYaHnbt96wI9lj9CaSapmsZ6tKsi1/2oyhUhj7m305GJ41O2pRQPgFPpwbzdY18Tj6ykbnjBGNUS0+A1iqzLt2PEtdBOG+VDm1hKHq+bJdkN8+3A4RWBhldMSD+6qsORxxzEhsbSg4S3P9QyCxCcZe0gGu1dfWZqoNN3/BurUc2mkAuJQl7CXItgJNe9lavJyWIUTKlgJsfWy+nqSmAxM2d7KAyC/f/Qpv2dZhLmYV01CpZKquh432nZghT6MqVGezVCrC4EYGnaWD49vY6tx9Y6JpOR9SSvcvCeZdsGQstNmhGWcRC23c2kf2IZsHbw3Xo4HN4MTi1vDbLi2HbVQGe4IL8re0GeOWVV2Jib+BQdTNJQEFh9rXR0XZ6zE23hgvSW6HMQKHUE8UMxPJNwcSxCKrnF1B5QTcYVCQY9TS4ukBTG8o0KwepJhl2T+ZnuOef3cE3j/iBU9WhryCsedXT/K1bTVIkBxXoe5Q1Vy48siuOmSHz8fBjx/t5XLUj2y8YYNQeuV3qZEaslDhhFtzKWlhFShOHUBNrYOGyIb4Y+Q0qicfu1bIjxwf+2i0X6qQlvPDd7rqIRkmBkh4V3ckU7+rSTq7mxik0eCvifypwKWn6JshgyVOrFI3K7imlCdX9UGDp7PVlswFL+acmdv5jJzbSQifZF/aClM4nirKQ/dTkx7TccWs7XJ274AZu2sx78Wz1vugGG9Vl1Z5+1uVCnJIWH5KVLeeyzl13jWPK8KKxusnCZDoomecPZy08VuLAW6438+JF3r4hgN16i1Pa5AMIsxUr0s4dl/V2p3Rcpn+oLSLDztRVUfiuyiyHvLrBqxRt4TYLZdgZcQnugK+sevxKckRNJ5aNmOon9sU7gH5xm0pSU+2Qv5RbBr/InMaRxMxDTjaZG9xnjRVmhHa/hq5iBlb5WSi0mqsvCH6gei/zVB1ZrfRFyFFmLYGYYAF+oPLqSbAFcQQM75csTV8k9ZzRxbXit39gKwL6+m2zBu7oGg0uESancZshx368909uJXJXm3B6FLz3zHuvsJ28BqT320qyzR9h2Kgw1Ulq4YPlUs2f/Mn8cpLnIqd83P0BsEe+4qoc8GJVGA76qcF85uB4f+G/LIokTVuW1JlSm4OLZWjeLJq5RU6nkkeom6K2xnrqmS+DP3V2cypxcp7uxe7EIZwBqmK5SjkeGhsS92TasDUu1lId1uLGmPAItWUVfQr0/cVXO49C3NOSBmLVVNI7uvXrJDoGTp3UQrWicM0Q/QboX1h2y4mWxPKbaZmEIxi2Txk2b32fVcAcarhInusi8P+j82qpUynr3AqqBp6ri/m1LwfpWHTWfxzoENPDW0H02oejJ804Khy0sUwZuBXL3T8KO5xhsCP4DOBP+MoDo/q/Vnip4YiNh5x1N1+v0ChA/GSZCctGvp2GV87mp1ezKmTWOErm6+nmL8Qkx+FVjCzfrPx6nzgrAU5O7ObGuyTG9lfXS4816JwftTaY2rzoZc7tFyhHXCxjmIa9jlgikrIWQ/9mSDa684IjX2xRic6csPsa+OU5nMeivttRYydS3xbQpFA/sShJs6rTwMOdy7MJZWFiMlJHicnyT8vOSph6PussjCBxA8DVbumBl+Xq88iXRXyoYlXKIttZJkigQyOjSXe2rUU3l2W7lT8UQN3UjZoSVMas09B2sILNWnQLT/jhcc53iltYG7ssCjUNkGbN58NgZg/7v4C196can5yz0sdWMHGD3X6GHU7TnHVRvbj2vkoaH1l8+aS7KkeaFKI5+fV44UNBYMO+kNN71T2YGVvMuCl0ZAv2Q3FHm+fWEapPiX/ZtqkqWkxLSyd2+40lL+x02+J/Q02dNAHPCUPgZOMrY0oj89F+gCDdPt1jHJj7rpCTj466+pK7+h3qnP/hgLzpDUu8Pk17DzsflpcoUImlYnz3ooUhGOGJwVs8xqyy/NpUDPINw1vBYX+XcDnYb3UYM+1D0DHJZW5YoFSVawlGnzuZyFoJIg3NtN8h4dSUcz3PzAn/34ITdI4JHkf1nTPWZ55e+gyOdEHJ6Yw0QFoS0Fq8qPn2TUN2T50E7ROtM8tmC+/PZ9uO40A67D+8QlHVc9sGSU1oCEjKRWyNqqjm/rzKF3Sy0iC0XJPl2GP7SHQ6XGteGRCnGq+7Q4pM4wYpbXwvjuOklFghL4wQdHJRt0kpvaqCmG2Qvnn0vBHTb2lqdH5EfG3POnFWkc379b6tyarTia1K/MkMassLIMnn8oMfLihylmnquWwmXtuoRE2f3hgY5hYmiqeOVbZpn/gyUY8OBhR7kGDb1CV8tvZiDku13SczPBwlpFT5jlQGm3gmx5hcV8cF0sdyThgLtwp/PBNigyoJDkCLXxECElhAkzdXu90mCIzrymYw3vpLfQrdFOzou861VgevMWlQv97cg6qqolsQUWHrXtGSlnhobPvpx2WS/ickOA2qiVOGdNIYBl9ZwZtIhqRr7FklbxiZpg0/bUTi/XuuLHMtZL9eXPaDWB9VfFsqdsUu5TovnIM52hrx4Am9m6Zluwo8TBdkJXTfHzeC1v0y2wpO3we8dFm3N59QkOWEqTrqDSpo8aej9n0A7ROL9h5znrusVWaSflaDVuFnsatwgMsmaioeFP32NuRWnZx87pEh8j//fEs9osCRl1h8PJT3y3WS7R8bwgJ5z7P7bmUDi5XGzxE0RbRyw7rCFiwEgHD7va/WrI1sJNxyD8frKWPH1qNk3xKWXEzmZ/w8XYyJTpWrGwx0q39VkXxyII3CMfXuIk2hyG+KpfiTfSAVUNRXGvqKJ0sjQmdDcSdP4iYer75O4FPTrDCuXIfUGKsWH8FNn+0et3o7LulO3l3Z02F9P2mufQmgY8X1xzCnCMUrXsq+VZvXGbNIVxmZiA3+5o9h9rfBEKOrgakUgkSB1S34tmK2QgGZPDGG9ns0T1lVSJY1Akw6zISgV6fCRCKO5zrFSOnOAevSw5Jk43g3RwZLgofJXLLvxHJGoR8zRcuGnQfSj+JKNSw9a2MUGUjMfABVGsTi86T1aXSSll8zpAla1zegB0i4EhxPLXJfYeTxkzkO5hAFT/hTX8vp5Kt7F0y/9As7405X+8HVJOyeH3L1sTbWbXyqTcmsV7jjJZZmZ4dZVICdMMsh1ZQokhcFQoDYMbMgxWL0HPvMo3LSQ6zemn0gHZmipHvffJF+4yyJUYG6O/TTqVTes1ba/KeflynLHWjsNye2AcPp5bfPx2kiyNYrYt/LX6O/IqjUcFdowaSo45MRGiPU0Dv+1MmugKe1CUlfcwB7Z3dTy1FsFA7p/X/ySVA1VKEjouiftBHsRDlX7sQibe4vfTdNTkHaMHISTlLF3owFQFkSFRNWurXiJ1DuE/jvP1QCCWJ7o5vY7y2Y65YfM+33afnt/H5fTBA4k73R3EWwDbJ3kJTkXROFuEz/Iq3gKKK84EfHM+2W448Fjy4/+6tr1lsi45HV1xxKtZKFbSoq+EuVSkXBM1RedJiOIMZrFutzU7ahy3blN/0aP7XHHlqlA2hvT9fj7gP95KkPw5cFMVt9FjpsJTwBJm5AIu8c110djuWLLk/W7oPREtyzzLb+pb2INIPra0EXjnIfr2j49Kt0w384ZMI5Nv2T+ZqYKEcfFn9PNX+wbeKzLTGsdgq4j3CJIrFkjHr6jKqDuJ+so9sJ40RMa5XMxbFC0jal45jzaKjaLy5AZycklgrC5sl66SJuvqYEd67BYQfSCWe3IxjfXIi9XPuqu2VL+n17STyBrrshGCN/ww0QK+o52RS6gC/nL9RMR8F492/7BwaGzALqeIgy/KOBxNIUIAyYXdF7K86GleyP6koLyRlyu7fXDp3AVkBmmp8VSTIeusOIJPk0vb/LSB60yoHZEir71lMveQre8H2YADQM7F4DJIBUwwntkQl7u4Q42MP3LCVQAP4bIseGVqyeN7SWHhIv1vjYQipgk/tKY/c+SWsbXbiA5VEPNlgOYBqiObcss6XD1VSbhgM5rV75s7yzaFFTcduIv4bB6raaT56D9xpebhp6aDo1LT9GstEYxB5LmitMf3bqsAtArxGX7nHlgvXJkY+KmdNC0nRRcBQk2OlVchEPqCgDUZqJHUYxRkFSTQWw8ZKG0bEEQMar7jN1V4uWMHRAvYi2kbsVaI5YXCTZUjR8neK5+5KHqB4SHiqVqPKr9aUorS6jDa8Pm8j86qFX5/lm5hQ0iusx8QYU/yZyPld8naccnmEo5IbNIibbYGy0rY927egz5IvQ5iRCOdhEP5dBRsC4CtmGilE0b9gdkrg/BtTG8c7vBgbXNsQxgdD1v78zEYkfGbrvy067yzBbZZdVQY3Bb6RpUjYfU85ggRrem8YU6Eph6Ki0JpSJlUaZts/acS5Jx8WlfTeXTiTIJkNZ8zJzRA3nFpc1Htvp70LAFfozULZIzz2GwoETqOEJgMtDp6uiR4nVLrDehhbtTLMpSQBl0+ROyFsLqLCGDH+WaiQPU8hxVa7hK28nlFpWagEHiuC20Bd3ODCcbz6GZMbpxoBi4miNGtB5mYZQGp29cQr3kH51LB0bwAuNLMs17nIsx1/2OiLwVPllk/V50JepQa2qo0IXBMby0TVvCktFzaIEPlArA84gjeYPbuLTsJvo8qY8I7TQU8qfxEhsZ7BWo/7aAezYxXg20khr48CuEtG6eiOOJLbzQvznmPv26bE96/srPFQ+U4fdiXx7u0bQimQNoZzlQQ3tieOn6L6nvWJqUnl92Ue5SJS/9cFlAD4N1jZ8WEyRcpCSUfQfg0vxZ8RPCvKIfzOkFyqt6uB2rUNcxyGxjt8p6EX5eZegiwcxP7IYqZSwI+0yQV6nJWOcBwHSigQqxi6TXnlOX6XYQcyBmnJLnttdopuv2FhqzLCBsCfYi71/JO84GWPXmW3bGlFE+F2d8ahBY87QnSbQR4vhi4Y/KeOwIiRZGu47HjkU40y6jQ8dI3jR6LmxrZ5lFFmr0KAwL0sQ4V6Kv9UPyF0y5R0i73MLre8++AGjqyMcQdDlB9UA1a2Bl0/9VPb6OYLXd7l9BtFNYMnjtF3rjEWCpQjxG0J1foWQ5TwpxWeWUk4cZDf/WUFZo963LUt+nfiq+3tHLcDC7alITE362C+h+7uKN4mWrH36/T8gzhbfWq07fYg74Tci1UAHZOZ1Eg+RYo2Uw7BxJyfdzzxvIdTiq341C9CWCDTxE9nMpeR5FQyxaE83y1mvd0dwxqxKneXGbe/r8UnCwstKggNjKgmkRf5NllGReXOD2qe/HCoGX5buzogZbMIg9JIfdC9YpFGJYEvBczsKNp9TaCczZcLaPYtIs8chbamLOI5n93INYLs/i25IZNWaGxp26y1NqWkz/IhHwIRNE+HhtNWZSvqmspvwXMLCEbOWkXWN6Odrt4KqgaGm99Xj1GgkdHqfcp9qFLNdETnscLaaEf3wIx0VNxOKlsj+TfYvGXUKPvIw/GSTdIZs0YkdT4hYPR1aooWDRHOaSJ2VyLuOvmMmJXK0obmvVzlzsL2czW5E1PJJ6GyVCof8cfflzqzKuFRQRxRZkptk65DTqd9R6JyZmO3cmtN7gkydEaNUispfkyytYv7bJjrQumf7y0caqyjVtVgbgjo/wOCYoNrMWA2BmAvVXTQBvjmzU9r4pEJ+V3UgwGF6oUAoxCqDOJ03glMumm58cixNRTVYgW7+j3Vsk6T4nHg/VKJVPYvhgIuZxzE25HFBfz9xsTGIGtqJ5S8cUwMVaZBq93OpFPjxl2HFyyC+rXYpTD+Mu0Yfv48t3jOTdpxY5pNtaJsKmZoqZO9U2y8tRRrAPiBsWh4GmEQi+O9i+rkeXfbpf6fbCVXcC0AOlgudc5kmRi2KfixLb6X/bRKZSsMGV8ckVOk84QP8LXusUKnRSNEEwXjsgRXjTj5wpXsIHemd4ZU4STZ/v7Tctt969hjQWcGtfc+EOlVuj4Txq05KL+0BJs72BVGqwsxg/lJdvNc9hCskZmKKjb/6Vr6C5JOxeGtwfWYHTxt+97aBVIsh0pqKzKArAMMTfgIg2wPixYkMQGYHpg66Yz+4lJnpm9tzCIU1M3QY88UBSmymAt2wt8aFGjHsSGaQ0D1jZIH5kD/ra1L1/9jPI3gUwDXcqX6KefiHbAhaqnhzpGPdXc8lI7y/iQzRLDzd857AKn7NRiY721RKVTuCCSlXKKl0GazLMlQ0MsBGCbX5QQKd8JQMTZmRka4lVaofhtsRi99iQhcerPIXFunwdgfMI5ttfxDffnKHlGI/LRm8WzJUlMlQl25Bz0ePc9pE1hJS4L3cDC2Ka0AU7CW8+U0kwM8fZx52fGSusnjwkUprOCDJ70wl3BAIhTL2xnxY4laU0uCjd6ciFn+IvVQ7ef+w5eZxz90HRWtuvgsTG8HBFL9ytQ/73b4cbWlyIcvhq3gB0YNGJNbUNec8kdOhg8pyTs10CEAVpVcrvB0MTlg8Tx0mUEUrzwzkrVZgbfOghN5jJzMocZzMhMwCJgBb4AFGoM2ibtGQUfWpzoX8j/FfMrd33NEC8wSxsq0NyLJ0MOxCvmwtuSt+1mQMdo6XQ9/LLrt/Ryv9CEEI23JxLtOadCsapb64EKtMy9c6UYNTCJV3K8ZSYDG3ku+19ylNHHeCfWYYawLSeSUsy4KbBgL3MXu0tY5qzi3KoZdU6wOV2rYBzuhcukgLOMd7+BxhUTFjy6W719XXBCTtgTkpD0f1EJ6UHe+kE2bz3l9XFLUJV4PmOhRFbqfMIY/kuf1qVfufddOMvqPQsoO1/rG2uwiv3oQDNwfgzjY1XnMF3au+pRtH43ujE7N5HZ803R1tF6pHFDV+q2YtcICDuYtVghz1ClBtGV+VPgR45YhXwnUoynCp/Ka9lkO4fZT9kW5KFNNdo8Q5xr0dfL8/PqVVu3xh2dpRjk1hwSZNQaEDN8vIW3zG5mhrPQcvF1KMzIb26pdMv1im+G1zJ834hb1x9hTYF4Ws2ZwYdg7HjkxuBrkGQF/0IGhlCPEf4/0IH3qSjA7Us6MYUqisjLAh1sBiaFlE5q1NhYXJ92cVw9M1kfNFGGENSKu97hKMnXNbzAB1G3OLGusQ6Y3jzf2kImnWp/7mgsDgD4e5pBwVoWDG3Z767eQcIiBHEzoDhbWippm94c45lCVU63gg1mtjPknDPwQEvCNr76Po2wYrcdUBEPZcnbRlj+pKaGQuQ7RHCEtFkJj1NZdYVRoClkGSpgSliCG366mM/Wx7xGWBFVIXyfKRqxG8J+TkTmoq55Ev1hD+wAUBYOV58DWVrq8M8CQ6K/OlI6ZKesQQcsrY1Tb6Cpa7mUgtH0lAvGedJsnqec+Comz80qFjyCMbiCWt/Yv90KbNMFfxslEaN6sBEc1enTfqY5I14xVwYECBNHg1EviuLrEnA2BFRzYdCxHlNinOftsK/hTod4HgK4114yROJ20N57Z/o2dEj2YV9i6e9WxwUYQcVsKpkote4IxVTkWaLutEGKMWxYJNY0nG+mj9VCi1pt2pXb8WmsNDpTjpzhUgQsxb7U4xyk9rbSsjJC6YTNweB9cyZPdMAeA4mGvi3CqVNC2htyfg7pBX+f8tM4Q9wwFhFF2SqszqM5tod6pe0QTpgyVokQ6kN6L9YqPOdjesXImWDFr0LZlJRsEqsPkFQeHJhLT93TU3eOi/DuydQSBUatMkyd11SLliKnAqNPoIDuOFUSF5+j/90dokOVZWCS0g1no9uvM3EhCItJxzP9Cx7Xm95qCpvzbdgDxGKno8JFqqI4BMxbM/6m9owpMpZUDHoAJiP5CBMVpULV0FMXUIsKIpCnX5r4UaVANwKd5Hw0Anep7TEd5jXXz4o4fbBMFRu1ECQ/VfwZadP5cePCfGiRgGAKMWyjAchOieoPR5VbsH+aY+QDkomaP5zYFqDVAphZGl+6hxun/pdgTnuYQw9slIQpiBp3UD1u7NgVIJKwmV9dueLZV3/rcRDiIQDT3xY87asCn+HDnhtzxcFXEuLEwolCs9bq3U+7vGGCUUGO4Cmg+M0DFGSeQD8c0tZPoLGoiXnd1X90/ZkkPW3XSVnLbzX50cAjIwh2hh32qI7MaG+Dioowp6WuAOaOLlyKl8LAngQLJT/nzmUVhAMTQuv/w6x92swnaSr+zWgmAUsNRRY5tPbjkGegakzoA7e+PdV6aOQwNBinpjyq7VXg43lcJ6wWhvPmH7+f+Bq0BP5vPboKgEuvQtsLU3a5zqjIPS+SfcKDsjibxnuGthBx0YpZ9AOrFtE5Msa495F07W3DPb4QhapBUleSSCbl8KQydKv/CAjPEaJVo0XeAyrlm4PIGNa17grNR5mSHcRRpv9p6KNJZN4wp8fYl7fgZnNGOSUGFr8U3F1FLg44FOx86zl1Od/qo4Nv3R3nJO+Gns1J0PRxcX5p1AP+utrwZ/wVa1XN2bA9RSthjHm8wlkS5vt5ofhsgEMLq3rY5hLyESuNBSv6o/zbFcXL2b8EY/XXIHdUP4+HnBhIW7rzhNpNuHwQG+rH/7AYJjLF9npuJTIrv9PDZp/Yf+Dc4mo0wIAgBnWhAXRtyMR5SUKs9rYFfTzc+HiMpMpeauS2quHWLGdUucliGtVX1g1r27tqnAqJXHZY3RqWW9s5q29X27B8SYQ9b0P/e2suJSwZ6J+4vJvEgeVU23/urwoLZ82/xRgWaK8HsCRvKi3VHgkUBEk5Uj1Q9OMx1uEsNBDKxtJUOOI+Ybl5nv4eU8bSQk39bobR375UQgbPBwYME1zBcR137OecX+dIc9GEu1FS1Cqq1f6T4yYCBnUyH4OzqxIg1Q114+lQhQ8zSyxEyI1QItP4STru6IVOc4YYdkqZCL6nECyOjxETARn04blQcKBTZf7kDDOS6Z34P909w9Xf7Qht0wh+MI6PGCnRi/LnNpkSCRh6oG9SWZipfQNARlHM2+yzpIHd3nrWz+nh8iwe/VVtYz24AGJ3vgbp4q23ZlYWI96nuET9gRtFI3l7cMEeogVZWRUQnwVXNL55mSajrguf6v1gsd/NalKZvi3RE6ejmifTk/AED7xp+K2F/dXxpa+mcbb/2+a4QwjLe5CwD+UqvnqHznujLG5zWiWCLd04zmt4BR2AH0zXMc6w2ZoHqUDoTb9e+frUHky/cw87FMoaV1an7PyBJ5ucVNgohJIA9MUDk4UVUsHFfSM05jBgV6RZAm9efkNETAu/cMAADAZAux2CnTjlNAd7duNCIhX0URe1exGaJk/IGQp+UJs9zeVA5g7W5RD0VxihhzZLkRn0VSNEen/fv4qUHsVxFh3ABnEBjRbvI8WRGcycLAZG8iTPe7Ka7lsDnb5yBng0gfe1X0m3iwsXHSqdoh1W78h6PjZtZlShHDino3Nz2Y87TJCLq2Sdj1j38hkzcl4ZomJGBlrBtT8jknXpyAYQ1Zu+03xkI8+BjIK+3Pm+Ga1PcO4RUq4c4ZSB7tUl/GdCzlDLJcWpY3trW2vyt+/DyFU9DQcf8K25lyFjeqUyx1kopYeGx8lujJ1WX/z36zuWFHUfVoiRTvl06sXVFB15/y7oJmQcsSORPPEm7joAmAyZ5dSXdO76BQ+yyOmSJWERX53QEDeAsCCSFfXOD1C62uV9JgSzhICCE8zBLqeoQg6omuwW7paEzk4yEqhfMq6mmTZf/K7c7UQLi03GHzsaeWgK89r4U4ZBpvISGP3GDnfdC+wc2H2zIJfAwvl/MfFyQKXGFR292MECLaRNoFRpGCQgEvZQnG+DhJEwvVVKObKPwuaxOT0kl2yhCOD/P3fHWJDlQhVtn35FesIpvSxVaXYhdVnKwopoPTBM33lGynEbzJtjB5RiWBT6CckXdjvQCWOq1c6dfVMLZMFxVX0ZVlVscgfYZhI8ZfSpIwbw9zzIrNJkJL1qZ5BXxyLG0qj+B82ouU3G5zlfUKDnEGgeiVPEEvHbEUU8KiRheussHFhiGfAVWSE0o5jVQUcAg2Z+5pKPDvNIzeA9jbIlGGGeyKpuq2dLmzCqq1zNu9WBbwPuRt5oQaYOZ9axtCPaJIQ3Wk5ObQUn04pWNrRwBBnw0RlkGjjwWj/+334UbhM6prLkOqSZoB6K6hC1ESlbJA2wIxlnG4RgbVIku5ms/lkVwboijsR1fqulFByFnZDbg/M5zCV3cXP4bPQ2tV4HNBZIK092MYeOhKEUSsNcIV0871cVYC9UA4Wq4keQY4rvBdEwDzessDN5ex0LFolzQbzsn8GXnrCrbmHgy/nJGH6LG6EtbiA9g28RefVp7jsBqJ5AAmrO8J+0gLQTcrNoWWtKl+0gcq8eLxfpzVjl1kq60Tp+bNfLBAxFwq/8dpJXZAAoZL6dm19RUYsuOQOeteBD1nR6gPqoX2mWCCQ+OUO4EpC7I2F7moVWY1n5AxyT5yCbpXW1N5KYG4XlYeR/mI21N3lcRz/BJB+BjhIayT3bg5377zoY/fUNL0JuzKY/H9hyiLbvJ4AdRueQtCURKtzdoPBLUXOMaPq2Z1wgx21L62S5KpQrDVlLe4gVAdhp73IoebPEDKGA3cKxD5NYPtBSSzcJm35B/NCOSOvkGzQjABPA5IefjRXnPX1z/msGQAmr6QprpfJGGAhIBRZ+qM6L5vLbRMxizewCIjbc7SPtHL2VgPZMuoLD1hICGIN8u2jXhrbuFK+OU19p0S3fZuMNT1H3sJD9cak17e3pWPR3UF3FdJ2aqjyyoN6v9eockX64+0lDifiqlfrw7UmFPmnw4IbtDhkvajv+neI62H26Khf++gl6JjBolP7FwGgoLskVSv0IFtuSihVBrwAO5BcHAGBeSU78XbTmnR3IhNltS/saxsw2gvH9pLpwkmBj0juJoSoopdHT0ZkA7zT36jCjqA9q13XF7bA0fZ4AmlWkzfGX5gvk5+04c9HWTvXtlSQcPWk04sXrwhxaT7uWk8kONvRvpBA3E0r+KtpPdYAwCFddusmIIjchELvm33X7+qW5LVRBeiErLzVUurQEqoD8j4Qg8M/OjIz4owEZhK3HcdDRf3tCA/bdcUlaRp0+pKYnM3cxDUk3gde3a650rHWGuKgv0dHAqyA5b6LJqq2DxEaYsoZWBKUfjsPsWVIqiPLFUnV0Rpntr605O74Oiw6TVw3qSdXcHjQf/7xlqD82IT/BiOZpTTHSrwDYF2mzhR/gc+F0bm/aPG/swuMKv6oBOHUKbp8svrvTlQOQfPlKRnx/TF79VrwSnLKHeLRxO6xqM3MOn0EaYEQkrX9kh+P/ngzHhHAFLW0EiXgcy3bdb2ZxI/1PFazcRSwstJBxhuqv/xJeZK+7kXGCYbZumuuCdfzMJldlbUPqhyQ+wecu4Fh8of1Usr/2HPeewTQ85OOHW4g059UxlXN+F9bxzG5LKmQOZpDe0xk9Nj4fbWDwLQWThOKr79LREOoybsZLt1fdWDOdoiEGDN4B1t0neiCIfqzKpVmoJAtYYnPWIvFuVRt++2azLLBydLCNq+eAA1RVnkvhzDzCysBCblE4/4YAf56MknMSnn2cZGOmVGQjGoFveifPzlVxFMFwAQCkn6hlxGRIntdKGcgTFUOfmLMgSNZwBCVTHRrWbNSPSJ3UF9/FzgYHPv/FKisW3jyOKf9dHaRdwVougMylkkCNioM7OdvSGyxQaJhO3iZNl9+qEMupbNmWjU6eVb5tSEL4LO1CE7I0/xWZefKfouuRmC8PXFDJ7orf2uIoDIb4q0vnUoWOZATff7wPepOnDBgBc48uGgLp4HANIBi8TAW8wMo3WAGH8WeIrG09uvnTBw+q1eevs6qGhLcq1hlMQ4iKMaETRWMne5DETXSEsCOqTRi2nmx/5KlkvqDOxG1jW4Hm5KvZdww1SeBQnn5l6dUthTlNv5emDX1+7iRwdaQp1YWKjYPcogjR9rl/sSm4T7oESBuOsQT6Ac7w7RYnj9aSymw7KgN+3rt4mf0dzPhfvKjgm3JFftCiyyCGYM4s9gLmFglmMd9eIaRJ063MNfaPGASbjc6JGTOgsrgXrykXuG9EMrV5b251mPcJ+JXvmnDikUsPe73q5E7OpGA3D95f2WvObIy1nmTzk3AWCUUiogNMwGmvCtlGfSM3CYuBA2Q+y6gL4ouEq4W8VvDQeEgmkCGyjE0C/1kB0p8gcizMgAHFwAAT7Muk8g3zu/BRjmxJ5knZqauL6mTalxp+oiDp3zaXkK3U1ZIhiO3Wv58SUmDJphCBsVkUAP1v/YhPBh87YzWYoiQ72By5pfKMSWewRAD2W2+Q0e/NPHFkj1um/PsZh1nV/egnQtEHcAABvUGPcdFymRwfpHxL8uKHpKwAfNIUKrOFavKlJIsal3rYyIJUAFYNWCYqEZyz7m8H4/MM/DUMA9jIyBcXMdtQsd3dL/P7VR5kToMjcXQlmzSi3vSFk8Lqvy+2fCqHQDBON9i28+5uXaRWFIP7MIBbIp9ypGXav+H7Mz0tTK30RFWo6rMzNYkXukUAe9GRvTV87BU7UBMxLvMjOzvI1Vgb+hSlyO3fMBIC5Sybu4bc/6MqJtfWrxaNCHgl7rzyazvdKdkd7d4AGE83LyVCPd7AR1Yki514tUUYwoh2/24BTOvM7LwE0PtQbPHmZixhYrxYilEPhDEYVD4Dc1uo+qpdnvqdEdxKehkrtIq8UdwUAcvFiW5WBLoxgF2fBicn2E+NxkZXH8dmn9ageEEHoIzXGcf+XEx6wgRA3cYGRC8D8+8SNrEtHtHzAydSJjyTmefdkcE7K2buUOlyQqZkvLn0k3GWPMNFTbzOGZOIpU+BAdQrjnSltgJszAU3AKLpE2XRaws/8XzMSG8d4Q460pFs9fmkX7EIYTs7DjeAotGkuEliLjWQ62T9jds7OfzeohGJ7wejHYM2JhTC5ZNXaLBPYFJRj0zpLdPOSDHlf8Mhnr6ljzYb2QP6YdsPNYdysy60lqmDB6DFEyY8gZPRmYhq5OB/h66YgqChOasu9eALdqvOuah1f3ObcATZHmdZ7UIeBE9TuRJzf6XRNGh8krSAX+6CzNCZ/kkzDFsIfB9BvgjOfcFC2fEtyqWA/BxyBp8UgqzPGhNDTm1Q6vv8CBRmikyoFIhj+L7ZCyDG1EQWiwje+1ca14S3M+plSP7k2hlu2z3GPLz3WRN5Xp8wJvRejvtFuA8QD4VGROv8zJRBKwf/jzVWTzRBrSbZAB3mYBoD8yX4O9jB3fYzxX2Ys2F/m8kbet01AY/NTJmuJ6UPmMMCRTMcsDkXlrTAxsOWdBZY7DjiXNIr3qRMwkrZhBSmIlhvOcsr/m1At9zPHT2AbV0WuXmqFa33tOa3aGPnyYs1Lj3zHKUTV4hzBf1CxAV3exDCnyS5Q2/OPQL43JEkcT0lc+Dg0rn4CoKp4PPvsT1l1hZ7ankjHhbx1wrn/1IRGXlM3IvQEuBvy/YHlPM4Lq5Q9KJQSDFMfaD2OIcVoGB6QBKhAwOkYECemEjbuhIdmpCTCby6E+q2CmyEXCgs8OaEH3d/IJIInAdd5lkgQNk1d+6DsVs7VDj7Mq7R4PIF5n90R5tbd4O4d7jdnHFyhDMziCfWUS4nZbGc/ZeGTubi0E0xZ4fJdOdsJaGXPQL16px7UDfR/axHA6qRQO2D+kP3NkKSv9Vf9E6CHHvyUjZCwx5kRmQ/9BEwRT/Dz/Xu1wFVuMtuvs+Lol93YubSZ+0+sDYsigw7sKJxZkPbnoxiucJ9KWJfxU1KlfunS+yPmMXkdJVFATLudR1LlUzlhzBCBlNQs17Gh/AXMP3yLYdJI/81MQBk8OK/p12ZpQIgh3GvZLaUg4Otlca5jEFm/pLIFKRzyAjOUgmWwekTLRTcV4sQ28A8Qr7oUJ/7Gt6i7R5eOLi5VHEFt5A6Sy5QCKtPiVzIDWIpQ7vLd0jGtkqo0xfRySt5EIETGj3oYjB/i+vGqQbT6UcsW9hR0l1MgdNN4UQd3Ic306azE+FpqhSeRBGh2GMzfETZR65jT4hTNsDypvBK3hMcJSHfVi/hGYxRb/kDTzjmXIVHAl37zst4OFsV239KRUD0OZQ7rHX779S0T2RsPpAcMEzf6xMNNR+hrqJuoqSIty2yofZwefzQXzINdroilYRevpNS2tbsm5iTzQEKSsnID5B7QRchAnIfbAmG8D/JSUr+D5OQuK24B335mJ+70Z0tIJJxy/zjn5luuNR6FD75Php5wTkKu+jTTpGWW5wgbg11HqHzXGVK9wDq0SBKaSh4i0z6UjmrgXjSvqRn0UjIvQNEpLSJ6CoU12+WCki8Ib1YecfX7jvtTk70MewD9KeHXQiDHQQg3rnGWdQ3CMeUmN52jWctUuSyPJbiUKew26TK3eYjMf83mzz42tGaLBFPq/gYiNzQRTbE/fh30tZbGctbed3FcSl/HNfP0/l2XSe02E3fZP9pwRv+JetrrmPROmzGB7feQS2knw4sSfjbkNoMR0ccPmv7UJkGubXPyOn5wBoToQ64JBuEgnBM2GAIOG3poX4DJBWHKHvnVtaPG+Mg5bS9WfbeBCFTfErkdzh7XME4cyrRMinP7vEXf3YEM2svRRtoR9TYjhAbwC3JTzp5dbHuM7LVnT9/ZzwI7d3SBuK5x7mqVsK5eH6QnhT8efNLEMcxMwtwsv1V436ZjKww42s1gBc5tfTLKDB1jliSuojmcnyNgU96uel84N0ZeC3Q1kKAxmwYJmdFztjD6h2D0zFYTgN/OBaTucHwB4MYE8//eucOJqJgQmJ2yWEwFFcS20nPKbw/lEKaXI5xKD0WSWEdcfbsyx+SinFqgs7luSIhKdv6dreTIHtmx2O5fyf55cxJWkENP8vlo6C/Avx4yKBpla4m0OM2GJWquXtS5M7HS7Vo3Ah0GP0aHjuUKECH3uE5uIbwDTFGI1B4dcIorYcqwr3bEWsa5fOe3LdJWc/Ze5WBUYJrLhCCO7aGSEvCmKPciRQgrQEVAZ0/rxIf1SrsD91/gmWb86r7hob/tKavlC3/k/NGOJT3/R9R6NwzWWJp532irZQh/mXLBkj2ou2z4YhBEpqqPWUWw2uWY8srNi1bGHppsu77nx6UEvYr2l2TlalXmNJv+y71I0K3+KOSBHD4CPh07nBu2XhTfWSgAkJmsfWtflkj88eI/A95CKGg1fH4dWCkl8ATBf8S25PYcIcZT1XkpE0InaFq9JMb099p2zZeOdG4qhiszbpubvyHexbSY3HTD8w1sRPgSYfHptz+PEBEpX0Lxh/yP60mEYBf4Mtuv2jZT/3+FYo2x5o0m8rqvYK3HF9OM0oaPjvyr6CD6uySx78XmGZWbcUZ0Es4jxFHEbpg4fsWP62vQN2Priu3T/4mUwbkGVBnYnP8l2N0zevptwwQOhKpn61JHHRkasFBz4KoN+voJZksRb8ZkOK+tSixOZB1Igzfd5ioDK1KFZrQlH0OfGE4KBI6TdvyIeRJ9jWUVz0OxZVm4gCPMXbjoVGVkY17gh8P3+VfvwSO9po9EawqTysIpnk8LXdvAj4/TQ7efTburDQE8us/XoL3NhIeP68yXxviDE9bF03NxSpPYrXV/xUpKXKSV+2jM9BmTV6U00j1uvdU4GjWSwOvVgW7PTNE6C9dm58vJYjBMfwxrq5LuFvij9ejcUN5ctMDqt4IFvTK2v9GiYMt+mGfiR25HoaVcl6ZSCZ82yJQ+tbADVW4HbveNZP8dM1ZVyIB5+SZuJD/SbHAVefarShb0lDeIW5i4GxZSB8VQPv2smeLVfEBY6vXtcxyuhySAtLk9Xw0Yietir+xLAfYcCWm3H6fE5gC+TfV5tsJEK9DC+g9ME/zoYmrK2y95AbaxhClVFNp9EPjuHBiGu9avK8iEXmRi3cbYrfEthPF/HyWr7jcvznVSYruNwkb0nNHQfUKTin4Vk/FMssqN3JG5qIkQ8A91TSEWJW91FJt3lIEvazfcQ7Esy3m0mRv5PDTIXWEUiimvJA/MQCqtpx7UTj8JIYd18ov6kWLHF9xEgoNkS/qDGIoF/Iw3/S1xjFxpitiJkoUEkZt68Qk6cHSPhktcrtz+urFIB0qntB2q93U/BNuYJlUZKz3DA4UgQXeI0dmQ+nqVrVhMVqgo5xtMRMQ90VwIdDDkTbhysBwbX46pn0+sRklA6zPnC/Y2OXoUHMKt5p+X/3oV0strsgloRwDMyQgb08z4+IZC4E0VNMeCEnRX+ULz/5HUbSvSJuoK7nwPKSNTSXZSV9svORKKOJ+1jCVIwiZIYIzVS5FgLGWl43s9skJHTDFUF5wKwPwE4oE9V0MPBQ9pTWUTy+j3OqCSCTK8Oxy5Ah4IGt1LlHQdXniIDekMvYQ5OHQvaNI+fy2mKgr5apNea42W2tsDsmTV2uJKR0kmQcpjENe0W+JFkHRLeIrtNohlPteYnnmOZjfaQYWu2bnRvjjZJek6m3dt+hgXsx8zn0GjDDJlJaAVXm8CQL2V2B95vbofujTBBF5ApsxZvps8eNEGSe3aAgEjmajK1XmhT4K1cBaZFZo7dRwnZzgroaNOpYDb5CbB24RMfgFHRS83n6kvH4jdW01nVXeIY019Ww2/otNTsOxTBRYsNc9Lk4pGHr2dw7v4Ppk25z8pOEuimKBtoPKMRby5++mD210LKrRfSICm4F0Vkp9fXS+t1u7P8/znOugzXe20qbTR1hrI1GU3tKdJ8+OzyHK9SgwGSHgr6JwR8v5xGCtjm/GvtLhbza9Wp48GTI0kJ/HzDvf8+3PQCLxgjUn9GvhDj9WRMQ1FMpFWXBjX7JWjgCZ0JbbVbeJCWyk9/hnWmB3AYKkFcN2Z2MTjngaWX9PLhXJozFzBJ/yY0mzPuAy08CjPnwp3LMQlcHpNOdnQ9Ml/eWKPd26d8fusjgrls5An1dGjhkSwMQ7XpTaBjbg0ucesQnoBPJA6dvbgRomvTdqwhbDRxQM01BU3sxruTqj2rUIFjwlvvNbMJwu4h7+00Yy8aFA01n9ABjDBNj2dT451DBW2RAH9ALfk1g9HYQ042kLjzlFKsVCD8lFOkLoGVwAVj+1VjaDTbpwb6XlG2Ep80efSahQ27eS/XkEeW3mSqcFkQ6OdTu4M0l2fxI2lWmmNityE5m26mC0hn2GkVk16uyeglbrNc+3XBB6z4M/MTrnlz+mdovQuMS2yuKDuKiUI19yjdXh7qCbjv0a5d6j0hviG9Edpsz1E1azNk9a7cimRK41WKRrp3ZCK3Kj2xuIlzZemcuw1hLqp7OTsq8APC5ximpjtVMk2iaZos4xD1xhV0tOg14kfF9q5vaB93X3bl0Pc3HAxde5rthZi18L/JEVYRNiyuAA3GUIfQsCdNLrpsFrgZ1mOS9iDSRRIycY+BVRS7Km0a7ow3ZT4YwAXih47JcA7mcxd0SEyzj785k0bWfdSf5uvvbGvX1Imjl2K0wrsqqlo/xHY3+SJkVxexJP3U08iEj/3VmBCEx7oQpNcwF+GZRPRaKSPgq7TQHhRSEDn8JMuNZhbtzzlum8g7kCL1+0HENE+WPjXAmXGI8OC1+p5i0k1WZ6DZi0OSp9DpjEdPdZ0vlcRFOmcLVpKYJjzV6qD1FId4vCZ/hc969NfbBnz8d6Ol9HeM1DTChWQL1/WGFhtlqu8hE2KPgZAdhTMG4zCNWFtJ5Zf961Bo6tVMRff+w4VfCO7r4pgmkWKjSru845PHMezTvJ/PzwHdFBM7s5C5kCvfxVciinNCEY0J6F5iCaBBuWSdZmTNqdDopXZvtgp3pvij467flyYWFjm5pzb60p/NF9UUSQDBBjuWg/fKzcpvEWg19bCpeZjdl9BhDb5kNFSMYensL9lMeWRJ1hbpwXFI5T0ETKxgbfr+TazLKqr5u42l6U0l4frTpUrYE5ROQoEeZZfa/Xj2VHOHaf2FAcgNOordFz5DnYNh0QBA8TK//8RhgY06R6o36Ug/FR4bJ3PIhXsdyiJdygFjKz4knjXxUpldc9vACSNrMd8WqH1G18diECfb2A1h8AOb0m3mUHbVYOcFnRSS/B+q5ntFsgB5X1k6e76vN/4P4vGA50xQDUi661/x8G5IBlFKMhvr2acTcveG5abTKWAO7T+bHtp+q/E86RaeOuGti41mvKJCgfMK9jfyG/Ixe+uAHgO3i6bAArqjpoEL5qy+af7TPP0eEhl9o7d1dV5aUkCf7h1BVeImHbjh+cf+8MnN+Ln8wfzJvwlxdNm1C1Lfleqp+WpiYpIkDa6d+SUDp1fAoPZQ4Tawrxfnowps44VEJ2l6AmiuPHjxJx8gzH27Xvc14oaWHN7E+RoQnS2Mg2fzm18FzdVFlr8ZuPv70wjSj94h2pDGOJaygu60ng7y8Hf8QaaAFLxswPVKpxpujA7cHhnCyms03H7sllAK4bhfsG1gVZmjGKb0Q8ADlvAiq6obAWJ5Aj/q65CMaTnft4qOOgMeqg0DfW3/WP8ZCL2ilSZmVsil+rEMEHkhrqmpFY+UQQ/1HfSYA7KIAVT1r5XYUsCaUcNdXcQDEJu/9MnpkHE/lYdxGJ7h9v+fGPgQ8GJBtS9OkfXNw31K/ywoG3apRiuxxuEdeup7iWeewz8Pxm03jfCcOYmQr2Uto42Jet+y5IpxBSVIxLcwkrzW2huwO/TwkwRFPytPoCDKlZIx+12WaT4bzFDWWl5Xr8N+vJah3CtLJ740/XqVYp9Uv7emNtdKm/w4bPL5m7c7YCRa8PpOyAqwHYhHHDQuMzCyfAdYkeaiXSWgC4fb8TGL4TJogt1gSiEa3nDublO6Vd6OdiwsUqJIULmBIlRK7N8qSSJWPQju9Qm9JJbm/U9/Q0SKHdcddZonntzxosa74Ssd0zeQSBwACJQ18YAPSOX1Fj5YzE6mQohdBeT2+dVQZWgppRfqHqcM1F9WGg0t3CWj9IEjv6KPQScxIhgOLKiPUfInEIwTlmjMqOlngQlZbPneoGzj0kLMUZKr7LqUtGOby+dEgpylZ/MFKowOFjUmpZSAImaeSlZVlDVy/jvCmurlvEfoNeXJJSupGLOhlSO6QG06ZJNfvl7XgFSdLYOUM0Wrth7JTkNDyH/DdkLjjnZxFY+Kb2t+LkOMnQbblgiASmDylu5Lv/x09GzgZS/jiMOhuW2LUfSkYOytfJbL75E3t88pVIul2pnEUcVnOYZu4yQta32ZElvKh4SOSWNBrkofYGcvNOnC27/weRWKR+Er+6YMIFFf25iAQEIguyk+5MW3eL+h+4Zdcf7r/EDhgFRGbmUwx3hApuEULP6x8S3mYnnEn0uR/Al/VvQCUCvLeYI8U6diJQF0G9zkVS0V27Fuc8ryo/udQc7OOgmFurS6r/FeYwTuUbNJRGqY6OdiXJOcTk6rfyov8wBi3Yy62ph1dqGfx0zXwmFpmx+rr9Rh/qB45434YgGyrIkDS14Tz7MvqlQiiUWAgx3q4Zt3ZKu8ZIcXatYd3AvuFFGpt885EzrVvC7wAYoqt/xeamp9/WW1KKwgQR8QB4iS77Pa/KlGbskJoZyfyyPsN1SD1d7GDy0fFg1viq0Cz3+pkwr1hrReHhARuwbHIimQj4OW9UHulAhbHsklRpxxb23qd7pwkW9/hGfxpoAXifnl22SunUCfEK+y9+5WZlmtuGVkhgTcUlqb8/3dgHCF631UsEErzx0EKBxs+hIyXjLEUqtn15544sezIzyNpzXbWwOWjEX9U3p34sqh8pQTPmAptFB2l6JBv3pM4VL2HInq/OXmQxOgYZOhsjCTSRQRVRyEolICe3fy5sMpazVUxRkvJdIpE4JEQXQY/WgvGwtRO3Yoo9G12w4fkZ29DDfCMyfVfbnfUNDW5PP22s4ItBKpBZ5USjq75/qY8dmWI2MAkmodyj/QQCDJrZ60I4MdCgzcvAtoRs7bOlwxDsX9WQBYoDrCtX+llYTY0W3nhbCtg85o9hesy80I8WUAw8YeSt/2G6h57MquGgSdnM1PXh5QvyDJp+Q544Niw6DG9TBnYBjdY9cZhLcNuzoyVqVZPc9IA8Vv47hPzW7Sn/FUuuB9aE4+U9k9biv/J2iPAmJ5b7caan4GShDnIZqUI0cVrRdDZgydIhH5SFdm/kgm8ur5BjlQ1qCLCdq0WpNjCA36Ri6JQLjn+cIBkwvxgimH7YGAdit88OT/nfk3ceJYb0juBRi15IQ21AvXUyvZDayvY6GnRXjGt72YWLFmyoZzN9nK/FXPQ4tJkVoKGUdGAZCc7VRPwZNJXj3CrLEDlVsD2v8cWzNZk+Kw/wOI07gxqhyc8DIv72v+OYgJNI5dzwZlkLe/eUUX9VbPpFiqS20O4ClIYDCkQ/MPWEAAuPxMAvhEM5Snr8L5C5ihwqNysUZqPXn9J8Tyeg4FKvLQ1n58Bcdy//Ba+ASmycW/HEhKmIqKBtj6Gh84TWk1Gru3LGy1njs47wGqqpvrXuKj+Sktl74FkAAAAAIIcmyF1YLvFFWA4spnN2kRls2e6oBRA6kA77BQvZ9IqSXaZfo5CUrs/N9pBFuqwjUlNmjjNhmDnSJ17LgNJeUOfC19j3sPHQSZIT95cAwbtRZ4jF8AlRnrAuMPEQyeZ4IfDainc4x/o+J3QTxw8RNxXSeQtE5K92E8gox0CQmETStnH0PCjtSCI/M4TKWYZtPhKDlHB2hQI6hPSxwBG3YiSpxJPZoR+XvjUeQVIhC7E7AwgBdvA3mw5JYoOBb+t1nVAdP5+vifA/t1f8V7uT8xW1WhysJhwVx3P4t//KW3XqSG2YtWXgspJx1pIXrTEOCy5BCiDB0gJd5nCACyMaXik1Y8DtH1EmaGXhwyU8+dgf5Sfr7HQSNnzqCcQ5kZ9BG2OTJVzuH7OmozFTnypE9xmxH8hT26QOVvqo4IEiFtnUXjCr3Pp6yOkc0YrhGtAikHXomPKzEFOULloUSz96z+NtNPezFT9GhOKM4NulmDAjvbdpN5ipS8Wxp8cV5e2VnDRpiZNlsMtZjscQseZgPUupaBLEnMq2oBN4YtRW3w9sEZyRXhZNZ5ItE/+m8On1ESgRwEXablL4Ltc0Vb6xXv7gaWP08Mxrrt9gaKbv/w5RveiJQVqwT1VFX3kahIvzagT3JzKTarKugCcYnum0/HS+buMv1ktSa1+zJYJjS/sFUgAeuICvGIkKF5+5osw7gKTC5kWCMfHlXttQyBVECrZ3d29Zxhn9OZBbBa0xxOItJs3ZYbiKnFxWpwhubLzB8AQFjuhnAnsKf8Z/I+cDlQEht64rPyvvJdnd18Kittab2AKXYoOkHp1ZSvOu9fAe9UhZSUTgH5kPXrMpcEWIA78r1aHUCMuSrnAj56+dW5Y4IYqgiVnrJeY0QZadqkbFOkzyTf4+X1Hl/i1mSpST0p8NazloE9nMDVmphEizB/TH5HWESmf4mPuc8X3JNAibeFV92H0YrWh0sY/IG7LEQekRvl4nf6Q4JGIxAOVkacHH++UZLIxTiGeOXH42FneXooePqNyMa8OTee45s5KGRP8PpUgPxCdXhSiEA/Hfr1HfZopcGBMmhU0jT7Rhv4/OuFizMVdac0m0jYGGJ+xwWhv0hlh5HlI+fndaW6B8Uihrn98uW2V6bG9t4cbaELjzqan26RsjYhqtDZNFRvfOu8RpkU8mKAd+tWt6rMib9V3EqFayYsaZ8o9o6Z+aPk8TPfXmv+gvOWSDv66dcrnsXzqnGQvtJiNxfe84Nr2CewWVx0wJGYaZjeRrKSSIOdIrLeuc9+n3uO5Zy5zqRp9Qfv4SFBXvrmg/z32OsJjaYyQZqk8I2trRGsymEaE9gK0BHpp1I8RAjLeHZfg5s525WtufEvl9o0QgoXUX1jpq+s7Fmv0VQmw/vZD9c/UX62gn9i9GoWzEAJUwFB5gs0qZXwyu9DKIA9R2w7HlZIDgd4eOPtPjL1I4E6q/RAlqwh7fyQzYuYEN98Bo+H1lhDgyDEIH8Hp/mRVNJXfdLXNhr9j1xDPMOqeaJQ24zdzuSnB4J5m/hPbx5UOg1cEChTVHxyHs3Bcont6RShgWVQgmqbsiqQTHdLNTBJV+lAlxrd9n0Wi5vmnWHy4PJGESeFWkv2A5BKuaticGqxKdy0UC/wqF8QKD0RLM5rSY/hylgdjs/IQYfPXwbYlMuUhwDiSzs6IgLN7TrOigWCsZPf6LQBtgUklYZPVgpjjPs2tD1NOxDiA80WGmRor5Aicl7zk4rcIKXAdcmqaL3gfA5pBhq5q+Mcfm5WXRy+Nt0XwrABbFXQBsxMZRg5sTMU8Bnw41LbAdhwicZqgOF2oh33W09mq30HZtdC6pNYnUiungpLOfg5AydNAcI1akooea4NwtwF4tc1PV11zz4WMciaU8oiRzUg/+NqreWCklcMuo5WxjmiZx6RBks5ZGwGsY2T1HwK3h+2U3kIapXoNEuYaMcmmZ3R43E9uawh+GGiXYiCjvxd6z5/FosCLn3y45DoB+n8R2rEPe7pSY57AjE9od9DEU95gxapIg4TU7JEY/Xbs/je67fHAhcwuUtzlpdhwCzLZKcN6K/Y7fCwfMAKIAEFKFmUqhTA4iVkqqh9W6fNFCfk6wVGDNJdKMCl/NtzgZzDmvR7sGjCLG2fBb5eeTFCKw7jVYe+eIFqv7u4zWtQabd1wu72Rc7E6KqtbP6FdyXzTqzp/SeX7O1zT0XT9VjN8vUztEcuDgATo0EQ+O+QPXudod9/i1oFoyjKD/CQ6m+pin90TDDTmBT4Em9WlYRFK9V4uOIAxke5CMBOyrAKYKojReTS/RqfHSRqw7u0OarhUXVvzQ8CEIyq3CDeokAS/jmlrNZ6z326clALpVWYPyHtBuExhxLQtPwg9J4pAymenYhb80y7gCc4PlVediuZt1KEo6ABlMtGo86VuRC9s/vHLn2OoX5jtmrARboLAMMsfX+Ksxyj68vZbjzVVyihnPq/X+5uvWtwCbyTqRXjQcCoxovWlx5uaz2cDuyypYFfb5CiVf74H4M9+NsNkLL6JnWRpdTkwGESH4XykFb0+DK/bRe6AD3jqB5xL+EYzCtxt1UCo1bAP+CqE/+l+yi55g33SVHMnPSWF60f3FTFU+1tkLPLGr7YzGS9CrVMZbGsKk26koUIEUpTJn86/NfZtxBwlhC0nqFdCvRfx69oOX6Z2CYVO/wbjRrF8BjIc29VNgHXapktZLvj4Gjo94Gw49WGkpq+Y3Tfh4G3hKOdFnBkQMXyw7XyULyZZzz2XagwtnqAYGczXrNQfS66RFDtQSY7d7aaYCJ4Lj0gXbIPvNZhqi3n7/n7ua1ABJHZ9VLvKYN4DkWP3D3UTsF4YCONfKxAP31+tB7wXuOoLTePAB/8kznejO95UMefeMs2NG7LgRa2PP4uVB9vLJyO95Z7ujvpB8GVij4vrVogdERVMDwFzkIOTbiG5HwOCSyUtsZ+EQvo9McVdsGRspT22AAViWZQN/d+aW1W9rNoLcUf8i4zNM2qjaziNbJnx+g64+N0Ix0NnfdcmqLqFXq1UScRUduALhhHCJgb3O+7EGunBa6o8QALM7qF6xRv2v757uFzo2hbaYsi3zcc7J+ajN22rxW050E6O32gRpVwbiVYV4gE5/bJco3K9+ECR2D4YB2HS9WH4YMrD/+aQG1bkeVygPExcVYDr8WycwjRLsJgS4pwn4g9ZaSKMIfz8i3AlZoy508RYigRdpZwiLtqT0PgiZkKxL+7uCBd6OAk/i0nJL/34UlzynfoDc+wAAAAAABFWElGfgAAAEV4aWYAAElJKgAIAAAABQASAQMAAQAAAAEAAAAaAQUAAQAAAEoAAAAbAQUAAQAAAFIAAAAoAQMAAQAAAAIAAABphwQAAQAAAFoAAAAAAAAASAAAAAEAAABIAAAAAQAAAAIAAqAEAAEAAABcAwAAA6AEAAEAAABEAgAAAAAAAA==" alt="Labeled diagram of the fluid mosaic model of the cell membrane showing phospholipid bilayer, hydrophilic heads, hydrophobic tails, integral proteins, peripheral proteins, glycoproteins, glycolipids, carbohydrates and cholesterol." />
+      <figcaption><strong>Diagram:</strong> Labeled illustration of the <strong>fluid mosaic model</strong> showing the phospholipid bilayer, hydrophilic heads, hydrophobic tails, cholesterol, glycoproteins, glycolipids, integral proteins and peripheral proteins. This visual has been added to support the explanation of membrane structure.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section soft" id="membrane-functions">
+    <div class="section-label">Protein types and functions</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sand)">06</div>
+      <h2>Types of Membrane Proteins, Selective Permeability and Functions</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>1. Integral proteins</h3>
+        <p>Integral proteins are deeply embedded in the lipid bilayer. Some pass across the entire membrane and are called transmembrane proteins. They function as channels, carriers, pumps and receptors.</p>
+      </div>
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>2. Peripheral proteins</h3>
+        <p>Peripheral proteins are loosely attached to the outer or inner surface of the membrane. They often act as enzymes or provide support to the membrane.</p>
+      </div>
+      <div class="card" style="background:var(--sage)">
+        <h3>Selective permeability</h3>
+        <p>The plasma membrane is selectively permeable. It allows some substances to pass through easily, while restricting others. Small non-polar molecules can pass through the lipid bilayer, while ions and polar molecules require transport proteins.</p>
+      </div>
+      <div class="card" style="background:var(--clay)">
+        <h3>Transport processes</h3>
+        <p>Transport across the membrane may occur by diffusion, osmosis, facilitated diffusion, active transport, endocytosis and exocytosis.</p>
+      </div>
+      <div class="card" style="background:var(--mauve)">
+        <h3>Functions of plasma membrane</h3>
+        <p>The plasma membrane forms a living boundary around the cytoplasm. It controls entry and exit of materials, maintains the internal environment, helps in absorption, secretion, cell recognition, cell signalling and response to external stimuli. It also provides sites for enzymes and transport proteins.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="wall-vs-membrane">
+    <div class="section-label">Comparison</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--dusty-blue)">07</div>
+      <h2>Difference between Cell Wall and Plasma Membrane</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th>Cell wall</th><th>Plasma membrane</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nature</td><td>Non-living</td><td>Living</td></tr>
+          <tr><td>Position</td><td>Present outside plasma membrane</td><td>Present inside cell wall, surrounding cytoplasm</td></tr>
+          <tr><td>Occurrence</td><td>Present in plant cells, fungi and bacteria</td><td>Present in all living cells</td></tr>
+          <tr><td>Composition</td><td>Mainly cellulose in plants</td><td>Lipids, proteins and carbohydrates</td></tr>
+          <tr><td>Permeability</td><td>Freely permeable</td><td>Selectively permeable</td></tr>
+          <tr><td>Elasticity</td><td>Comparatively rigid</td><td>Flexible and fluid</td></tr>
+          <tr><td>Main function</td><td>Protection, support and shape</td><td>Transport, regulation and communication</td></tr>
+          <tr><td>Growth</td><td>Grows by deposition of wall materials</td><td>Expands by addition of membrane components</td></tr>
+          <tr><td>Thickness</td><td>Relatively thick</td><td>Very thin</td></tr>
+          <tr><td>Model</td><td>No fluid mosaic model</td><td>Explained by fluid mosaic model</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Conclusion</strong>
+      <span>The cell wall and plasma membrane are essential structures of the plant cell. The cell wall is rigid, non-living and mainly made of cellulose, hemicellulose and pectin. The plasma membrane is thin, living and selectively permeable, mainly made of lipids and proteins. Together they provide protection, shape, transport, communication and interaction of the cell with its surroundings.</span>
+    </div>
+  </section>
+
+  <section class="section alt" id="extra-materials">
+    <div class="section-label">Topic 2 · Wall deposits</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--sage)">08</div>
+      <h2>Extra Cell Wall Materials: Lignin, Cutin, Suberin, Callose and Wax</h2>
+    </div>
+    <p class="section-intro">The plant cell wall is mainly composed of cellulose, hemicellulose and pectin. In many cells, additional substances are deposited in or on the wall. These are called <strong>extra cell wall materials</strong>, <strong>wall incrusting substances</strong> or <strong>wall encrusting substances</strong>. They modify the physical and chemical properties of the cell wall and provide hardness, waterproofing, protection against pathogens, wound sealing, controlled movement of water and ions, and adaptation to terrestrial life.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>1. Lignin</h3>
+        <p><strong>Definition and etymology:</strong> Lignin is derived from the Latin word <em>lignum</em>, meaning wood. It is a complex, aromatic, amorphous, organic, three-dimensional biopolymer of phenolic nature. It is the second-most abundant plant biopolymer after cellulose and forms a major non-carbohydrate component of wood and lignified cell walls.</p>
+        <p><strong>Nature:</strong> Lignin is not a single definite compound. It is a heterogeneous polymer whose composition varies according to plant species, tissue type, age and environmental conditions. It acts like a biological resin or plant cell-wall glue because it fills spaces between cellulose microfibrils, fibres and vessels and binds them into a strong lignocellulosic matrix.</p>
+        <p><strong>Structure:</strong> Lignin is made of phenyl-propane or phenylpropanoid units, each having a benzene ring with a three-carbon side chain. The main monomers are three aromatic alcohols: <strong>p-coumaryl alcohol</strong>, <strong>coniferyl alcohol</strong> and <strong>sinapyl alcohol</strong>. These form H, G and S units respectively. Since lignin forms an irregular three-dimensional network and lacks a distinct primary structure, it gives high stiffness and resistance to the wall.</p>
+        <p><strong>Location:</strong> Lignin is found in cells, cell walls and intercellular spaces, especially in vascular tissues. It is abundant in wood, bark, xylem vessels, tracheids, fibres and sclereids. It is closely associated with cellulose and hemicellulose in the secondary wall and middle lamella region.</p>
+        <p><strong>Functions:</strong> Lignin provides rigidity, hardness and mechanical support. It strengthens xylem vessels and prevents their collapse during water conduction. It acts as a barrier against microbial attack, resists physical and chemical degradation, protects against environmental stress, helps trees grow tall and contributes to biomass energy.</p>
+        <p><strong>Significance:</strong> Lignin is significant because it allowed plants to evolve strong upright bodies and efficient water-conducting tissues. It protects woody tissues from decay and pathogen entry. It also has economic value in paper manufacture, biofuel production, biodegradable plastics, resins, adhesives, dispersing agents, carbon fibres and antimicrobial applications.</p>
+      </div>
+
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>2. Cutin</h3>
+        <p><strong>Definition:</strong> Cutin is a fatty, wax-like, waterproof substance deposited on the outer wall of epidermal cells. It is the chief component of the <strong>cuticle</strong>, which covers aerial parts such as leaves, young stems, flowers and fruits.</p>
+        <p><strong>Deposition:</strong> The deposition of cutin is called <strong>cutinization</strong>. Cutin is usually deposited external to the cellulose wall of epidermal cells and may be associated with wax, forming a protective cuticular layer.</p>
+        <p><strong>Functions:</strong> Cutin reduces water loss from aerial surfaces, protects the plant from mechanical injury and pathogen entry, prevents excessive evaporation and prevents water from accumulating on the leaf surface.</p>
+        <p><strong>Significance:</strong> Cutin is important for land plants because it helps conserve water. It protects exposed aerial organs from drying and external damage. It is especially well developed in xerophytes, where prevention of transpiration is essential for survival.</p>
+      </div>
+
+      <div class="card" style="background:var(--sage)">
+        <h3>3. Suberin</h3>
+        <p><strong>Definition:</strong> Suberin is a complex, waxy, hydrophobic substance deposited in the cell walls of certain plant tissues, especially where water regulation and protection are important. It is chemically related to cutin but is more strongly associated with corky and protective tissues.</p>
+        <p><strong>Structure:</strong> Suberin is a biopolymer with two main domains: a <strong>poly-aliphatic domain</strong> containing long-chain fatty acids, dicarboxylic acids and alcohols, and a <strong>poly-aromatic domain</strong> containing phenolic compounds such as ferulic acid and lignin-like substances. These domains are cross-linked and form a durable hydrophobic barrier.</p>
+        <p><strong>Location:</strong> Suberin occurs in cork cells, endodermal cells and the Casparian strips of roots. It may be deposited between the primary cell wall and the plasma membrane. The process of deposition of suberin is called <strong>suberization</strong>.</p>
+        <p><strong>Functions:</strong> Suberin prevents uncontrolled water loss or entry, protects against microbial invasion, strengthens cork and protective tissues, controls ion movement in the endodermis and seals damaged areas during wound healing.</p>
+        <p><strong>Significance:</strong> Suberin is significant because it makes cork waterproof and protective. In roots, it helps regulate the movement of water and minerals into the vascular cylinder. It also protects wounded tissues from infection and dehydration.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Important note on lignin concentration</strong>
+      <span>Lignin concentration differs according to plant species, tissue type, age and environment. Woody plants usually contain the highest amount. Hardwoods commonly have about 20–30% lignin, softwoods about 25–35%, grasses about 10–25%, legumes and herbaceous plants about 5–15%, fruits about 1–5%, and vegetables about 2–8% in suitable tissues. General trend: woody plants have the highest lignin content, grasses and herbaceous plants have moderate to low lignin content, while fruits, vegetables and legumes usually contain lower amounts, mainly in fibrous parts.</span>
+    </div>
+  </section>
+
+  <section class="section soft" id="callose-wax">
+    <div class="section-label">Callose and wax</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--clay)">09</div>
+      <h2>Callose and Wax</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>4. Callose</h3>
+        <p><strong>Definition:</strong> Callose is a plant polysaccharide deposited temporarily in certain cell walls. It is formed in response to injury, stress or special developmental stages and plays an important role in defence, reproduction and regulation of cell-to-cell transport.</p>
+        <p><strong>Chemical composition and structure:</strong> Callose is a <strong>β-1,3-glucan</strong>. It is made up of glucose units linked mainly by β-1,3-glycosidic bonds, with occasional β-1,6 branches. Unlike cellulose, which is a β-1,4-glucan, callose forms amorphous, helical and flexible chains and can be rapidly synthesized and degraded.</p>
+        <p><strong>Location:</strong> Callose is found in sieve plates of phloem, around pollen mother cells, in pollen tubes, at plasmodesmata, in developing microspores and at wound or infection sites.</p>
+        <p><strong>Functions:</strong> Callose blocks sieve pores during injury or dormancy, prevents loss of cell contents, regulates plasmodesmata, strengthens injured walls and helps in pollen development and cell plate formation.</p>
+        <p><strong>Significance:</strong> Callose is significant because it protects the plant during injury and pathogen attack. It helps in phloem protection by sealing sieve plates. It also supports reproduction by forming walls around pollen mother cells and developing microspores.</p>
+      </div>
+
+      <div class="card" style="background:var(--dusty-blue)">
+        <h3>5. Wax</h3>
+        <p><strong>Structure:</strong> Plant waxes are complex mixtures of long-chain fatty acids and alcohols, forming esters. Common components include alkanes, fatty alcohols, fatty acids, aldehydes, esters and ketones.</p>
+        <p><strong>Location:</strong> Wax is found on the outer surface of the plant cuticle, covering leaves, stems, fruits and other aerial parts. It forms part of the <strong>epicuticular wax layer</strong>, present above the cutin layer. It may appear as a thin coating, granules, plates, rods or powdery bloom.</p>
+        <p><strong>Functions:</strong> Wax creates a hydrophobic barrier and reduces water loss through evaporation and transpiration. It protects against fungi, bacteria and viruses, reflects harmful ultraviolet rays, reduces damage from dust, wind and insects, shows a self-cleaning or lotus effect by repelling water and dirt, and helps in thermal regulation by reflecting sunlight and preventing overheating.</p>
+        <p><strong>Significance:</strong> Wax is significant because it reduces transpiration and helps plants survive dry conditions. It protects aerial surfaces from strong sunlight, rain, dust, pathogens and insect attachment. It also helps fruits and leaves remain clean by making the surface water-repellent.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Economic importance of lignin</strong>
+      <span>Lignin is important in biofuel production, paper manufacturing, biodegradable plastics, functional polymers, aromatic chemicals, carbon fibres, lubricants, resins, dispersing agents, adhesives and antioxidant, antifungal and antimicrobial applications. Kraft and sulfite processes are used for lignin isolation in the pulp and paper industry.</span>
+    </div>
+  </section>
+
+  <section class="section" id="comparisons">
+    <div class="section-label">Revision tables</div>
+    <div class="section-head">
+      <div class="chapter-num" style="background:var(--mauve)">10</div>
+      <h2>Comparison of Extra Cell Wall Materials</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Material</th><th>Chemical nature / structure</th><th>Common location</th><th>Main function</th><th>Significance</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lignin</td><td>Complex amorphous aromatic phenyl-propane biopolymer; derived from p-coumaryl, coniferyl and sinapyl alcohols</td><td>Secondary walls of xylem, tracheids, vessels, fibres, sclereids, wood and bark</td><td>Rigidity, mechanical support, water conduction, pathogen resistance and resistance to decay</td><td>Allows upright growth, strengthens vascular tissue and protects woody parts</td></tr>
+          <tr><td>Cutin</td><td>Fatty wax-like waterproof substance</td><td>Outer epidermal wall of aerial parts; forms cuticle</td><td>Reduces transpiration and protects aerial surfaces</td><td>Important for water conservation and terrestrial adaptation</td></tr>
+          <tr><td>Suberin</td><td>Hydrophobic biopolymer with aliphatic and aromatic domains</td><td>Cork cells, endodermis, Casparian strips and wounded tissues</td><td>Waterproofing, protection, ion regulation and wound sealing</td><td>Controls root absorption, protects cork tissues and seals wounds</td></tr>
+          <tr><td>Callose</td><td>β-1,3-glucan with occasional β-1,6 branches; rapidly formed and degraded</td><td>Sieve plates, plasmodesmata, pollen tubes, pollen mother cells and wound areas</td><td>Wall reinforcement, pore blocking, pathogen defence, pollen development and cell plate formation</td><td>Protects phloem, helps reproduction and prevents pathogen spread</td></tr>
+          <tr><td>Wax</td><td>Mixture of long-chain fatty acids, alcohols, esters, alkanes, aldehydes and ketones</td><td>Epicuticular layer on leaves, stems, fruits and other aerial parts</td><td>Water retention, UV protection, pathogen protection, self-cleaning and heat regulation</td><td>Reduces water loss, protects aerial organs and helps plants withstand dry habitats</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subhead">Difference between Cutin and Suberin</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Character</th><th>Cutin</th><th>Suberin</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Occurrence</td><td>Found mainly on aerial epidermal surfaces</td><td>Found mainly in cork, endodermis, Casparian strips and wounded tissues</td></tr>
+          <tr><td>Layer formed</td><td>Forms the cuticle</td><td>Forms corky waterproof layers and Casparian strip</td></tr>
+          <tr><td>Chemical nature</td><td>Fatty wax-like substance</td><td>Complex waxy hydrophobic biopolymer with aliphatic and aromatic domains</td></tr>
+          <tr><td>Function</td><td>Reduces transpiration from aerial parts and protects against external injury</td><td>Prevents water loss or uncontrolled entry, controls ion movement and protects against pathogens</td></tr>
+          <tr><td>Deposition</td><td>Usually external to epidermal wall</td><td>Often within cell walls or between the primary wall and plasma membrane</td></tr>
+          <tr><td>Example</td><td>Leaf cuticle</td><td>Cork cells and root endodermis</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subhead">Functions and Significance at a Glance</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Material</th><th>Major functions</th><th>Significance points</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lignin</td><td>Gives strength and stiffness, supports upright growth, strengthens xylem, prevents collapse of water-conducting elements, acts as a pathogen barrier, resists degradation and contributes to biomass energy.</td><td>Important in woody growth; protects against decay and microbial attack; useful in paper, biofuel, resin, adhesive and polymer industries.</td></tr>
+          <tr><td>Cutin</td><td>Forms cuticle, reduces transpiration, protects epidermis from mechanical injury and pathogen entry, and prevents water accumulation on leaf surfaces.</td><td>Conserves water in aerial organs; helps plants survive terrestrial and dry habitats; protects young leaves, stems, flowers and fruits.</td></tr>
+          <tr><td>Suberin</td><td>Waterproofs cork and endodermis, regulates ion and water movement, protects against pathogens, strengthens cork tissue and seals wounds.</td><td>Protects older tissues; controls absorption in roots through Casparian strips; prevents infection and dehydration in injured regions.</td></tr>
+          <tr><td>Callose</td><td>Strengthens injured walls, blocks plasmodesmata and sieve pores, protects pollen grains, prevents pathogen spread and helps in cell plate formation during cytokinesis.</td><td>Important in wound response; protects phloem function; helps pollen and microspore development.</td></tr>
+          <tr><td>Wax</td><td>Forms a hydrophobic surface, reduces transpiration, reflects UV radiation, protects against pathogens, dust, wind and insects, produces lotus effect and prevents overheating.</td><td>Prevents excess water loss; protects plant surfaces from harsh environmental conditions; helps leaves and fruits remain clean and water-repellent.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Significance of extra wall materials</strong>
+      <span>Extra wall materials are important because they make the plant body stronger, more protected and better adapted to land. Lignin allowed plants to develop strong xylem and woody tissues. Cutin and wax reduced water loss from aerial parts and were important for terrestrial life. Suberin protected older tissues and controlled absorption in roots. Callose helped in wound response, phloem protection, pollen development and cell division.</span>
+    </div>
+
+    <div class="callout">
+      <strong>Conclusion</strong>
+      <span>Extra cell wall materials such as lignin, cutin, suberin, callose and wax greatly modify the structure and function of the plant cell wall. Lignin gives mechanical strength, rigidity and resistance to decay; cutin and wax reduce water loss from aerial surfaces; suberin provides waterproofing and protection in cork and roots; and callose helps in wound healing, phloem function, pollen development, pathogen defence and cytokinesis. These substances are essential adaptations for plant survival, especially in terrestrial environments.</span>
+    </div>
+  </section>
+
+  <div class="footer">402C Unit 3 · Structure of cell wall, plasma membrane and extra cell wall materials</div>
+</main>
+</body>
+</html>
