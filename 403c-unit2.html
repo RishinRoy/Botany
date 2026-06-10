@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>403C Unit 2 — Pollination and Double Fertilization</title>
+<style>
+:root{
+  --bg:#111417;
+  --panel:#1b2024;
+  --paper:#f4eedf;
+  --ink:#101010;
+  --edge:#d9dbc8;
+  --sage:#b9d8be;
+  --blue:#b8cce5;
+  --clay:#dfa486;
+  --mauve:#d5b6cc;
+  --sand:#eee3ca;
+  --yellow:#e8c468;
+  --white:#f8f4e9;
+  --shadow:#050606;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(223,164,134,.10), transparent 35%),
+    var(--bg);
+  color:var(--white);
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-size:18px;
+  line-height:1.65;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.16;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+.page{
+  width:min(1220px, calc(100% - 34px));
+  margin:0 auto;
+  padding:26px 0 60px;
+  position:relative;
+  z-index:1;
+}
+.hero,.section{
+  border:4px solid var(--edge);
+  box-shadow:10px 10px 0 var(--shadow);
+  background:linear-gradient(150deg,#1d2227,#15191d);
+  padding:28px;
+  margin:0 0 26px;
+}
+.kicker,.label{
+  display:inline-block;
+  background:var(--mauve);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  font-weight:900;
+  text-transform:uppercase;
+  padding:8px 14px;
+  letter-spacing:.04em;
+  margin-bottom:14px;
+}
+.hero h1{
+  font-size:clamp(2.25rem,5vw,4.6rem);
+  line-height:.95;
+  margin:0 0 16px;
+  letter-spacing:-.055em;
+}
+.hero p,.intro{
+  color:#dde0d9;
+  max-width:92ch;
+  margin:0 0 18px;
+}
+.toc{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:12px;
+  margin:0 0 26px;
+}
+.toc a{
+  color:var(--ink);
+  text-decoration:none;
+  font-weight:900;
+  line-height:1.25;
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:14px 16px;
+  background:var(--sand);
+}
+.toc a:nth-child(2n){background:var(--sage)}
+.toc a:nth-child(3n){background:var(--blue)}
+.toc a:nth-child(4n){background:var(--clay)}
+.head{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:14px;
+  align-items:center;
+  margin-bottom:16px;
+}
+.num{
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  background:var(--yellow);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  font-size:1.2rem;
+  font-weight:900;
+}
+h2{
+  font-size:clamp(1.9rem,4vw,3.5rem);
+  line-height:1;
+  margin:0;
+  letter-spacing:-.04em;
+}
+h3{margin:20px 0 8px;font-size:1.25rem}
+h4{margin:16px 0 6px;font-size:1rem;text-transform:uppercase;letter-spacing:.035em}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.card,.note{
+  background:var(--paper);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:16px;
+  overflow:hidden;
+}
+.card:nth-child(2n){background:var(--blue)}
+.card:nth-child(3n){background:var(--sage)}
+.card:nth-child(4n){background:var(--clay)}
+.card:nth-child(5n){background:var(--mauve)}
+.card p{margin:0 0 10px}
+.card p:last-child{margin-bottom:0}
+ul,ol{margin-top:8px;padding-left:1.35rem}
+.flow{
+  background:var(--yellow);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:14px;
+  margin:14px 0;
+  font-weight:900;
+  overflow-wrap:anywhere;
+}
+.tablewrap{
+  margin:16px 0;
+  border:3px solid var(--ink);
+  background:var(--paper);
+  box-shadow:6px 6px 0 var(--shadow);
+  overflow:visible;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  color:var(--ink);
+  font-size:.86rem;
+  line-height:1.32;
+}
+th,td{
+  border:2px solid var(--ink);
+  padding:8px;
+  vertical-align:top;
+  overflow-wrap:anywhere;
+}
+th{
+  background:var(--yellow);
+  text-align:left;
+  font-weight:900;
+}
+td:first-child{
+  background:#ead9bb;
+  font-weight:800;
+}
+.callout{
+  background:var(--sand);
+  color:var(--ink);
+  border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow);
+  padding:15px;
+  margin-top:18px;
+}
+.callout strong{display:block;margin-bottom:6px}
+@media(max-width:800px){
+  body{font-size:16px}
+  .head{grid-template-columns:1fr}
+  .hero,.section{padding:20px}
+}
+@media print{
+  @page{size:A4;margin:8mm}
+  body{background:white;color:#111;font-size:10pt;line-height:1.36}
+  body::before,.toc{display:none}
+  .page{width:100%;padding:0}
+  .hero,.section,.card,.note,.callout{box-shadow:none;border:1.5px solid #111;background:white!important;color:#111;break-inside:avoid}
+  .hero p,.intro{color:#111}
+  h2{color:#111}
+  table{font-size:7.2pt}
+  th,td{padding:4px;border:1px solid #111}
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+<section class="hero">
+  <span class="kicker">403C Unit 2</span>
+  <h1>Pollination, Mechanisms, Adaptations and Double Fertilization</h1>
+  <p>This unit contains the complete exam-note content from the shared pages: pollination with special reference to anemophily, hydrophily and entomophily, their mechanisms and adaptations, comparison, significance, and double fertilization with mechanism, products, significance and difference between syngamy and triple fusion.</p>
+</section>
+
+<nav class="toc">
+  <a href="#pollination">01 · Pollination: types, mechanism and adaptations</a>
+  <a href="#anemophily">02 · Anemophily</a>
+  <a href="#hydrophily">03 · Hydrophily</a>
+  <a href="#entomophily">04 · Entomophily</a>
+  <a href="#comparison">05 · Comparison and significance</a>
+  <a href="#double">06 · Double fertilization</a>
+</nav>
+
+<section class="section" id="pollination">
+  <span class="label">Pollination</span>
+  <div class="head"><div class="num">01</div><h2>Pollination: Types, Mechanism and Adaptations</h2></div>
+  <p class="intro"><strong>With special reference to Anemophily, Hydrophily and Entomophily</strong></p>
+
+  <div class="card">
+    <h3>Introduction</h3>
+    <p><strong>Pollination</strong> is the transfer of pollen grains from the anther to the stigma of a flower. It is an essential step in sexual reproduction of angiosperms because it brings the male gametophyte near the female reproductive organ. After successful pollination, the pollen grain germinates on the stigma and produces a pollen tube, which carries the male gametes to the embryo sac for fertilization.</p>
+    <p>Pollination may occur by abiotic agents such as wind and water, or by biotic agents such as insects, birds and animals. Based on the agent involved, important types of pollination are <strong>anemophily</strong>, <strong>hydrophily</strong> and <strong>entomophily</strong>.</p>
+  </div>
+
+  <h3>General Mechanism of Pollination</h3>
+  <p>During pollination, mature anthers dehisce and release pollen grains. These pollen grains are then transferred to the stigma by a suitable agent. If the pollen reaches a compatible stigma, it absorbs moisture and nutrients from the stigmatic surface and germinates. The intine comes out through the germ pore and forms a pollen tube. The pollen tube grows through the style and reaches the ovule, where fertilization occurs.</p>
+  <p>Thus, the basic sequence is:</p>
+  <div class="flow">Anther dehiscence → pollen release → transfer by agent → deposition on stigma → pollen germination → pollen tube formation</div>
+</section>
+
+<section class="section" id="anemophily">
+  <span class="label">Type 1</span>
+  <div class="head"><div class="num">02</div><h2>Anemophily</h2></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Definition</h3>
+      <p><strong>Anemophily</strong> is the type of pollination in which pollen grains are transferred from anther to stigma by wind. Plants pollinated by wind are called <strong>anemophilous plants</strong>.</p>
+      <p>This type of pollination is common in grasses, cereals and many trees.</p>
+      <p><strong>Examples:</strong> Maize, wheat, rice, sugarcane, grasses, coconut, date palm.</p>
+    </div>
+
+    <div class="card">
+      <h3>Mechanism of Anemophily</h3>
+      <p>In anemophilous plants, flowers produce a large number of pollen grains. The anthers are usually exposed outside the flower and dehisce freely. The light, dry pollen grains are carried by air currents. Since wind movement is random, only a small number of pollen grains reach the stigma, while many are wasted.</p>
+      <p>To catch the wind-borne pollen, the stigma is usually large, branched or feathery. When pollen grains come in contact with the receptive stigma, they adhere to it and germinate.</p>
+      <p>In maize, the male flowers are present in the tassel at the top, while the female flowers are present in the cob. The long silky stigmas hang outside and catch pollen grains carried by wind.</p>
+    </div>
+  </div>
+
+  <h3>Adaptations for Anemophily</h3>
+  <p>Anemophilous flowers show special adaptations for wind pollination:</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Adaptation</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Small and inconspicuous flowers</td><td>Flowers are not brightly coloured because they do not need to attract insects.</td></tr>
+        <tr><td>Absence of scent and nectar</td><td>No nectar or fragrance is produced.</td></tr>
+        <tr><td>Large pollen production</td><td>Pollen grains are produced in huge numbers because many are wasted.</td></tr>
+        <tr><td>Light and dry pollen</td><td>Pollen grains are easily carried by wind.</td></tr>
+        <tr><td>Exposed stamens</td><td>Anthers are often pendulous or versatile so that pollen can be easily released.</td></tr>
+        <tr><td>Large feathery stigma</td><td>Stigma catches floating pollen grains efficiently.</td></tr>
+        <tr><td>Flowers often unisexual</td><td>Reduces self-pollination in many cases.</td></tr>
+        <tr><td>Flowers borne above leaves</td><td>Helps free movement of pollen by wind.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>Special Features</strong>
+    Wind pollination is a wasteful method because many pollen grains fail to reach the stigma. Therefore, anemophilous plants compensate by producing abundant pollen. Since no animal attraction is needed, the flowers are usually dull, small and nectarless.
+  </div>
+</section>
+
+<section class="section" id="hydrophily">
+  <span class="label">Type 2</span>
+  <div class="head"><div class="num">03</div><h2>Hydrophily</h2></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Definition</h3>
+      <p><strong>Hydrophily</strong> is the type of pollination in which pollen grains are transferred from anther to stigma through water. Plants pollinated by water are called <strong>hydrophilous plants</strong>.</p>
+      <p>Hydrophily is relatively rare and is found mainly in aquatic plants.</p>
+      <p><strong>Examples:</strong> <em>Vallisneria</em>, <em>Hydrilla</em>, <em>Zostera</em>, <em>Ceratophyllum</em>.</p>
+    </div>
+
+    <div class="card">
+      <h3>Types of Hydrophily</h3>
+      <p>Hydrophily may be of two types:</p>
+      <ol>
+        <li><strong>Epihydrophily</strong></li>
+        <li><strong>Hypohydrophily</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <h3>A. Epihydrophily</h3>
+  <p>In <strong>epihydrophily</strong>, pollination takes place on the surface of water.</p>
+  <p><strong>Example:</strong> <em>Vallisneria</em>.</p>
+  <p>In <em>Vallisneria</em>, the female flower is borne on a long coiled stalk and reaches the surface of water. The male flowers detach from the plant and float on the water surface. These floating male flowers are carried by water currents. When they come near the female flower, anthers release pollen grains which reach the stigma. After pollination, the stalk of the female flower coils again and brings the flower under water, where fruit development occurs.</p>
+
+  <h3>B. Hypohydrophily</h3>
+  <p>In <strong>hypohydrophily</strong>, pollination takes place below the surface of water.</p>
+  <p><strong>Examples:</strong> <em>Zostera</em>, <em>Hydrilla</em>.</p>
+  <p>In such plants, pollen grains are released under water. They are carried by water currents and reach the submerged stigma. In <em>Zostera</em>, pollen grains are long and ribbon-like, which helps them float and move easily in water.</p>
+
+  <h3>Adaptations for Hydrophily</h3>
+  <p>Hydrophilous plants show the following adaptations:</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Adaptation</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Aquatic habit</td><td>Plants live in water.</td></tr>
+        <tr><td>Reduced floral parts</td><td>Flowers are often small and simple.</td></tr>
+        <tr><td>Absence of showy petals</td><td>No need to attract insects.</td></tr>
+        <tr><td>Absence of nectar and scent</td><td>Animal attraction is not required.</td></tr>
+        <tr><td>Pollen adapted to water</td><td>Pollen may be long, thread-like or protected from wetting.</td></tr>
+        <tr><td>Mucilaginous covering</td><td>Helps pollen remain protected in water.</td></tr>
+        <tr><td>Stigma exposed to water current</td><td>Helps in catching pollen.</td></tr>
+        <tr><td>Male flowers may float</td><td>Seen in surface pollination, as in <em>Vallisneria</em>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>Special Features</strong>
+    Hydrophily is much less common than wind or insect pollination. Many aquatic plants are not truly hydrophilous because their flowers may rise above water and get pollinated by wind or insects. True hydrophily is limited to a few aquatic plants.
+  </div>
+</section>
+
+<section class="section" id="entomophily">
+  <span class="label">Type 3</span>
+  <div class="head"><div class="num">04</div><h2>Entomophily</h2></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Definition</h3>
+      <p><strong>Entomophily</strong> is the type of pollination in which pollen grains are transferred from anther to stigma by insects. Plants pollinated by insects are called <strong>entomophilous plants</strong>.</p>
+      <p>This is one of the most common and effective types of pollination in angiosperms.</p>
+      <p><strong>Examples:</strong> Rose, sunflower, <em>Salvia</em>, Hibiscus, pea, orchids, mustard.</p>
+    </div>
+
+    <div class="card">
+      <h3>Mechanism of Entomophily</h3>
+      <p>Entomophilous flowers attract insects by bright colour, fragrance, nectar and edible pollen. Insects such as bees, butterflies, moths, beetles and flies visit flowers for nectar or pollen.</p>
+      <p>When an insect enters a flower, pollen grains stick to its body because the pollen grains are sticky, rough or spiny. When the same insect visits another flower of the same species, the pollen grains are transferred to the stigma. If the stigma is receptive and the pollen is compatible, germination occurs.</p>
+      <p>This method is more efficient than wind pollination because pollen is directly transferred from flower to flower with less wastage.</p>
+    </div>
+  </div>
+
+  <h3>Adaptations for Entomophily</h3>
+  <p>Entomophilous flowers show many adaptations for attracting insects and ensuring successful pollination:</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Adaptation</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Brightly coloured petals</td><td>Attract insects from a distance.</td></tr>
+        <tr><td>Fragrance</td><td>Helps insects locate flowers.</td></tr>
+        <tr><td>Nectar secretion</td><td>Provides food reward to insects.</td></tr>
+        <tr><td>Sticky pollen</td><td>Pollen sticks to insect body.</td></tr>
+        <tr><td>Rough or spiny pollen surface</td><td>Helps attachment to insect body.</td></tr>
+        <tr><td>Sticky stigma</td><td>Receives pollen effectively.</td></tr>
+        <tr><td>Zygomorphic flowers</td><td>Helps insects enter in a fixed way.</td></tr>
+        <tr><td>Nectar guides</td><td>Lines or marks guide insects towards nectar.</td></tr>
+        <tr><td>Special floral mechanisms</td><td>Ensure pollen deposition on insect body.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Special Mechanism in <em>Salvia</em></h3>
+  <p><em>Salvia</em> shows a special lever mechanism for insect pollination. The flower is bilabiate and has two stamens. Each stamen has a connective forming a lever-like structure. When an insect enters the flower to suck nectar, it pushes the sterile end of the lever. This causes the fertile anther lobe to strike the back of the insect and deposit pollen.</p>
+  <p>When the insect visits another mature flower, its pollen-covered body touches the stigma and pollination occurs. This is an example of a specialized entomophilous mechanism.</p>
+
+  <div class="callout">
+    <strong>Special Features</strong>
+    Entomophily is less wasteful than anemophily because insects carry pollen directly from one flower to another. It also promotes cross-pollination and genetic variation. Many flowers and insects show co-evolution, where floral structure and insect behaviour are closely related.
+  </div>
+</section>
+
+<section class="section" id="comparison">
+  <span class="label">Comparison</span>
+  <div class="head"><div class="num">05</div><h2>Comparison and Significance of Pollination</h2></div>
+
+  <h3>Comparison of Anemophily, Hydrophily and Entomophily</h3>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Character</th><th>Anemophily</th><th>Hydrophily</th><th>Entomophily</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Pollinating agent</td><td>Wind</td><td>Water</td><td>Insects</td></tr>
+        <tr><td>Flowers</td><td>Small, dull</td><td>Small, simple</td><td>Large, showy</td></tr>
+        <tr><td>Nectar</td><td>Absent</td><td>Absent</td><td>Usually present</td></tr>
+        <tr><td>Scent</td><td>Absent</td><td>Absent</td><td>Usually present</td></tr>
+        <tr><td>Pollen</td><td>Light, dry, numerous</td><td>Water-adapted</td><td>Sticky, rough or spiny</td></tr>
+        <tr><td>Stigma</td><td>Large and feathery</td><td>Exposed to water</td><td>Sticky</td></tr>
+        <tr><td>Wastage of pollen</td><td>Very high</td><td>Moderate to high</td><td>Low</td></tr>
+        <tr><td>Examples</td><td>Maize, grasses</td><td><em>Vallisneria</em>, <em>Zostera</em></td><td>Rose, <em>Salvia</em>, sunflower</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Significance of Pollination</h3>
+  <p>Pollination is essential because it brings male gametes close to the female reproductive structure. It is the first step leading to fertilization, seed formation and fruit formation. Cross-pollination, especially by insects and wind, increases genetic variation and helps plants adapt to changing environments.</p>
+  <p>Different pollination mechanisms show how flowers are adapted to their environment and pollinating agents.</p>
+
+  <div class="callout">
+    <strong>Conclusion</strong>
+    Pollination is the transfer of pollen grains from anther to stigma. In anemophily, wind acts as the pollinating agent, and flowers are small, dull, nectarless, with light pollen and feathery stigma. In hydrophily, water acts as the agent, and aquatic plants show special adaptations such as floating flowers or water-resistant pollen. In entomophily, insects carry pollen, and flowers are usually showy, scented, nectar-producing and have sticky pollen. Thus, pollination shows close adaptation between flowers and their pollinating agents and plays a vital role in fertilization and seed formation in angiosperms.
+  </div>
+</section>
+
+<section class="section" id="double">
+  <span class="label">Double Fertilization</span>
+  <div class="head"><div class="num">06</div><h2>Double Fertilization</h2></div>
+
+  <div class="card">
+    <h3>Introduction</h3>
+    <p><strong>Double fertilization</strong> is a unique reproductive process found in angiosperms. It involves two fusion events inside the embryo sac. One male gamete fuses with the egg cell to form the zygote, while the other male gamete fuses with the two polar nuclei or secondary nucleus to form the primary endosperm nucleus.</p>
+    <p>Thus, in angiosperms, fertilization occurs twice, so the process is called <strong>double fertilization</strong>. It was first discovered by <strong>Nawaschin</strong> in <em>Lilium</em> and <em>Fritillaria</em>.</p>
+  </div>
+
+  <h3>Definition</h3>
+  <p>Double fertilization is the process in which the two male gametes released by the pollen tube take part in two separate fusions inside the embryo sac:</p>
+  <ol>
+    <li>One male gamete fuses with the egg cell to form the diploid zygote.</li>
+    <li>The other male gamete fuses with the two polar nuclei or secondary nucleus to form the triploid primary endosperm nucleus.</li>
+  </ol>
+  <p>The first fusion is called <strong>syngamy</strong>, and the second fusion is called <strong>triple fusion</strong>.</p>
+
+  <h3>Structures Involved in Double Fertilization</h3>
+  <p>Double fertilization takes place inside the <strong>embryo sac</strong>, which is the female gametophyte of angiosperms. A typical mature embryo sac is <strong>7-celled and 8-nucleate</strong>.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Region</th><th>Structure</th></tr></thead>
+      <tbody>
+        <tr><td>Micropylar end</td><td>Egg apparatus: one egg cell and two synergids</td></tr>
+        <tr><td>Central region</td><td>Central cell with two polar nuclei or secondary nucleus</td></tr>
+        <tr><td>Chalazal end</td><td>Three antipodal cells</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The male gametophyte is represented by the pollen grain. It produces two male gametes, which are carried to the embryo sac through the pollen tube.</p>
+
+  <h3>Mechanism of Double Fertilization</h3>
+  <div class="grid2">
+    <div class="card">
+      <h3>1. Pollination and Pollen Germination</h3>
+      <p>Double fertilization begins after pollination. When a mature pollen grain lands on a suitable stigma, it absorbs moisture and nutrients from the stigmatic surface. The pollen grain germinates, and the intine comes out through the germ pore to form a <strong>pollen tube</strong>.</p>
+      <p>The pollen tube grows down through the style towards the ovary. It carries the male gametes towards the ovule.</p>
+    </div>
+    <div class="card">
+      <h3>2. Formation of Two Male Gametes</h3>
+      <p>In many angiosperms, pollen is shed at the two-celled stage. It contains a vegetative cell and a generative cell. The generative cell divides mitotically to form two male gametes. This division may occur either inside the pollen grain or inside the pollen tube.</p>
+      <p>Thus, the pollen tube finally contains a vegetative nucleus and two male gametes. The vegetative nucleus controls the growth of the pollen tube, while the male gametes take part in fertilization.</p>
+    </div>
+    <div class="card">
+      <h3>3. Entry of Pollen Tube into Ovule</h3>
+      <p>The pollen tube enters the ovule commonly through the micropyle. This type of entry is called <strong>porogamy</strong> and is the most common method.</p>
+      <p>In some plants, the pollen tube may enter through the chalaza, called <strong>chalazogamy</strong>, or through the integuments, called <strong>mesogamy</strong>.</p>
+    </div>
+    <div class="card">
+      <h3>4. Entry into Embryo Sac</h3>
+      <p>After entering the ovule, the pollen tube usually reaches the embryo sac through one of the synergids.</p>
+      <p>The pollen tube enters the embryo sac at the micropylar end, usually through a degenerating synergid. The synergids help in guiding the pollen tube because they possess a special structure called the <strong>filiform apparatus</strong>.</p>
+      <p>The filiform apparatus increases the surface area of the synergid and helps in absorption, secretion and pollen tube attraction. After reaching the embryo sac, the tip of the pollen tube bursts and releases the two male gametes.</p>
+    </div>
+  </div>
+
+  <h3>Two Events of Double Fertilization</h3>
+  <div class="grid2">
+    <div class="card">
+      <h3>1. Syngamy</h3>
+      <p>The first male gamete fuses with the egg cell. This fusion is called <strong>syngamy</strong> or true fertilization.</p>
+      <p>The egg cell is haploid, and the male gamete is also haploid. Their fusion produces a diploid zygote.</p>
+      <p><strong>Male gamete (n) + Egg cell (n) = Zygote (2n)</strong></p>
+      <p>The zygote later develops into the embryo.</p>
+    </div>
+    <div class="card">
+      <h3>2. Triple Fusion</h3>
+      <p>The second male gamete moves towards the central cell and fuses with the two polar nuclei or the secondary nucleus. Since three haploid nuclei are involved in this fusion, it is called <strong>triple fusion</strong>.</p>
+      <p><strong>Male gamete (n) + Two polar nuclei (n + n) = Primary endosperm nucleus (3n)</strong></p>
+      <p>The primary endosperm nucleus later develops into the endosperm. The endosperm provides nourishment to the developing embryo.</p>
+    </div>
+  </div>
+
+  <h3>Why the Process is Called Double Fertilization</h3>
+  <p>This process is called double fertilization because both male gametes participate in fertilization. One male gamete takes part in syngamy and forms the zygote, while the other male gamete takes part in triple fusion and forms the primary endosperm nucleus. Thus, two fertilization events occur in the same embryo sac.</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Male gamete</th><th>Fuses with</th><th>Process</th><th>Product</th></tr></thead>
+      <tbody>
+        <tr><td>First male gamete</td><td>Egg cell</td><td>Syngamy</td><td>Zygote</td></tr>
+        <tr><td>Second male gamete</td><td>Polar nuclei / secondary nucleus</td><td>Triple fusion</td><td>Primary endosperm nucleus</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Products of Double Fertilization</h3>
+  <p>Double fertilization produces two important structures:</p>
+  <ol>
+    <li><strong>Zygote:</strong> The zygote is formed by the fusion of one male gamete with the egg cell. It is diploid and develops into the embryo.</li>
+    <li><strong>Primary Endosperm Nucleus:</strong> The primary endosperm nucleus is formed by the fusion of the second male gamete with the polar nuclei or secondary nucleus. It is usually triploid and develops into endosperm. The endosperm is a nutritive tissue that provides food to the developing embryo.</li>
+  </ol>
+
+  <h3>Significance of Double Fertilization</h3>
+  <p>Double fertilization is one of the most important features of angiosperms. Its significance is as follows:</p>
+  <ol>
+    <li><strong>Unique feature of angiosperms:</strong> Double fertilization is characteristic of flowering plants and helps distinguish them from other plant groups.</li>
+    <li><strong>Formation of embryo:</strong> Syngamy produces the zygote, which develops into the embryo.</li>
+    <li><strong>Formation of endosperm:</strong> Triple fusion produces the primary endosperm nucleus, which develops into endosperm.</li>
+    <li><strong>Economy of food material:</strong> Endosperm develops only after fertilization. Therefore, nutritive tissue is not wasted if fertilization does not occur.</li>
+    <li><strong>Coordination between embryo and endosperm development:</strong> Since embryo and endosperm formation begin almost together, the developing embryo receives proper nourishment at the right time.</li>
+    <li><strong>Restoration of diploid chromosome number:</strong> Syngamy restores the diploid condition in the zygote.</li>
+    <li><strong>Genetic variation:</strong> Fusion of male and female gametes combines genetic material from two parents, producing variation in offspring.</li>
+  </ol>
+
+  <h3>Difference between Syngamy and Triple Fusion</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Character</th><th>Syngamy</th><th>Triple fusion</th></tr></thead>
+      <tbody>
+        <tr><td>Fusion involved</td><td>Male gamete + egg cell</td><td>Male gamete + two polar nuclei</td></tr>
+        <tr><td>Number of nuclei involved</td><td>Two</td><td>Three</td></tr>
+        <tr><td>Product formed</td><td>Zygote</td><td>Primary endosperm nucleus</td></tr>
+        <tr><td>Ploidy of product</td><td>Diploid, 2n</td><td>Usually triploid, 3n</td></tr>
+        <tr><td>Function</td><td>Forms embryo</td><td>Forms endosperm</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <strong>Conclusion</strong>
+    Double fertilization is a characteristic feature of angiosperms in which both male gametes take part in fusion. One male gamete fuses with the egg cell to form a diploid zygote through syngamy. The other male gamete fuses with the two polar nuclei or secondary nucleus to form the triploid primary endosperm nucleus through triple fusion. The zygote develops into the embryo, while the primary endosperm nucleus forms the endosperm. Thus, double fertilization ensures both embryo formation and nutritive tissue formation, making it one of the most important reproductive adaptations of angiosperms.
+  </div>
+</section>
+
+</main>
+</body>
+</html>

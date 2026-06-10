@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>403C Unit 3 — Endosperm and Embryo Development</title>
+<style>
+:root {
+  --bg:#111417; --panel:#1b2024; --panel2:#22252b; --paper:#f3eddf; --ink:#111;
+  --edge:#d9dbc8; --sage:#b9d8be; --blue:#b8cce5; --clay:#dfa486; --mauve:#d5b6cc;
+  --sand:#eee3ca; --yellow:#e8c468; --white:#f8f4e9; --shadow:#050606;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; background:radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 32%),
+  radial-gradient(circle at bottom right, rgba(223,164,134,.10), transparent 35%), var(--bg);
+  color:var(--white); font-family:Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-size:18px; line-height:1.65;
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size:28px 28px;
+}
+.page { width:min(1220px, calc(100% - 34px)); margin:0 auto; padding:26px 0 60px; position:relative; z-index:1; }
+.hero, .section {
+  border:4px solid var(--edge); box-shadow:10px 10px 0 var(--shadow);
+  background:linear-gradient(150deg,#1d2227,#15191d); padding:28px; margin:0 0 26px;
+}
+.kicker,.label {
+  display:inline-block; background:var(--mauve); color:var(--ink); border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow); font-weight:900; text-transform:uppercase; padding:8px 14px;
+  letter-spacing:.04em; margin-bottom:14px;
+}
+.hero h1 { font-size:clamp(2.25rem,5vw,4.6rem); line-height:.95; margin:0 0 16px; letter-spacing:-.055em; }
+.hero p,.intro { color:#dde0d9; max-width:92ch; margin:0 0 18px; }
+.toc { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin:0 0 26px; }
+.toc a { color:var(--ink); text-decoration:none; font-weight:900; line-height:1.25; border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; background:var(--sand); }
+.toc a:nth-child(2n){background:var(--sage)} .toc a:nth-child(3n){background:var(--blue)} .toc a:nth-child(4n){background:var(--clay)}
+.head { display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:center; margin-bottom:16px; }
+.num { width:58px; height:58px; display:grid; place-items:center; background:var(--yellow); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); font-size:1.2rem; font-weight:900; }
+h2 { font-size:clamp(1.9rem,4vw,3.5rem); line-height:1; margin:0; letter-spacing:-.04em; }
+h3 { margin:20px 0 8px; font-size:1.22rem; }
+.major-heading {
+  margin:30px 0 18px; padding:16px 18px; background:var(--yellow); color:var(--ink);
+  border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow);
+}
+.major-heading .tag {
+  display:inline-block; background:var(--ink); color:var(--white); padding:4px 10px;
+  font-size:.78rem; font-weight:900; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;
+}
+.major-heading h3 {
+  margin:0; font-size:clamp(1.55rem,3vw,2.35rem); line-height:1.08; letter-spacing:-.025em;
+}
+.major-heading.male { background:var(--blue); }
+.major-heading.female { background:var(--sage); }
+@media print {
+  .major-heading { box-shadow:none; border:1.5px solid #111; background:#f2f2f2!important; break-after:avoid; }
+  .major-heading .tag { background:#111!important; color:#fff!important; }
+}
+h4 { margin:16px 0 6px; font-size:1rem; text-transform:uppercase; letter-spacing:.035em; }
+.grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:14px; }
+.grid3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
+.card,.note {
+  background:var(--paper); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow);
+  padding:16px; overflow:hidden;
+}
+.card:nth-child(2n){background:var(--blue)} .card:nth-child(3n){background:var(--sage)} .card:nth-child(4n){background:var(--clay)} .card:nth-child(5n){background:var(--mauve)}
+.card p { margin:0 0 10px; } .card p:last-child{margin-bottom:0}
+ul,ol { margin-top:8px; padding-left:1.35rem; }
+.tablewrap { margin:16px 0; border:3px solid var(--ink); background:var(--paper); box-shadow:6px 6px 0 var(--shadow); overflow:visible; }
+table { width:100%; border-collapse:collapse; table-layout:fixed; color:var(--ink); font-size:.86rem; line-height:1.32; }
+th,td { border:2px solid var(--ink); padding:8px; vertical-align:top; overflow-wrap:anywhere; }
+th { background:var(--yellow); text-align:left; font-weight:900; }
+td:first-child { background:#ead9bb; font-weight:800; }
+.diagram {
+  margin:18px 0; padding:14px; background:var(--paper); color:var(--ink);
+  border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow);
+}
+.diagram img { display:block; max-width:100%; max-height:650px; object-fit:contain; margin:0 auto; background:white; }
+.diagram figcaption { margin-top:10px; font-weight:900; text-align:center; font-size:.95rem; }
+.callout { background:var(--sand); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:15px; margin-top:18px; }
+.callout strong { display:block; margin-bottom:6px; }
+.small { font-size:.94rem; }
+@media(max-width:800px){ body{font-size:16px} .head{grid-template-columns:1fr} .hero,.section{padding:20px} }
+@media print {
+  @page { size:A4; margin:8mm; }
+  body { background:white; color:#111; font-size:10pt; line-height:1.36; }
+  body::before,.toc { display:none; }
+  .page { width:100%; padding:0; }
+  .hero,.section,.card,.note,.diagram,.callout { box-shadow:none; border:1.5px solid #111; background:white!important; color:#111; break-inside:avoid; }
+  h2 { color:#111; } .intro,.hero p { color:#111; }
+  table { font-size:7.2pt; } th,td { padding:4px; border:1px solid #111; }
+  .diagram img { max-height:420px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+<section class="hero">
+<span class="kicker">403C Unit 3</span>
+<h1>Endosperm and Embryo Development</h1>
+<p>This unit covers the origin, developmental types, structure and functions of endosperm, along with development of dicot and monocot embryo. The information is arranged in exam-ready B.Sc. Botany format with clear headings, tables, callouts and the uploaded embryo diagram placed under its relevant topic.</p>
+</section>
+<nav class="toc">
+<a href="#endosperm-intro">01 · Endosperm: introduction and origin</a>
+<a href="#types-endosperm">02 · Types of endosperm</a>
+<a href="#other-forms">03 · Other forms of endosperm</a>
+<a href="#structure-functions">04 · Structure and functions of endosperm</a>
+<a href="#comparison-significance">05 · Comparison, significance and conclusion</a>
+<a href="#dicot-embryo">06 · Development of dicot embryo</a>
+<a href="#monocot-embryo">07 · Development of monocot embryo</a>
+<a href="#dicot-monocot-diff">08 · Difference, significance and conclusion</a>
+</nav>
+<section class="section" id="endosperm-intro">
+<span class="label">Topic 1</span>
+<div class="head"><div class="num">01</div><h2>Endosperm: Introduction and Origin</h2></div>
+<p class="intro">The endosperm is a nutritive tissue formed inside the seed of angiosperms after fertilization. It is one of the most important products of double fertilization because it nourishes the developing embryo and, in many seeds, stores reserve food for germination.</p>
+<div class="grid2">
+<div class="card">
+<h3>Introduction</h3>
+<p>The <strong>endosperm</strong> develops from the <strong>primary endosperm nucleus</strong>, which is formed during double fertilization. In most angiosperms, one male gamete fuses with the two polar nuclei or with the secondary nucleus to form a triploid primary endosperm nucleus.</p>
+<p>This fusion of one male gamete with the polar nuclei is called <strong>triple fusion</strong>. After its formation, the primary endosperm nucleus divides repeatedly and gives rise to the endosperm tissue.</p>
+<p>The main function of endosperm is to nourish the developing embryo. In many seeds, it also stores food and provides nutrition during seed germination.</p>
+</div>
+<div class="card">
+<h3>Origin of Endosperm</h3>
+<p>Endosperm is formed as a result of <strong>triple fusion</strong> inside the embryo sac. The fusion may be represented as:</p>
+<p><strong>Male gamete (n) + two polar nuclei (n + n) = Primary endosperm nucleus (3n)</strong></p>
+<p>The primary endosperm nucleus is usually <strong>triploid</strong>. It divides mitotically and forms the endosperm tissue. Since endosperm develops only after fertilization, food material is not wasted before fertilization. This is one of the important advantages of double fertilization in angiosperms.</p>
+</div>
+</div>
+</section>
+<section class="section" id="types-endosperm">
+<span class="label">Topic 2</span>
+<div class="head"><div class="num">02</div><h2>Types of Endosperm</h2></div>
+<p class="intro">On the basis of development, endosperm is mainly of three types: nuclear endosperm, cellular endosperm and helobial endosperm. The main difference among them is the time and pattern of cell wall formation after division of the primary endosperm nucleus.</p>
+<div class="major-heading male">
+<span class="tag">Type 1</span>
+<h3>Nuclear Endosperm</h3>
+</div>
+<div class="grid2">
+<div class="card">
+<h3>Meaning</h3>
+<p>The <strong>nuclear endosperm</strong> is the most common type of endosperm in angiosperms. In this type, the primary endosperm nucleus undergoes repeated free nuclear divisions without immediate wall formation.</p>
+<p>As a result, many free nuclei are formed inside the embryo sac. These nuclei remain embedded in the cytoplasm. Cell wall formation occurs later, either partly or completely.</p>
+</div>
+<div class="card">
+<h3>Development</h3>
+<p>At first, the primary endosperm nucleus divides into two nuclei. These nuclei divide repeatedly, producing many free nuclei. The embryo sac becomes filled with multinucleate cytoplasm.</p>
+<p>Later, walls may be formed around the nuclei, producing cellular endosperm tissue. In some plants, a part of the endosperm may remain free nuclear for some time.</p>
+</div>
+</div>
+<div class="callout">
+<strong>Examples</strong>
+    Nuclear endosperm is found in many common plants such as <strong>coconut, maize, wheat, rice and cotton</strong>. In coconut, coconut water represents the free nuclear stage of endosperm, while the white kernel represents the cellular endosperm.
+  </div>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Feature</th><th>Nuclear endosperm</th></tr></thead>
+<tbody>
+<tr><td>First division</td><td>Free nuclear</td></tr>
+<tr><td>Wall formation</td><td>Delayed</td></tr>
+<tr><td>Condition at early stage</td><td>Many free nuclei in common cytoplasm</td></tr>
+<tr><td>Commonness</td><td>Most common type</td></tr>
+<tr><td>Examples</td><td>Coconut, cereals</td></tr>
+</tbody>
+</table>
+</div>
+<div class="major-heading female">
+<span class="tag">Type 2</span>
+<h3>Cellular Endosperm</h3>
+</div>
+<div class="grid2">
+<div class="card">
+<h3>Meaning</h3>
+<p>In <strong>cellular endosperm</strong>, every division of the primary endosperm nucleus is followed by wall formation. Therefore, the endosperm becomes cellular from the beginning.</p>
+<p>There is no free nuclear stage in this type. After the first division of the primary endosperm nucleus, a wall is formed between the two daughter nuclei. Further divisions are also followed by cell wall formation.</p>
+</div>
+<div class="card">
+<h3>Development</h3>
+<p>The primary endosperm nucleus divides into two nuclei, and a wall is formed between them. These cells divide further, and each division is accompanied by wall formation.</p>
+<p>Thus, a cellular endosperm tissue is formed directly from the beginning.</p>
+</div>
+</div>
+<div class="callout">
+<strong>Examples</strong>
+    Cellular endosperm is found in plants such as <strong>Datura, Petunia and Balsam</strong>.
+  </div>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Feature</th><th>Cellular endosperm</th></tr></thead>
+<tbody>
+<tr><td>First division</td><td>Followed by wall formation</td></tr>
+<tr><td>Free nuclear stage</td><td>Absent</td></tr>
+<tr><td>Nature</td><td>Cellular from the beginning</td></tr>
+<tr><td>Examples</td><td><em>Datura</em>, <em>Petunia</em></td></tr>
+</tbody>
+</table>
+</div>
+<div class="major-heading">
+<span class="tag">Type 3</span>
+<h3>Helobial Endosperm</h3>
+</div>
+<div class="grid2">
+<div class="card">
+<h3>Meaning</h3>
+<p>The <strong>helobial endosperm</strong> is intermediate between nuclear and cellular types. It is commonly found in some monocots.</p>
+<p>In this type, the first division of the primary endosperm nucleus is followed by formation of a transverse wall. This divides the embryo sac into two chambers: a large micropylar chamber and a small chalazal chamber.</p>
+</div>
+<div class="card">
+<h3>Development</h3>
+<p>The primary endosperm nucleus first divides into two nuclei. A wall is formed between them, producing a large micropylar cell and a small chalazal cell.</p>
+<p>The micropylar cell gives rise to most of the endosperm by free nuclear divisions. The chalazal cell may divide less actively, may form a few nuclei, may remain small, or may function as a haustorial region.</p>
+</div>
+</div>
+<div class="callout">
+<strong>Examples</strong>
+    Helobial endosperm is found in plants such as <strong><em>Eremurus</em>, <em>Najas</em></strong> and some members of <strong>Helobiales</strong>.
+  </div>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Feature</th><th>Helobial endosperm</th></tr></thead>
+<tbody>
+<tr><td>First division</td><td>Followed by transverse wall formation</td></tr>
+<tr><td>Chambers formed</td><td>Micropylar and chalazal chambers</td></tr>
+<tr><td>Later development</td><td>Often free nuclear, especially in micropylar chamber</td></tr>
+<tr><td>Nature</td><td>Intermediate between nuclear and cellular</td></tr>
+<tr><td>Examples</td><td><em>Eremurus</em>, <em>Najas</em></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="section" id="other-forms">
+<span class="label">Topic 3</span>
+<div class="head"><div class="num">03</div><h2>Other Forms of Endosperm</h2></div>
+<p class="intro">Apart from developmental types, endosperm may also be described on the basis of its persistence in the mature seed and its structure.</p>
+<div class="grid3">
+<div class="card">
+<h3>Albuminous or Endospermic Seeds</h3>
+<p>In some seeds, the endosperm persists even in the mature seed. Such seeds are called <strong>albuminous</strong> or <strong>endospermic seeds</strong>.</p>
+<p><strong>Examples:</strong> castor, maize, wheat, rice and coconut.</p>
+<p>In these seeds, the embryo uses the stored food of endosperm during germination.</p>
+</div>
+<div class="card">
+<h3>Exalbuminous or Non-endospermic Seeds</h3>
+<p>In some seeds, the endosperm is completely consumed by the developing embryo before seed maturity. Such seeds are called <strong>exalbuminous</strong> or <strong>non-endospermic seeds</strong>.</p>
+<p><strong>Examples:</strong> pea, gram and bean.</p>
+<p>In these seeds, food is stored mainly in the cotyledons.</p>
+</div>
+<div class="card">
+<h3>Ruminate Endosperm</h3>
+<p>In some seeds, the endosperm becomes irregularly folded due to the ingrowth of seed coat tissues. Such endosperm is called <strong>ruminate endosperm</strong>.</p>
+<p><strong>Examples:</strong> areca nut, <em>Annona</em> and <em>Myristica</em>.</p>
+</div>
+</div>
+</section>
+<section class="section" id="structure-functions">
+<span class="label">Topic 4</span>
+<div class="head"><div class="num">04</div><h2>Structure and Functions of Endosperm</h2></div>
+<div class="major-heading male">
+<span class="tag">Structure</span>
+<h3>Structure of Endosperm</h3>
+</div>
+<p class="intro">The structure of endosperm varies in different plants, but it is generally a nutritive tissue surrounding or lying near the embryo. In many seeds, the endosperm is made up of living parenchymatous cells that store reserve food materials such as starch, proteins and oils.</p>
+<p class="intro">In cereals, the endosperm is well developed and differentiated into two main regions: the aleurone layer and the starchy endosperm.</p>
+<div class="grid3">
+<div class="card">
+<h3>Aleurone Layer</h3>
+<p>The <strong>aleurone layer</strong> is the outer protein-rich layer of the endosperm, especially in cereals such as wheat, rice and maize. It consists of living cells rich in proteins and enzymes.</p>
+<p>During germination, the aleurone layer secretes enzymes such as amylase. These enzymes digest stored starch and convert it into simple sugars for the growing embryo.</p>
+</div>
+<div class="card">
+<h3>Starchy Endosperm</h3>
+<p>The <strong>starchy endosperm</strong> forms the major part of cereal grains. It consists of cells filled with starch grains and is usually non-living at maturity.</p>
+<p>This region provides carbohydrates to the embryo during germination. In cereals, it forms the main edible portion of the grain.</p>
+</div>
+<div class="card">
+<h3>Endosperm Haustoria</h3>
+<p>In some plants, parts of the endosperm become modified into <strong>haustoria</strong>. These structures help in absorbing nutrients from the surrounding nucellus or integuments and transfer them to the developing embryo and endosperm.</p>
+<p>Endosperm haustoria are commonly seen in some plants where the developing embryo requires active nutrition from surrounding tissues.</p>
+</div>
+</div>
+<div class="major-heading female">
+<span class="tag">Functions</span>
+<h3>Functions of Endosperm</h3>
+</div>
+<p class="intro">Endosperm performs several important functions in angiosperms. It acts as a nutritive tissue, food-storage tissue and economically important food source.</p>
+<div class="grid2">
+<div class="card">
+<h3>1. Nutrition of Developing Embryo</h3>
+<p>The primary function of endosperm is to provide food to the developing embryo. It supplies carbohydrates, proteins, fats, minerals and growth substances.</p>
+</div>
+<div class="card">
+<h3>2. Food Storage</h3>
+<p>In many seeds, the endosperm stores reserve food materials. These may include starch, oils and proteins. For example, cereals store starch in the endosperm, while castor stores oils.</p>
+</div>
+<div class="card">
+<h3>3. Nourishment During Germination</h3>
+<p>During seed germination, the stored food in the endosperm is broken down and supplied to the growing embryo. This helps the seedling grow until it becomes photosynthetic.</p>
+</div>
+<div class="card">
+<h3>4. Enzyme Production</h3>
+<p>In cereal grains, the aleurone layer produces enzymes during germination. These enzymes convert stored starch into soluble sugars, which are used by the embryo.</p>
+</div>
+<div class="card">
+<h3>5. Economical Use</h3>
+<p>Endosperm is economically very important. The edible part of cereals such as rice, wheat and maize is mainly endosperm. Coconut water and coconut kernel are also endospermic tissues. Many food products are obtained from endosperm-rich seeds.</p>
+</div>
+<div class="card">
+<h3>6. Efficient Use of Food Material</h3>
+<p>Endosperm develops only after fertilization. Therefore, nutritive tissue is formed only when embryo development is possible. This prevents wastage of food material and is an important advantage of angiosperms.</p>
+</div>
+</div>
+</section>
+<section class="section" id="comparison-significance">
+<span class="label">Topic 5</span>
+<div class="head"><div class="num">05</div><h2>Comparison, Significance and Conclusion of Endosperm</h2></div>
+<div class="major-heading">
+<span class="tag">Comparison</span>
+<h3>Comparison of Three Main Types of Endosperm</h3>
+</div>
+<div class="tablewrap">
+<table>
+<thead>
+<tr><th>Character</th><th>Nuclear</th><th>Cellular</th><th>Helobial</th></tr>
+</thead>
+<tbody>
+<tr><td>Wall formation</td><td>Delayed</td><td>From the beginning</td><td>After first division</td></tr>
+<tr><td>Free nuclear stage</td><td>Present</td><td>Absent</td><td>Present in micropylar chamber</td></tr>
+<tr><td>First division</td><td>Not followed by wall</td><td>Followed by wall</td><td>Followed by transverse wall</td></tr>
+<tr><td>Nature</td><td>Many free nuclei first</td><td>Cellular from beginning</td><td>Intermediate</td></tr>
+<tr><td>Examples</td><td>Coconut, maize, rice</td><td><em>Datura</em>, <em>Petunia</em></td><td><em>Eremurus</em>, <em>Najas</em></td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid2">
+<div class="card">
+<h3>Significance</h3>
+<p>Endosperm is a characteristic nutritive tissue of angiosperms. It supports embryo development and increases seed survival.</p>
+<p>In albuminous seeds, endosperm remains stored in the mature seed and nourishes the embryo during germination. In exalbuminous seeds, it is consumed by the embryo and food is stored in cotyledons.</p>
+<p>The formation of endosperm after fertilization shows the efficiency of angiosperm reproduction because food material is produced only after successful fertilization.</p>
+</div>
+<div class="card">
+<h3>Conclusion</h3>
+<p>Endosperm is a nutritive tissue formed from the primary endosperm nucleus after triple fusion. It is usually triploid and provides nourishment to the developing embryo.</p>
+<p>Based on development, endosperm is of three main types: nuclear, cellular and helobial. Nuclear endosperm has free nuclear divisions, cellular endosperm has wall formation from the beginning, and helobial endosperm is intermediate.</p>
+<p>Structurally, endosperm may be starchy, protein-rich or oily. In cereals, it is differentiated into aleurone layer and starchy endosperm. Its main functions are nourishment of embryo, food storage, enzyme production during germination and economic importance as food material. Thus, endosperm is one of the most important tissues in angiosperm seeds.</p>
+</div>
+</div>
+</section>
+<section class="section" id="dicot-embryo">
+<span class="label">Topic 6</span>
+<div class="head"><div class="num">06</div><h2>Development of Dicot Embryo</h2></div>
+<p class="intro">In angiosperms, the embryo develops from the zygote formed after syngamy. Syngamy is the fusion of one male gamete with the egg cell during double fertilization. The zygote is diploid and represents the first cell of the sporophytic generation.</p>
+<p class="intro">The development of embryo from the zygote is called <strong>embryogeny</strong>. In dicots, the embryo usually develops two cotyledons. Development of the dicot embryo is best studied in <strong><em>Capsella bursa-pastoris</em></strong>. This type of embryogeny is called the <strong>Crucifer type</strong> or <strong>Onagrad type</strong>.</p><figure class="diagram"><img alt="Dicot and monocot embryo development diagram" src="data:image/webp;base64,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"/><figcaption>Diagram: Dicot and monocot embryo development, showing stages of dicot embryo and monocot embryo of grass.</figcaption></figure>
+<div class="major-heading male">
+<span class="tag">Dicot embryo</span>
+<h3>Stages in Development of Dicot Embryo</h3>
+</div>
+<div class="grid2">
+<div class="card">
+<h3>1. Zygote</h3>
+<p>After fertilization, the egg cell becomes the <strong>zygote</strong>. The zygote becomes elongated and divides transversely into two unequal cells: the terminal cell and the basal cell.</p>
+<p>The <strong>terminal cell</strong> lies towards the chalazal end, while the <strong>basal cell</strong> lies towards the micropylar end.</p>
+</div>
+<div class="card">
+<h3>2. Formation of Terminal and Basal Cells</h3>
+<p>The terminal cell gives rise mainly to the embryo proper. The basal cell gives rise mainly to the suspensor.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Cell</th><th>Gives rise to</th></tr></thead>
+<tbody>
+<tr><td>Terminal cell</td><td>Embryo proper</td></tr>
+<tr><td>Basal cell</td><td>Suspensor and part of root apex</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<h3>3. Development of Suspensor</h3>
+<p>The basal cell divides transversely several times and forms a filamentous structure called the <strong>suspensor</strong>. The suspensor pushes the developing embryo into the endosperm so that it can receive nutrition.</p>
+<p>The uppermost cell of the suspensor, lying near the embryo proper, is called the <strong>hypophysis</strong>. The hypophysis contributes to the formation of the root apex and root cap.</p>
+</div>
+<div class="card">
+<h3>4. Development of Embryo Proper</h3>
+<p>The terminal cell first divides vertically into two cells. These two cells divide by another vertical wall at right angles to the first division, forming four cells. This is called the <strong>quadrant stage</strong>.</p>
+<p>Each of the four cells then divides transversely to form eight cells. This is called the <strong>octant stage</strong>.</p>
+</div>
+</div>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Tier</th><th>Position</th><th>Gives rise to</th></tr></thead>
+<tbody>
+<tr><td>Epibasal tier</td><td>Upper/chalazal side</td><td>Cotyledons and plumule</td></tr>
+<tr><td>Hypobasal tier</td><td>Lower/micropylar side</td><td>Hypocotyl and part of radicle</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid2">
+<div class="card">
+<h3>5. Globular Stage</h3>
+<p>The cells of the octant embryo divide further and form a rounded mass of cells called the <strong>globular embryo</strong>.</p>
+<p>At this stage, the outer cells divide periclinally and form a distinct outer layer called the <strong>dermatogen</strong> or <strong>protoderm</strong>. This layer gives rise to the epidermis.</p>
+<p>The inner cells differentiate into <strong>periblem</strong>, which forms the cortex, and <strong>plerome</strong>, which forms the vascular tissue. Thus, the basic tissue regions of the embryo begin to differentiate at the globular stage.</p>
+</div>
+<div class="card">
+<h3>6. Heart-shaped Stage</h3>
+<p>As development continues, two lateral outgrowths appear at the upper region of the embryo. These outgrowths are the two <strong>cotyledons</strong>.</p>
+<p>Due to the formation of two cotyledons, the embryo becomes heart-shaped. This is called the <strong>heart-shaped stage</strong>.</p>
+<p>The region between the two cotyledons develops into the <strong>plumule</strong>, which later forms the shoot apex.</p>
+</div>
+<div class="card">
+<h3>7. Torpedo Stage</h3>
+<p>The cotyledons and embryonal axis elongate further, and the embryo becomes elongated. This stage is called the <strong>torpedo stage</strong>.</p>
+<p>At this stage, the main parts of the embryo become distinct: cotyledons, plumule, hypocotyl and radicle.</p>
+</div>
+<div class="card">
+<h3>8. Mature Dicot Embryo</h3>
+<p>The mature dicot embryo has two cotyledons attached to an embryonal axis.</p>
+<p>The part of the embryonal axis above the cotyledons is called the <strong>epicotyl</strong>, and it bears the plumule. The part below the cotyledons is called the <strong>hypocotyl</strong>, and it ends in the radicle.</p>
+<p>The radicle later forms the primary root, while the plumule forms the shoot system.</p>
+</div>
+</div>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Part</th><th>Function</th></tr></thead>
+<tbody>
+<tr><td>Two cotyledons</td><td>Store or absorb food</td></tr>
+<tr><td>Plumule</td><td>Develops into shoot</td></tr>
+<tr><td>Hypocotyl</td><td>Region below cotyledons</td></tr>
+<tr><td>Radicle</td><td>Develops into root</td></tr>
+<tr><td>Suspensor</td><td>Pushes embryo into nutritive tissue</td></tr>
+</tbody>
+</table>
+</div>
+
+</section>
+<section class="section" id="monocot-embryo">
+<span class="label">Topic 7</span>
+<div class="head"><div class="num">07</div><h2>Development of Monocot Embryo</h2></div>
+<p class="intro">Monocot embryo development is commonly studied in <strong><em>Sagittaria</em></strong> and grasses such as maize. The basic early stages are similar to dicots, but the mature embryo has only one cotyledon.</p>
+<div class="major-heading female">
+<span class="tag">Monocot embryo</span>
+<h3>Stages in Development of Monocot Embryo</h3>
+</div>
+<div class="grid2">
+<div class="card">
+<h3>1. Zygote</h3>
+<p>The zygote is formed by fusion of the male gamete with the egg cell. It enlarges and divides transversely into two cells: the terminal cell and the basal cell.</p>
+<p>The terminal cell usually forms most of the embryo proper, while the basal cell forms the suspensor.</p>
+</div>
+<div class="card">
+<h3>2. Formation of Proembryo</h3>
+<p>The terminal cell divides repeatedly to form a mass of cells. This early multicellular stage is called the <strong>proembryo</strong>.</p>
+<p>The basal cell divides to form the suspensor. The suspensor helps in pushing the developing embryo into the nutritive endosperm.</p>
+</div>
+<div class="card">
+<h3>3. Differentiation of Embryo</h3>
+<p>As the embryo develops, it becomes differentiated into the embryonal axis and a single cotyledon.</p>
+<p>In monocots, the single cotyledon becomes highly specialized. In grasses, it is called the <strong>scutellum</strong>. The scutellum lies on one side of the embryonal axis and helps in absorption of food from the endosperm during germination.</p>
+</div>
+<div class="card">
+<h3>4. Formation of Plumule and Radicle</h3>
+<p>The embryonal axis differentiates into two main regions: the <strong>plumule</strong> and the <strong>radicle</strong>.</p>
+<p>The plumule forms the future shoot system. In grasses, it is protected by a sheath called the <strong>coleoptile</strong>.</p>
+<p>The radicle forms the future root system. In grasses, it is protected by a sheath called the <strong>coleorhiza</strong>.</p>
+</div>
+</div>
+<div class="major-heading">
+<span class="tag">Mature stage</span>
+<h3>Mature Monocot Embryo</h3>
+</div>
+<p class="intro">A mature monocot embryo has only one cotyledon. In grasses, the embryo is situated on one side of the endosperm. The scutellum secretes enzymes and absorbs digested food from the endosperm during germination.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Part</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>Scutellum</td><td>Single cotyledon; absorbs food from endosperm</td></tr>
+<tr><td>Embryonal axis</td><td>Bears plumule and radicle</td></tr>
+<tr><td>Plumule</td><td>Future shoot</td></tr>
+<tr><td>Coleoptile</td><td>Protective sheath around plumule</td></tr>
+<tr><td>Radicle</td><td>Future root</td></tr>
+<tr><td>Coleorhiza</td><td>Protective sheath around radicle</td></tr>
+<tr><td>Epiblast</td><td>Small scale-like structure in some grasses</td></tr>
+</tbody>
+</table>
+</div>
+
+</section>
+<section class="section" id="dicot-monocot-diff">
+<span class="label">Topic 8</span>
+<div class="head"><div class="num">08</div><h2>Difference, Significance and Conclusion</h2></div>
+<div class="major-heading male">
+<span class="tag">Comparison</span>
+<h3>Difference between Dicot and Monocot Embryo</h3>
+</div>
+<div class="tablewrap">
+<table>
+<thead>
+<tr><th>Character</th><th>Dicot embryo</th><th>Monocot embryo</th></tr>
+</thead>
+<tbody>
+<tr><td>Number of cotyledons</td><td>Two</td><td>One</td></tr>
+<tr><td>Example</td><td><em>Capsella</em></td><td>Maize, wheat, <em>Sagittaria</em></td></tr>
+<tr><td>Cotyledon</td><td>Two equal cotyledons</td><td>One cotyledon, called scutellum in grasses</td></tr>
+<tr><td>Plumule protection</td><td>No coleoptile</td><td>Plumule protected by coleoptile</td></tr>
+<tr><td>Radicle protection</td><td>No coleorhiza</td><td>Radicle protected by coleorhiza</td></tr>
+<tr><td>Position of embryo</td><td>Usually central in seed</td><td>Usually lateral in cereal grain</td></tr>
+<tr><td>Food storage</td><td>Cotyledons or endosperm</td><td>Usually endosperm</td></tr>
+<tr><td>Mature embryo</td><td>Cotyledons, plumule, hypocotyl, radicle</td><td>Scutellum, plumule, radicle, coleoptile, coleorhiza</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid2">
+<div class="card">
+<h3>Significance of Embryo Development</h3>
+<p>Embryo development is important because it gives rise to the future plant. The zygote develops into a young sporophyte with root and shoot apices.</p>
+<p>The radicle forms the primary root, while the plumule forms the shoot system. Cotyledons help in storage or absorption of food. In monocots, the scutellum helps in absorbing food from the endosperm.</p>
+<p>Thus, embryogeny establishes the basic body plan of the plant.</p>
+</div>
+<div class="card">
+<h3>Conclusion</h3>
+<p>Embryo development in angiosperms begins with the zygote. In dicots such as <em>Capsella</em>, the zygote divides into terminal and basal cells. The terminal cell forms the embryo proper, while the basal cell forms the suspensor.</p>
+<p>The embryo passes through quadrant, octant, globular, heart-shaped and torpedo stages, finally forming a mature embryo with two cotyledons, plumule, hypocotyl and radicle.</p>
+<p>In monocots, embryo development is similar at first, but finally forms only one cotyledon. In grasses, this cotyledon is called the scutellum, and the plumule and radicle are protected by coleoptile and coleorhiza respectively. Thus, dicot and monocot embryos differ mainly in the number of cotyledons and in the special protective structures present in monocots.</p>
+</div>
+</div>
+</section>
+</main>
+</body>
+</html>
