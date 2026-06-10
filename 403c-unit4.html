@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>403C Unit 4 — Apomixis and Polyembryony</title>
+<style>
+:root {
+  --bg:#111417; --panel:#1b2024; --panel2:#22252b; --paper:#f3eddf; --ink:#111;
+  --edge:#d9dbc8; --sage:#b9d8be; --blue:#b8cce5; --clay:#dfa486; --mauve:#d5b6cc;
+  --sand:#eee3ca; --yellow:#e8c468; --white:#f8f4e9; --shadow:#050606;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; background:radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 32%),
+  radial-gradient(circle at bottom right, rgba(223,164,134,.10), transparent 35%), var(--bg);
+  color:var(--white); font-family:Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-size:18px; line-height:1.65;
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size:28px 28px;
+}
+.page { width:min(1220px, calc(100% - 34px)); margin:0 auto; padding:26px 0 60px; position:relative; z-index:1; }
+.hero, .section {
+  border:4px solid var(--edge); box-shadow:10px 10px 0 var(--shadow);
+  background:linear-gradient(150deg,#1d2227,#15191d); padding:28px; margin:0 0 26px;
+}
+.kicker,.label {
+  display:inline-block; background:var(--mauve); color:var(--ink); border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow); font-weight:900; text-transform:uppercase; padding:8px 14px;
+  letter-spacing:.04em; margin-bottom:14px;
+}
+.hero h1 { font-size:clamp(2.25rem,5vw,4.6rem); line-height:.95; margin:0 0 16px; letter-spacing:-.055em; }
+.hero p,.intro { color:#dde0d9; max-width:92ch; margin:0 0 18px; }
+.toc { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin:0 0 26px; }
+.toc a { color:var(--ink); text-decoration:none; font-weight:900; line-height:1.25; border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; background:var(--sand); }
+.toc a:nth-child(2n){background:var(--sage)} .toc a:nth-child(3n){background:var(--blue)} .toc a:nth-child(4n){background:var(--clay)}
+.head { display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:center; margin-bottom:16px; }
+.num { width:58px; height:58px; display:grid; place-items:center; background:var(--yellow); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); font-size:1.2rem; font-weight:900; }
+h2 { font-size:clamp(1.9rem,4vw,3.5rem); line-height:1; margin:0; letter-spacing:-.04em; }
+h3 { margin:20px 0 8px; font-size:1.22rem; }
+.major-heading {
+  margin:30px 0 18px; padding:16px 18px; background:var(--yellow); color:var(--ink);
+  border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow);
+}
+.major-heading .tag {
+  display:inline-block; background:var(--ink); color:var(--white); padding:4px 10px;
+  font-size:.78rem; font-weight:900; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;
+}
+.major-heading h3 {
+  margin:0; font-size:clamp(1.55rem,3vw,2.35rem); line-height:1.08; letter-spacing:-.025em;
+}
+.major-heading.male { background:var(--blue); }
+.major-heading.female { background:var(--sage); }
+@media print {
+  .major-heading { box-shadow:none; border:1.5px solid #111; background:#f2f2f2!important; break-after:avoid; }
+  .major-heading .tag { background:#111!important; color:#fff!important; }
+}
+h4 { margin:16px 0 6px; font-size:1rem; text-transform:uppercase; letter-spacing:.035em; }
+.grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:14px; }
+.grid3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
+.card,.note {
+  background:var(--paper); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow);
+  padding:16px; overflow:hidden;
+}
+.card:nth-child(2n){background:var(--blue)} .card:nth-child(3n){background:var(--sage)} .card:nth-child(4n){background:var(--clay)} .card:nth-child(5n){background:var(--mauve)}
+.card p { margin:0 0 10px; } .card p:last-child{margin-bottom:0}
+ul,ol { margin-top:8px; padding-left:1.35rem; }
+.tablewrap { margin:16px 0; border:3px solid var(--ink); background:var(--paper); box-shadow:6px 6px 0 var(--shadow); overflow:visible; }
+table { width:100%; border-collapse:collapse; table-layout:fixed; color:var(--ink); font-size:.86rem; line-height:1.32; }
+th,td { border:2px solid var(--ink); padding:8px; vertical-align:top; overflow-wrap:anywhere; }
+th { background:var(--yellow); text-align:left; font-weight:900; }
+td:first-child { background:#ead9bb; font-weight:800; }
+.diagram {
+  margin:18px 0; padding:14px; background:var(--paper); color:var(--ink);
+  border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow);
+}
+.diagram img { display:block; max-width:100%; max-height:650px; object-fit:contain; margin:0 auto; background:white; }
+.diagram figcaption { margin-top:10px; font-weight:900; text-align:center; font-size:.95rem; }
+.callout { background:var(--sand); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:15px; margin-top:18px; }
+.callout strong { display:block; margin-bottom:6px; }
+.small { font-size:.94rem; }
+@media(max-width:800px){ body{font-size:16px} .head{grid-template-columns:1fr} .hero,.section{padding:20px} }
+@media print {
+  @page { size:A4; margin:8mm; }
+  body { background:white; color:#111; font-size:10pt; line-height:1.36; }
+  body::before,.toc { display:none; }
+  .page { width:100%; padding:0; }
+  .hero,.section,.card,.note,.diagram,.callout { box-shadow:none; border:1.5px solid #111; background:white!important; color:#111; break-inside:avoid; }
+  h2 { color:#111; } .intro,.hero p { color:#111; }
+  table { font-size:7.2pt; } th,td { padding:4px; border:1px solid #111; }
+  .diagram img { max-height:420px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+<section class="hero">
+  <span class="kicker">403C Unit 4</span>
+  <h1>Apomixis and Polyembryony</h1>
+  <p><strong>Definition, Types and Practical Applications.</strong> These notes explain two important abnormal reproductive phenomena in angiosperms: apomixis, where seed or embryo formation occurs without fertilization, and polyembryony, where more than one embryo is formed in a single seed. The content is arranged in exam-ready B.Sc. Botany format with clear headings, tables and comparative points.</p>
+</section>
+
+<nav class="toc">
+  <a href="#intro">01 · Introduction</a>
+  <a href="#apomixis">02 · Apomixis: Definition and Types</a>
+  <a href="#apomixis-significance">03 · Significance of Apomixis</a>
+  <a href="#polyembryony">04 · Polyembryony: Definition and Types</a>
+  <a href="#comparison">05 · Comparison: Apomixis and Polyembryony</a>
+  <a href="#applications">06 · Practical Applications</a>
+  <a href="#significance-conclusion">07 · Significance and Conclusion</a>
+</nav>
+
+<section class="section" id="intro">
+  <span class="label">Topic 1</span>
+  <div class="head"><div class="num">01</div><h2>Introduction</h2></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Normal Seed Formation</h3>
+      <p>In angiosperms, seeds are normally formed after <strong>meiosis and fertilization</strong>. The embryo develops from the <strong>zygote</strong> formed by fusion of male and female gametes.</p>
+      <p>However, in some plants, seeds or embryos may develop without normal sexual reproduction. Two important phenomena related to such abnormal development are <strong>apomixis</strong> and <strong>polyembryony</strong>.</p>
+    </div>
+    <div class="card">
+      <h3>Basic Meaning</h3>
+      <p><strong>Apomixis</strong> refers to seed or embryo formation without fertilization.</p>
+      <p><strong>Polyembryony</strong> refers to the formation of more than one embryo in a single seed.</p>
+      <p>Both are important in <strong>embryology, plant breeding and agriculture</strong>.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>Exam focus:</strong>
+    Apomixis explains asexual seed formation, while polyembryony explains the occurrence of multiple embryos in one seed. Both show that embryo development in angiosperms is not always dependent only on normal fertilization.
+  </div>
+</section>
+
+<section class="section" id="apomixis">
+  <span class="label">Topic 2</span>
+  <div class="head"><div class="num">02</div><h2>Apomixis: Definition and Types</h2></div>
+  <p class="intro">Apomixis is an important phenomenon in which a seed or embryo is formed without fertilization and without normal sexual reproduction. It is especially significant because it can preserve the genetic constitution of the parent plant.</p>
+
+  <div class="major-heading female">
+    <span class="tag">Definition</span>
+    <h3>Apomixis</h3>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <p><strong>Apomixis</strong> is the formation of seed or embryo without fertilization and without normal sexual reproduction.</p>
+      <p>In apomixis, the embryo may develop from an <strong>unfertilized egg</strong>, from other cells of the <strong>embryo sac</strong>, or from <strong>nucellar or integumentary cells</strong>.</p>
+    </div>
+    <div class="card">
+      <p>In simple words, apomixis is a type of <strong>asexual reproduction through seeds</strong>.</p>
+      <p>The plants produced by apomixis are usually genetically similar to the mother plant because there is no fusion of male and female gametes.</p>
+    </div>
+  </div>
+
+  <h3>Types of Apomixis</h3>
+  <p>Apomixis is mainly classified into the following types:</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Type</th><th>Basic idea</th><th>Important point</th></tr></thead>
+      <tbody>
+        <tr><td>Recurrent apomixis</td><td>Embryo sac develops from a diploid cell without meiosis.</td><td>Maintains chromosome number and produces plants genetically similar to the parent.</td></tr>
+        <tr><td>Non-recurrent apomixis</td><td>Normal meiosis forms a haploid embryo sac, but the egg develops without fertilization.</td><td>Produces haploid, usually weak or sterile plants.</td></tr>
+        <tr><td>Adventive embryony</td><td>Embryos arise directly from somatic cells outside the embryo sac.</td><td>Commonly involves nucellus or integuments.</td></tr>
+        <tr><td>Vegetative apomixis</td><td>Vegetative propagules are formed in place of flowers or seeds.</td><td>New plants arise without fertilization.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="major-heading">
+    <span class="tag">Type 1</span>
+    <h3>Recurrent Apomixis</h3>
+  </div>
+  <div class="card">
+    <p>In <strong>recurrent apomixis</strong>, the embryo sac develops from a <strong>diploid cell</strong> without meiosis. Therefore, the egg cell is also diploid. This diploid egg develops into an embryo without fertilization.</p>
+    <p>Since meiosis is absent or suppressed, the chromosome number of the mother plant is maintained in the offspring. Therefore, recurrent apomixis produces plants genetically similar to the parent.</p>
+    <p>Recurrent apomixis may occur in two ways: <strong>diplospory</strong> and <strong>apospory</strong>.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>A. Diplospory</h3>
+      <p>In <strong>diplospory</strong>, the embryo sac develops directly from the <strong>megaspore mother cell</strong> without normal meiosis.</p>
+      <p>The megaspore mother cell behaves abnormally and forms an <strong>unreduced embryo sac</strong>.</p>
+      <p>The egg cell remains diploid and develops into an embryo without fertilization.</p>
+      <p><strong>Example:</strong> <em>Taraxacum</em>.</p>
+    </div>
+    <div class="card">
+      <h3>B. Apospory</h3>
+      <p>In <strong>apospory</strong>, the embryo sac develops from a <strong>somatic cell of the nucellus</strong> instead of the megaspore mother cell.</p>
+      <p>The normal sexual embryo sac may degenerate, and an unreduced embryo sac develops from nucellar tissue.</p>
+      <p>The egg cell in such an embryo sac is diploid and develops parthenogenetically.</p>
+      <p><strong>Example:</strong> <em>Hieracium</em>, some grasses.</p>
+    </div>
+  </div>
+
+  <div class="major-heading male">
+    <span class="tag">Type 2</span>
+    <h3>Non-recurrent Apomixis</h3>
+  </div>
+  <div class="card">
+    <p>In <strong>non-recurrent apomixis</strong>, normal meiosis takes place and a <strong>haploid embryo sac</strong> is formed. The egg cell is haploid, but it develops into an embryo without fertilization.</p>
+    <p>Since the embryo develops from a haploid egg, the resulting plant is also haploid and is usually weak or sterile. Therefore, this type is called non-recurrent because it does not normally continue for many generations.</p>
+    <p>This type is less important agriculturally than recurrent apomixis.</p>
+  </div>
+
+  <div class="major-heading female">
+    <span class="tag">Type 3</span>
+    <h3>Adventive Embryony</h3>
+  </div>
+  <div class="card">
+    <p>In <strong>adventive embryony</strong>, embryos develop directly from <strong>somatic cells outside the embryo sac</strong>, especially from the <strong>nucellus or integuments</strong>. These embryos are not formed from the egg cell.</p>
+    <p>The adventive embryos grow into the embryo sac and develop along with or instead of the sexual embryo.</p>
+    <p>This type is common in plants such as <strong>Citrus</strong> and <strong>mango</strong>.</p>
+    <p>In <strong>Citrus</strong>, nucellar cells often give rise to embryos. These nucellar embryos are genetically identical to the mother plant.</p>
+  </div>
+
+  <div class="major-heading">
+    <span class="tag">Type 4</span>
+    <h3>Vegetative Apomixis</h3>
+  </div>
+  <div class="card">
+    <p>In <strong>vegetative apomixis</strong>, vegetative propagules are formed in place of flowers or seeds. These structures detach and give rise to new plants.</p>
+    <p>For example, in some plants, <strong>bulbils</strong> may be formed instead of flowers. These bulbils grow into new plants without fertilization.</p>
+    <p><strong>Example:</strong> Some species of <em>Allium</em> and grasses.</p>
+  </div>
+</section>
+
+<section class="section" id="apomixis-significance">
+  <span class="label">Topic 3</span>
+  <div class="head"><div class="num">03</div><h2>Significance of Apomixis</h2></div>
+  <div class="callout">
+    <strong>Significance:</strong>
+    Apomixis is important because it produces offspring without fertilization. It maintains the genetic constitution of the parent plant and produces uniform progeny. It is especially useful in preserving hybrid characters and desirable traits.
+  </div>
+  <div class="grid3">
+    <div class="card"><h3>Asexual seed formation</h3><p>Apomixis allows seed formation without normal sexual reproduction and fertilization.</p></div>
+    <div class="card"><h3>Maternal similarity</h3><p>Since there is no fusion of gametes, the progeny is generally genetically similar to the mother plant.</p></div>
+    <div class="card"><h3>Breeding value</h3><p>It helps in preserving useful hybrid characters and desirable agronomic traits.</p></div>
+  </div>
+</section>
+
+<section class="section" id="polyembryony">
+  <span class="label">Topic 4</span>
+  <div class="head"><div class="num">04</div><h2>Polyembryony: Definition and Types</h2></div>
+  <p class="intro">Polyembryony is the occurrence of more than one embryo in a single seed. It may arise through different developmental routes and is especially common in Citrus, mango and some gymnosperms.</p>
+
+  <div class="major-heading male">
+    <span class="tag">Definition</span>
+    <h3>Polyembryony</h3>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <p><strong>Polyembryony</strong> is the occurrence of more than one embryo in a single seed.</p>
+      <p>The embryos may arise from the <strong>zygote</strong>, from cells of the <strong>embryo sac</strong>, from more than one embryo sac, or from <strong>nucellar and integumentary cells</strong>.</p>
+    </div>
+    <div class="card">
+      <p>Polyembryony was first observed by <strong>Leeuwenhoek</strong> in orange seeds.</p>
+      <p>It is commonly found in <strong>Citrus</strong>, <strong>mango</strong> and some gymnosperms.</p>
+    </div>
+  </div>
+
+  <h3>Types of Polyembryony</h3>
+  <p>Polyembryony may be classified in different ways. The important types are:</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Type</th><th>Description</th><th>Important example / point</th></tr></thead>
+      <tbody>
+        <tr><td>True polyembryony</td><td>More than one embryo develops inside the same embryo sac.</td><td>Embryos are associated with one embryo sac.</td></tr>
+        <tr><td>False polyembryony</td><td>More than one embryo develops because more than one embryo sac is present in the ovule.</td><td>Embryos arise from different embryo sacs in the same ovule.</td></tr>
+        <tr><td>Cleavage polyembryony</td><td>The zygote or young proembryo divides into several units, each forming a separate embryo.</td><td>Common in some gymnosperms; rare in angiosperms.</td></tr>
+        <tr><td>Adventive polyembryony</td><td>Additional embryos arise from somatic cells of the ovule, especially nucellus or integuments.</td><td>Common in Citrus and mango.</td></tr>
+        <tr><td>Polyembryony from embryo sac cells</td><td>Embryos develop from cells of the embryo sac other than the egg cell.</td><td>Synergids, antipodals and other embryo sac cells may contribute.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="major-heading">
+    <span class="tag">Type 1</span>
+    <h3>True Polyembryony</h3>
+  </div>
+  <div class="card">
+    <p>In <strong>true polyembryony</strong>, more than one embryo develops inside the same embryo sac.</p>
+    <p>The embryos may arise from the <strong>zygote</strong>, <strong>synergids</strong>, <strong>antipodal cells</strong> or <strong>nucellar cells</strong> entering the same embryo sac.</p>
+    <p>This is true polyembryony because multiple embryos are associated with one embryo sac.</p>
+  </div>
+
+  <div class="major-heading female">
+    <span class="tag">Type 2</span>
+    <h3>False Polyembryony</h3>
+  </div>
+  <div class="card">
+    <p>In <strong>false polyembryony</strong>, more than one embryo develops in a seed because more than one embryo sac is present in the ovule. Each embryo sac may produce an embryo.</p>
+    <p>Thus, the multiple embryos do not arise from a single embryo sac but from different embryo sacs present in the same ovule.</p>
+  </div>
+
+  <div class="major-heading male">
+    <span class="tag">Type 3</span>
+    <h3>Cleavage Polyembryony</h3>
+  </div>
+  <div class="card">
+    <p>In <strong>cleavage polyembryony</strong>, the zygote or young proembryo divides into several units, and each unit develops into a separate embryo.</p>
+    <p>This type is common in some gymnosperms but may also occur rarely in angiosperms.</p>
+    <p>In this case, all embryos originate from the same zygote.</p>
+  </div>
+
+  <div class="major-heading">
+    <span class="tag">Type 4</span>
+    <h3>Adventive Polyembryony</h3>
+  </div>
+  <div class="card">
+    <p>In <strong>adventive polyembryony</strong>, additional embryos arise from somatic cells of the ovule, especially the <strong>nucellus or integuments</strong>. These embryos develop along with the normal zygotic embryo.</p>
+    <p>This is common in <strong>Citrus</strong> and <strong>mango</strong>.</p>
+    <p>In Citrus, nucellar cells divide and form several embryos. Therefore, one seed may contain both a sexual embryo and nucellar embryos.</p>
+  </div>
+
+  <div class="major-heading female">
+    <span class="tag">Type 5</span>
+    <h3>Polyembryony from Embryo Sac Cells</h3>
+  </div>
+  <div class="card">
+    <p>Sometimes embryos may develop from cells of the embryo sac other than the egg cell.</p>
+    <p>These may include synergids, antipodal cells and other embryo sac cells.</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Cell giving rise to embryo</th><th>Type</th></tr></thead>
+      <tbody>
+        <tr><td>Synergids</td><td>Synergid embryo</td></tr>
+        <tr><td>Antipodal cells</td><td>Antipodal embryo</td></tr>
+        <tr><td>Egg cell</td><td>Normal zygotic embryo</td></tr>
+        <tr><td>Other cells of embryo sac</td><td>Additional embryos</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>Important point:</strong>
+    In such cases, more than one embryo may be formed within a single embryo sac.
+  </div>
+</section>
+
+<section class="section" id="comparison">
+  <span class="label">Topic 5</span>
+  <div class="head"><div class="num">05</div><h2>Comparison between Apomixis and Polyembryony</h2></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Character</th><th>Apomixis</th><th>Polyembryony</th></tr></thead>
+      <tbody>
+        <tr><td>Meaning</td><td>Formation of embryo or seed without fertilization.</td><td>Formation of more than one embryo in one seed.</td></tr>
+        <tr><td>Fertilization</td><td>Usually absent for apomictic embryo.</td><td>May or may not occur.</td></tr>
+        <tr><td>Number of embryos</td><td>Usually one, but may be more.</td><td>More than one.</td></tr>
+        <tr><td>Origin</td><td>Egg, nucellus, integument or other cells.</td><td>Zygote, embryo sac cells, nucellus, integument or multiple embryo sacs.</td></tr>
+        <tr><td>Genetic nature</td><td>Usually maternal clone.</td><td>May be sexual or maternal clone.</td></tr>
+        <tr><td>Example</td><td><em>Taraxacum</em>, <em>Hieracium</em>, Citrus.</td><td>Citrus, mango, orange.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="applications">
+  <span class="label">Topic 6</span>
+  <div class="head"><div class="num">06</div><h2>Practical Applications</h2></div>
+
+  <div class="major-heading male">
+    <span class="tag">Applications</span>
+    <h3>Practical Applications of Apomixis</h3>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h3>1. Fixation of Hybrid Vigour</h3>
+      <p>Apomixis can preserve hybrid vigour or heterosis for many generations. In normal sexual reproduction, hybrid characters segregate in the next generation. But in apomixis, seeds produce plants genetically identical to the mother plant, so hybrid characters remain fixed.</p>
+    </div>
+    <div class="card">
+      <h3>2. Production of Uniform Crops</h3>
+      <p>Apomictic seeds produce genetically uniform plants. This is useful in agriculture because farmers can get uniform yield, growth habit and quality.</p>
+    </div>
+    <div class="card">
+      <h3>3. Saving Cost of Hybrid Seed Production</h3>
+      <p>Hybrid seeds are expensive because they have to be produced again and again. If apomixis is introduced into hybrid crops, farmers can reuse seeds without losing hybrid characters.</p>
+    </div>
+    <div class="card">
+      <h3>4. Maintenance of Desirable Characters</h3>
+      <p>Apomixis helps preserve desirable characters such as high yield, disease resistance, stress tolerance and fruit quality.</p>
+    </div>
+    <div class="card">
+      <h3>5. Useful in Plant Breeding</h3>
+      <p>Apomixis is valuable in plant breeding because it allows rapid multiplication of superior genotypes without genetic segregation.</p>
+    </div>
+  </div>
+
+  <div class="major-heading female">
+    <span class="tag">Applications</span>
+    <h3>Practical Applications of Polyembryony</h3>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h3>1. Production of Nucellar Seedlings</h3>
+      <p>In Citrus and mango, nucellar embryos produce seedlings genetically identical to the mother plant. These are useful for producing uniform rootstocks.</p>
+    </div>
+    <div class="card">
+      <h3>2. Disease-free Plants</h3>
+      <p>Nucellar embryos are often free from certain pathogens. Therefore, nucellar seedlings are used for producing healthy planting material, especially in Citrus.</p>
+    </div>
+    <div class="card">
+      <h3>3. Clonal Propagation through Seeds</h3>
+      <p>Polyembryony allows clonal multiplication through seeds. This is useful because seed propagation is easier than vegetative propagation in some plants.</p>
+    </div>
+    <div class="card">
+      <h3>4. Plant Breeding and Selection</h3>
+      <p>Polyembryony is useful in plant breeding because it produces multiple seedlings from a single seed. Breeders can select vigorous and desirable seedlings.</p>
+    </div>
+    <div class="card">
+      <h3>5. Horticultural Importance</h3>
+      <p>In Citrus, polyembryony is highly valuable for raising uniform and vigorous rootstocks. It helps maintain desirable maternal characters and improves orchard uniformity.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="significance-conclusion">
+  <span class="label">Topic 7</span>
+  <div class="head"><div class="num">07</div><h2>Significance and Conclusion</h2></div>
+
+  <div class="major-heading">
+    <span class="tag">Significance</span>
+    <h3>Importance in Reproduction, Agriculture and Breeding</h3>
+  </div>
+  <div class="card">
+    <p><strong>Apomixis and polyembryony are important reproductive phenomena.</strong> Apomixis avoids fertilization and produces maternal clones through seeds. Polyembryony increases the number of embryos in a seed and may produce both sexual and asexual embryos.</p>
+    <p>Both processes are useful in <strong>crop improvement, horticulture and plant breeding</strong>.</p>
+    <p>They also show that embryo development in angiosperms is not always dependent only on normal fertilization.</p>
+  </div>
+
+  <div class="major-heading female">
+    <span class="tag">Conclusion</span>
+    <h3>Exam-ready Closing Paragraph</h3>
+  </div>
+  <div class="card">
+    <p>Apomixis is the formation of embryo or seed without fertilization, while polyembryony is the formation of more than one embryo in a single seed. Apomixis may be recurrent, non-recurrent, adventive or vegetative. Polyembryony may be true, false, cleavage, adventive or due to embryo sac cells. Both phenomena are important in plant reproduction and have practical applications in agriculture and horticulture.</p>
+    <p>Apomixis is useful for fixing hybrid vigour and maintaining desirable characters, while polyembryony is useful for producing nucellar seedlings, disease-free plants and uniform rootstocks, especially in Citrus and mango.</p>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
