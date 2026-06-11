@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>403C Unit 5 — Evolution, Population Genetics and Phylogeny</title>
+<style>
+:root {
+  --bg:#111417; --panel:#1b2024; --panel2:#22252b; --paper:#f3eddf; --ink:#111;
+  --edge:#d9dbc8; --sage:#b9d8be; --blue:#b8cce5; --clay:#dfa486; --mauve:#d5b6cc;
+  --sand:#eee3ca; --yellow:#e8c468; --white:#f8f4e9; --shadow:#050606;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; background:radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 32%),
+  radial-gradient(circle at bottom right, rgba(223,164,134,.10), transparent 35%), var(--bg);
+  color:var(--white); font-family:Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-size:18px; line-height:1.65;
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size:28px 28px;
+}
+.page { width:min(1220px, calc(100% - 34px)); margin:0 auto; padding:26px 0 60px; position:relative; z-index:1; }
+.hero, .section {
+  border:4px solid var(--edge); box-shadow:10px 10px 0 var(--shadow);
+  background:linear-gradient(150deg,#1d2227,#15191d); padding:28px; margin:0 0 26px;
+}
+.kicker,.label {
+  display:inline-block; background:var(--mauve); color:var(--ink); border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow); font-weight:900; text-transform:uppercase; padding:8px 14px;
+  letter-spacing:.04em; margin-bottom:14px;
+}
+.hero h1 { font-size:clamp(2.25rem,5vw,4.6rem); line-height:.95; margin:0 0 16px; letter-spacing:-.055em; }
+.hero p,.intro { color:#dde0d9; max-width:92ch; margin:0 0 18px; }
+.toc { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin:0 0 26px; }
+.toc a { color:var(--ink); text-decoration:none; font-weight:900; line-height:1.25; border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; background:var(--sand); }
+.toc a:nth-child(2n){background:var(--sage)} .toc a:nth-child(3n){background:var(--blue)} .toc a:nth-child(4n){background:var(--clay)}
+.head { display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:center; margin-bottom:16px; }
+.num { width:58px; height:58px; display:grid; place-items:center; background:var(--yellow); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); font-size:1.2rem; font-weight:900; }
+h2 { font-size:clamp(1.9rem,4vw,3.5rem); line-height:1; margin:0; letter-spacing:-.04em; }
+h3 { margin:20px 0 8px; font-size:1.22rem; }
+.major-heading {
+  margin:30px 0 18px; padding:16px 18px; background:var(--yellow); color:var(--ink);
+  border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow);
+}
+.major-heading .tag {
+  display:inline-block; background:var(--ink); color:var(--white); padding:4px 10px;
+  font-size:.78rem; font-weight:900; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;
+}
+.major-heading h3 {
+  margin:0; font-size:clamp(1.55rem,3vw,2.35rem); line-height:1.08; letter-spacing:-.025em;
+}
+.major-heading.male { background:var(--blue); }
+.major-heading.female { background:var(--sage); }
+@media print {
+  .major-heading { box-shadow:none; border:1.5px solid #111; background:#f2f2f2!important; break-after:avoid; }
+  .major-heading .tag { background:#111!important; color:#fff!important; }
+}
+h4 { margin:16px 0 6px; font-size:1rem; text-transform:uppercase; letter-spacing:.035em; }
+.grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:14px; }
+.grid3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
+.card,.note {
+  background:var(--paper); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow);
+  padding:16px; overflow:hidden;
+}
+.card:nth-child(2n){background:var(--blue)} .card:nth-child(3n){background:var(--sage)} .card:nth-child(4n){background:var(--clay)} .card:nth-child(5n){background:var(--mauve)}
+.card p { margin:0 0 10px; } .card p:last-child{margin-bottom:0}
+ul,ol { margin-top:8px; padding-left:1.35rem; }
+.tablewrap { margin:16px 0; border:3px solid var(--ink); background:var(--paper); box-shadow:6px 6px 0 var(--shadow); overflow:visible; }
+table { width:100%; border-collapse:collapse; table-layout:fixed; color:var(--ink); font-size:.86rem; line-height:1.32; }
+th,td { border:2px solid var(--ink); padding:8px; vertical-align:top; overflow-wrap:anywhere; }
+th { background:var(--yellow); text-align:left; font-weight:900; }
+td:first-child { background:#ead9bb; font-weight:800; }
+.diagram {
+  margin:18px 0; padding:14px; background:var(--paper); color:var(--ink);
+  border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow);
+}
+.diagram img { display:block; max-width:100%; max-height:650px; object-fit:contain; margin:0 auto; background:white; }
+.diagram figcaption { margin-top:10px; font-weight:900; text-align:center; font-size:.95rem; }
+.callout { background:var(--sand); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:15px; margin-top:18px; }
+.callout strong { display:block; margin-bottom:6px; }
+.small { font-size:.94rem; }
+@media(max-width:800px){ body{font-size:16px} .head{grid-template-columns:1fr} .hero,.section{padding:20px} }
+@media print {
+  @page { size:A4; margin:8mm; }
+  body { background:white; color:#111; font-size:10pt; line-height:1.36; }
+  body::before,.toc { display:none; }
+  .page { width:100%; padding:0; }
+  .hero,.section,.card,.note,.diagram,.callout { box-shadow:none; border:1.5px solid #111; background:white!important; color:#111; break-inside:avoid; }
+  h2 { color:#111; } .intro,.hero p { color:#111; }
+  table { font-size:7.2pt; } th,td { padding:4px; border:1px solid #111; }
+  .diagram img { max-height:420px; }
+}
+
+.formula { background:var(--yellow); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; margin:14px 0; font-weight:900; text-align:center; font-size:1.12rem; }
+.flow { background:var(--blue); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; margin:14px 0; font-weight:900; }
+</style>
+</head>
+<body>
+<main class="page">
+<section class="hero">
+  <span class="kicker">403C Unit 5</span>
+  <h1>Evolution, Population Genetics and Phylogenetic Analysis</h1>
+  <p>This unit covers the evidences, theories and mechanisms of evolution; Hardy-Weinberg principle with gene and genotypic frequency; genetic drift; microevolution, macroevolution and origin of life; Lamarckism, Darwinism, Neo-Darwinism and Modern Synthetic Theory; and variation with phylogenetic analysis. The content is arranged in exam-ready 10-mark format with clear headings, tables and summary callouts.</p>
+</section>
+
+<nav class="toc">
+  <a href="#evidence">01 · Evidences, theories and mechanism of evolution</a>
+  <a href="#hardy">02 · Hardy-Weinberg principle</a>
+  <a href="#micro-macro">03 · Microevolution, macroevolution and origin of life</a>
+  <a href="#theories">04 · Lamarckism, Darwinism, Neo-Darwinism and Modern Synthetic Theory</a>
+  <a href="#variation">05 · Variation and phylogenetic analysis</a>
+</nav>
+
+<section class="section" id="evidence">
+  <span class="label">Topic 1</span>
+  <div class="head"><div class="num">01</div><h2>Evidences, Theories and Mechanism of Evolution</h2></div>
+  <p class="intro">Evolution is the gradual change in living organisms over generations. It explains how present-day organisms have arisen from earlier forms and how diversity, adaptation and new species are produced. Evolution includes two related aspects: the <strong>origin of life</strong> and the <strong>subsequent evolution of living organisms</strong>. The origin of life has been explained by several theories such as special creation, spontaneous generation, biogenesis, panspermia and chemical evolution. The fact that organisms have changed over time is supported by evidences from fossils, comparative morphology, embryology, biogeography, molecular biology and cytology. The mechanism of evolution includes variation, inheritance, natural selection, genetic drift, gene flow, isolation and speciation.</p>
+
+  <div class="major-heading"><span class="tag">Evidence</span><h3>Evidences of Evolution</h3></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>1. Fossil Evidence</h3>
+      <p>Fossils are the preserved remains, impressions or traces of ancient organisms found in sedimentary rocks. They provide direct historical evidence of organisms that lived in the past. Fossils show that many earlier organisms are now extinct and that present organisms are related to ancient forms.</p>
+      <p>The fossil record shows a gradual change from simpler to more complex forms through geological time. In plants, fossils such as <em>Rhynia</em> show simple early vascular plants with leafless and rootless axes. Later fossil plants show the development of leaves, roots, seeds and finally flowers. Fossils of pteridophytes, seed ferns, gymnosperms and early angiosperms help us understand major steps in plant evolution.</p>
+      <p>Fossils are important because they provide a time sequence of life forms and support the idea that life has changed gradually over millions of years.</p>
+    </div>
+    <div class="card">
+      <h3>2. Comparative Morphology and Anatomy</h3>
+      <p>Comparative morphology and anatomy provide evidence of evolution by comparing the external and internal structures of organisms. When different organisms show the same basic structural plan, it indicates that they may have evolved from a common ancestor.</p>
+      <h4>Homologous organs</h4>
+      <p>Homologous organs have the same origin and basic structure but perform different functions. They show <strong>divergent evolution</strong>, where one ancestral structure becomes modified for different functions.</p>
+      <p><strong>Example:</strong> Leaf tendril of pea, leaf spine of cactus and normal foliage leaf are all modifications of leaves. Their functions are different, but their origin is the same.</p>
+      <h4>Analogous organs</h4>
+      <p>Analogous organs perform similar functions but have different origins. They show <strong>convergent evolution</strong>, where unrelated structures become similar due to similar functions.</p>
+      <p><strong>Example:</strong> Leaf tendril of pea and stem tendril of <em>Cucurbita</em> both help in climbing, but one originates from leaf and the other from stem.</p>
+      <p>Thus, comparative morphology shows both common ancestry and adaptive modification.</p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>3. Vestigial and Reduced Structures</h3>
+      <p>Vestigial organs are reduced structures that were functional in ancestors but are reduced or less functional in present organisms. Their presence indicates evolutionary history.</p>
+      <p>In plants, reduced leaves in some xerophytes, sterile stamens called staminodes, and reduced floral organs in some flowers can be considered examples of reduction. These structures suggest that present-day plants still retain traces of ancestral structures.</p>
+      <p>Vestigial structures support evolution because they cannot be properly explained unless we accept that organisms have changed from earlier forms.</p>
+    </div>
+    <div class="card">
+      <h3>4. Embryological Evidence</h3>
+      <p>Embryology deals with the development of organisms from the zygote. Related organisms often show similarities in their early developmental stages, even though their adult structures may differ.</p>
+      <p>In angiosperms, many developmental processes are similar across different groups. These include embryo sac formation, fertilization, zygote formation, proembryo stage, suspensor formation and differentiation of embryo into root and shoot regions. The common occurrence of similar developmental stages suggests common ancestry.</p>
+      <p>Embryological evidence is important because development often preserves traces of evolutionary relationships.</p>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card">
+      <h3>5. Biogeographical Evidence</h3>
+      <p>Biogeography is the study of the geographical distribution of organisms. The distribution of plants and animals across the world supports evolution.</p>
+      <p>Closely related species are often found in nearby regions, while isolated regions such as islands may have unique endemic species. These species evolve separately because of geographical isolation. For example, island floras often contain species that are not found elsewhere.</p>
+      <p>Biogeography shows that isolation, migration and environmental conditions play important roles in evolution and speciation.</p>
+    </div>
+    <div class="card">
+      <h3>6. Molecular and Biochemical Evidence</h3>
+      <p>Molecular evidence is one of the strongest modern evidences of evolution. All living organisms contain similar biomolecules such as DNA, RNA, proteins, carbohydrates and lipids. They also use ATP as an energy molecule and share a nearly universal genetic code.</p>
+      <p>Closely related organisms show greater similarity in DNA sequences, proteins and enzymes. Less related organisms show more differences. This pattern supports the idea that organisms have descended from common ancestors.</p>
+      <p>The biochemical unity of life strongly indicates that all living organisms originated from a common primitive life form.</p>
+    </div>
+    <div class="card">
+      <h3>7. Cytological Evidence</h3>
+      <p>Cytology also supports evolution. Similarities in cell structure, chromosomes, mitosis and meiosis indicate relationships among organisms.</p>
+      <p>In plants, chromosome number and chromosome structure are important in evolution. Changes such as duplication, deletion, translocation and polyploidy create variation. <strong>Polyploidy</strong>, or increase in chromosome sets, is especially important in plant evolution. Many angiosperms and crop plants have evolved through polyploidy.</p>
+      <p>Thus, cytological evidence shows that genetic and chromosomal changes contribute to evolution.</p>
+    </div>
+  </div>
+
+  <div class="major-heading"><span class="tag">Origin of life</span><h3>Theories of Origin of Life</h3></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>1. Theory of Special Creation</h3>
+      <p>The theory of special creation states that life was created by a supernatural power or God. According to this view, all organisms were created in their present form and have remained unchanged.</p>
+      <p>This theory was widely accepted in ancient times because scientific knowledge about fossils, cells, heredity and evolution was not available. It gives a religious or philosophical explanation of life.</p>
+      <p>However, special creation is not considered a scientific theory because it cannot be tested by experiments or observations. Science explains natural events through natural causes, while this theory depends on supernatural explanation.</p>
+    </div>
+    <div class="card">
+      <h3>2. Theory of Spontaneous Generation or Abiogenesis</h3>
+      <p>The old theory of spontaneous generation stated that life could arise suddenly from non-living or decaying matter. It was believed that maggots developed from rotten meat, frogs arose from mud and microorganisms appeared from dirty water.</p>
+      <p>This idea was later disproved by experiments. <strong>Redi</strong> showed that maggots arise from eggs laid by flies and not from meat itself. <strong>Spallanzani</strong> showed that boiled and sealed broth did not produce microorganisms. <strong>Pasteur</strong> finally disproved spontaneous generation through his swan-neck flask experiment. He showed that microorganisms appear in broth only when microbes from air enter it.</p>
+      <p>Thus, spontaneous generation was rejected because life does not arise suddenly from non-living matter under present conditions.</p>
+    </div>
+    <div class="card">
+      <h3>3. Theory of Biogenesis</h3>
+      <p>The theory of biogenesis states that <strong>life arises only from pre-existing life</strong>. This theory was strongly supported by Pasteur’s experiment.</p>
+      <p>According to biogenesis, microorganisms do not appear automatically in sterile material. They develop only when already existing microorganisms enter and multiply.</p>
+      <p>Biogenesis is accepted for present-day conditions. All living organisms today arise from pre-existing living organisms. However, biogenesis does not explain how the first life originated on primitive Earth. Therefore, it explains the continuity of life, but not the first origin of life.</p>
+    </div>
+    <div class="card">
+      <h3>4. Panspermia or Cosmozoic Theory</h3>
+      <p>The panspermia theory, also called the cosmozoic theory, states that life did not originate on Earth but came from outer space. According to this theory, spores, microorganisms or organic particles reached Earth through meteorites, comets or cosmic dust.</p>
+      <p>This theory is supported to some extent by the discovery of organic compounds in meteorites. It also suggests that the building blocks of life may exist in space.</p>
+      <p>However, panspermia does not explain the actual origin of life. It only shifts the problem from Earth to another place in the universe. It also has difficulty explaining how living spores could survive extreme cold, radiation and heat during space travel. Therefore, panspermia is interesting but incomplete as a theory of origin of life.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>5. Chemical Evolution Theory of Oparin and Haldane</h3>
+    <p>The chemical evolution theory was proposed independently by <strong>A. I. Oparin</strong> and <strong>J. B. S. Haldane</strong>. It is the most accepted scientific theory for the origin of life.</p>
+    <p>According to this theory, life originated gradually from non-living matter through chemical reactions on primitive Earth. The primitive atmosphere was reducing and contained gases such as methane, ammonia, hydrogen and water vapour. Energy from lightning, ultraviolet rays and volcanic heat caused these gases to form simple organic molecules. These molecules accumulated in primitive oceans, forming a “hot dilute soup” or “prebiotic soup”.</p>
+    <p>Later, simple organic molecules formed complex molecules, which aggregated into coacervates or protocells. Finally, the first living cells evolved. The Miller-Urey experiment supported this theory by producing amino acids under simulated primitive Earth conditions.</p>
+    <p>Thus, chemical evolution explains the origin of first life through gradual chemical changes.</p>
+  </div>
+
+  <div class="major-heading"><span class="tag">Mechanism</span><h3>Mechanism of Evolution</h3></div>
+  <p class="intro">The mechanism of evolution explains how populations change over generations and how new species arise. It includes the following processes.</p>
+  <div class="grid2">
+    <div class="card"><h3>1. Variation</h3><p>Variation means differences among individuals of the same species. It is the raw material of evolution. Without variation, evolution cannot occur. Variations are due to mutation, recombination, crossing over, independent assortment and random fertilization. In plants, hybridization and polyploidy also produce important variations.</p></div>
+    <div class="card"><h3>2. Mutation</h3><p>Mutation is a sudden heritable change in genetic material. It may produce new alleles and new characters. Some mutations are harmful, some are neutral, and some may be useful. Useful mutations may help organisms survive better in a particular environment and may become common in a population over generations.</p></div>
+    <div class="card"><h3>3. Recombination</h3><p>Recombination occurs during sexual reproduction. Crossing over and independent assortment during meiosis produce new combinations of genes. Random fertilization also adds genetic variation. In plants, cross-pollination is important because it brings together genes from different individuals and increases variation.</p></div>
+    <div class="card"><h3>4. Natural Selection</h3><p>Natural selection is the process by which organisms with favourable variations survive and reproduce better than others. Unfavourable variations are gradually eliminated. For example, in a dry habitat, plants with deeper roots or better drought resistance may survive better. Over generations, such favourable traits become more common in the population. Natural selection does not create variation; it acts on existing variation.</p></div>
+    <div class="card"><h3>5. Genetic Drift</h3><p>Genetic drift is a random change in gene frequency in a population. It is especially important in small populations. Due to chance events, some genes may become common while others may disappear. Genetic drift can cause isolated populations to become different from the original population, helping in speciation.</p></div>
+    <div class="card"><h3>6. Gene Flow</h3><p>Gene flow is the movement of genes from one population to another. In plants, it may occur through pollen transfer, seed dispersal or hybridization. Gene flow increases variation within a population, but it can also reduce differences between populations if interbreeding continues.</p></div>
+    <div class="card"><h3>7. Isolation</h3><p>Isolation prevents interbreeding between populations. It may be geographical, ecological, seasonal, mechanical or genetic. When populations remain isolated for a long time, they accumulate different variations. Over time, these differences may become so great that the populations can no longer interbreed.</p></div>
+    <div class="card"><h3>8. Speciation</h3><p>Speciation is the formation of new species. It occurs when populations become genetically different and reproductively isolated. In plants, speciation may occur due to geographical isolation, hybridization and polyploidy. Polyploidy is especially important because chromosome doubling can quickly produce a new plant species.</p></div>
+  </div>
+  <div class="flow">Summary of mechanism: Variation → inheritance → natural selection / genetic drift → adaptation → isolation → speciation</div>
+  <div class="callout"><strong>Conclusion</strong>Evolution is supported by evidences from fossils, comparative morphology, vestigial structures, embryology, biogeography, molecular biology and cytology. Theories of origin of life include special creation, spontaneous generation, biogenesis, panspermia and chemical evolution. Among these, chemical evolution proposed by Oparin and Haldane is the most accepted scientific explanation for the origin of first life. Evolution then proceeds through mechanisms such as variation, mutation, recombination, natural selection, genetic drift, gene flow, isolation and speciation. Thus, evolution explains both the origin of life and the diversity of living organisms.</div>
+</section>
+
+<section class="section" id="hardy">
+  <span class="label">Topic 2</span>
+  <div class="head"><div class="num">02</div><h2>Hardy-Weinberg Principle</h2></div>
+  <p class="intro"><strong>Gene Frequency, Genotypic Frequency and Genetic Drift</strong></p>
+  <p class="intro">The Hardy-Weinberg principle is an important principle of population genetics. It was independently proposed by <strong>G. H. Hardy</strong> and <strong>W. Weinberg</strong> in 1908. This principle explains the relationship between <strong>gene frequency</strong> and <strong>genotypic frequency</strong> in a population. According to this principle, in a large randomly mating population, the gene and genotype frequencies remain constant from generation to generation, provided there is no mutation, migration, natural selection, genetic drift or non-random mating. Such a population is said to be in <strong>Hardy-Weinberg equilibrium</strong>.</p>
+
+  <div class="major-heading"><span class="tag">Principle</span><h3>Statement of Hardy-Weinberg Principle</h3></div>
+  <div class="callout"><strong>Statement</strong>In the absence of evolutionary forces, the relative frequencies of alleles and genotypes in a sexually reproducing population remain constant from generation to generation.</div>
+  <p>This means that if no external force acts on a population, the population does not evolve. Evolution occurs only when Hardy-Weinberg equilibrium is disturbed.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Gene Frequency</h3>
+      <p><strong>Gene frequency</strong> or <strong>allele frequency</strong> is the proportion of a particular allele in the gene pool of a population.</p>
+      <p>For a gene with two alleles, A and a:</p>
+      <ul>
+        <li>Frequency of allele <strong>A</strong> is represented by <strong>p</strong>.</li>
+        <li>Frequency of allele <strong>a</strong> is represented by <strong>q</strong>.</li>
+      </ul>
+      <div class="formula">p + q = 1</div>
+      <p>This means the total frequency of all alleles in the population is always 1.</p>
+      <p><strong>Example:</strong> If the frequency of allele A is 0.7, then p = 0.7. Since p + q = 1, q = 1 − 0.7 = 0.3. So, the frequency of allele a is 0.3.</p>
+    </div>
+    <div class="card">
+      <h3>Genotypic Frequency</h3>
+      <p><strong>Genotypic frequency</strong> is the proportion of a particular genotype in a population.</p>
+      <p>For two alleles, A and a, there are three possible genotypes:</p>
+      <ol>
+        <li><strong>AA</strong> — homozygous dominant</li>
+        <li><strong>Aa</strong> — heterozygous</li>
+        <li><strong>aa</strong> — homozygous recessive</li>
+      </ol>
+      <div class="formula">p<sup>2</sup> + 2pq + q<sup>2</sup> = 1</div>
+      <p>This equation is the Hardy-Weinberg equation.</p>
+    </div>
+  </div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Genotype</th><th>Frequency</th><th>Meaning</th></tr>
+    <tr><td>AA</td><td>p<sup>2</sup></td><td>Homozygous dominant genotype</td></tr>
+    <tr><td>Aa</td><td>2pq</td><td>Heterozygous genotype</td></tr>
+    <tr><td>aa</td><td>q<sup>2</sup></td><td>Homozygous recessive genotype</td></tr>
+  </table></div>
+
+  <div class="card">
+    <h3>Explanation of Hardy-Weinberg Equation</h3>
+    <p>If the frequency of allele A is <strong>p</strong> and the frequency of allele a is <strong>q</strong>, then during random mating:</p>
+    <ul>
+      <li>The chance of A combining with A is p × p = p<sup>2</sup>.</li>
+      <li>The chance of A combining with a is p × q.</li>
+      <li>The chance of a combining with A is q × p.</li>
+      <li>The total heterozygous frequency is pq + qp = 2pq.</li>
+      <li>The chance of a combining with a is q × q = q<sup>2</sup>.</li>
+    </ul>
+    <p>Thus, AA = p<sup>2</sup>, Aa = 2pq and aa = q<sup>2</sup>. Therefore, the Hardy-Weinberg equation is:</p>
+    <div class="formula">p<sup>2</sup> + 2pq + q<sup>2</sup> = 1</div>
+  </div>
+
+  <div class="tablewrap"><table>
+    <tr><th colspan="4">Example of Gene and Genotypic Frequency</th></tr>
+    <tr><th>Given</th><th>Genotype</th><th>Calculation</th><th>Frequency</th></tr>
+    <tr><td>p = 0.6, q = 0.4</td><td>AA</td><td>p<sup>2</sup> = 0.6 × 0.6</td><td>0.36 = 36%</td></tr>
+    <tr><td>p = 0.6, q = 0.4</td><td>Aa</td><td>2pq = 2 × 0.6 × 0.4</td><td>0.48 = 48%</td></tr>
+    <tr><td>p = 0.6, q = 0.4</td><td>aa</td><td>q<sup>2</sup> = 0.4 × 0.4</td><td>0.16 = 16%</td></tr>
+    <tr><td colspan="3"><strong>Total</strong></td><td><strong>0.36 + 0.48 + 0.16 = 1</strong></td></tr>
+  </table></div>
+  <p>This shows that genotype frequencies are distributed according to the Hardy-Weinberg principle.</p>
+
+  <div class="major-heading"><span class="tag">Equilibrium</span><h3>Conditions for Hardy-Weinberg Equilibrium</h3></div>
+  <div class="grid2">
+    <div class="card"><h3>1. Large Population Size</h3><p>The population must be very large. In small populations, chance events can change gene frequencies.</p></div>
+    <div class="card"><h3>2. Random Mating</h3><p>All individuals must have equal chance of mating. If mating is selective or non-random, genotype frequencies change.</p></div>
+    <div class="card"><h3>3. No Mutation</h3><p>There should be no mutation converting one allele into another.</p></div>
+    <div class="card"><h3>4. No Migration</h3><p>There should be no movement of individuals into or out of the population. Migration can introduce or remove alleles.</p></div>
+    <div class="card"><h3>5. No Natural Selection</h3><p>All genotypes must have equal survival and reproductive success. If one genotype survives better, gene frequencies will change.</p></div>
+    <div class="card"><h3>6. No Genetic Drift</h3><p>Gene frequencies should not change by chance, especially in small populations.</p></div>
+  </div>
+  <p>If any of these conditions are disturbed, the population may evolve.</p>
+
+  <div class="major-heading"><span class="tag">Genetic drift</span><h3>Genetic Drift and Hardy-Weinberg Equilibrium</h3></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Definition</h3>
+      <p><strong>Genetic drift</strong> is the random change in gene frequency in a population due to chance events. It is not caused by natural selection. It is especially important in small populations.</p>
+      <p>In genetic drift, some alleles may become common or disappear purely by chance, even if they are not harmful or beneficial.</p>
+    </div>
+    <div class="card">
+      <h3>How Genetic Drift Affects Hardy-Weinberg Equilibrium</h3>
+      <p>The Hardy-Weinberg principle assumes a very large population. But in small populations, random events may change allele frequencies. This disturbs Hardy-Weinberg equilibrium and causes evolution.</p>
+      <p>For example, if a few individuals of a plant population are destroyed by flood, fire or disease, some alleles may be lost by chance. The surviving population may have a different gene frequency from the original population.</p>
+      <p>Thus, genetic drift changes gene frequency randomly and may lead to evolutionary change.</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h3>1. Bottleneck Effect</h3>
+      <p>The <strong>bottleneck effect</strong> occurs when a large population is suddenly reduced to a small size due to natural calamities such as flood, fire, drought, disease or human activity.</p>
+      <p>The few surviving individuals may not represent the original gene pool. As a result, some alleles may be lost and gene frequency changes.</p>
+      <p><strong>Example:</strong> If only a few plants survive after a forest fire, the next generation will arise from those survivors only. Their allele frequencies may be different from the original population.</p>
+    </div>
+    <div class="card">
+      <h3>2. Founder Effect</h3>
+      <p>The <strong>founder effect</strong> occurs when a few individuals from a large population migrate and establish a new population in a new area.</p>
+      <p>The new population contains only the alleles carried by the founders. Therefore, its gene frequency may differ from the original population.</p>
+      <p><strong>Example:</strong> If a few seeds of a plant species are carried to an isolated island and form a new population, the gene pool of that island population may be different from the original mainland population.</p>
+    </div>
+  </div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Character</th><th>Gene frequency</th><th>Genotypic frequency</th></tr>
+    <tr><td>Meaning</td><td>Frequency of an allele in a population</td><td>Frequency of a genotype in a population</td></tr>
+    <tr><td>Unit studied</td><td>Allele</td><td>Genotype</td></tr>
+    <tr><td>Example</td><td>A = p, a = q</td><td>AA = p<sup>2</sup>, Aa = 2pq, aa = q<sup>2</sup></td></tr>
+    <tr><td>Equation</td><td>p + q = 1</td><td>p<sup>2</sup> + 2pq + q<sup>2</sup> = 1</td></tr>
+    <tr><td>Importance</td><td>Shows allele composition of population</td><td>Shows genotype composition of population</td></tr>
+  </table></div>
+
+  <div class="callout"><strong>Importance of Hardy-Weinberg Principle</strong>
+    <ol>
+      <li>It provides a mathematical model to study evolution.</li>
+      <li>It acts as a standard or null model of population genetics.</li>
+      <li>It helps in calculating allele and genotype frequencies.</li>
+      <li>It helps in studying population genetics.</li>
+      <li>It helps in detecting evolutionary changes.</li>
+      <li>It helps in understanding effects of mutation, selection, migration and drift.</li>
+      <li>It helps in comparing natural populations with ideal populations.</li>
+    </ol>
+  </div>
+  <div class="callout"><strong>Conclusion</strong>The Hardy-Weinberg principle explains that gene and genotypic frequencies remain constant in a large, randomly mating population if no evolutionary force acts on it. Gene frequency is represented by p + q = 1, while genotypic frequency is represented by p<sup>2</sup> + 2pq + q<sup>2</sup> = 1. Any deviation from Hardy-Weinberg equilibrium indicates evolution. Genetic drift is one such evolutionary force, causing random changes in gene frequency, especially in small populations. Therefore, the Hardy-Weinberg principle helps us understand both genetic stability and evolutionary change in populations.</div>
+</section>
+
+<section class="section" id="micro-macro">
+  <span class="label">Topic 3</span>
+  <div class="head"><div class="num">03</div><h2>Microevolution, Macroevolution and Origin of Life</h2></div>
+  <p class="intro">Evolution is the gradual change in living organisms over generations. It explains how simple ancestral forms gave rise to the diversity of organisms seen today. Evolution acts at two levels: <strong>microevolution</strong> and <strong>macroevolution</strong>. Microevolution deals with small genetic changes within populations, whereas macroevolution deals with large-scale evolutionary changes leading to the origin of new species and higher groups. A complete idea of evolution also includes the <strong>origin of life</strong>, which explains how life appeared on primitive Earth and how it gradually developed through geological time.</p>
+
+  <div class="card">
+    <h3>Concept of Evolution</h3>
+    <p>Evolution is based on the idea that living organisms are not fixed and unchanging. Populations show variation, and these variations may be inherited. When certain variations help organisms survive better in a particular environment, they are preserved through natural selection. Over generations, useful variations accumulate and populations become better adapted.</p>
+    <p>Evolution explains both the <strong>unity of life</strong> and the <strong>diversity of life</strong>. Unity is shown by common features such as cellular organization, DNA, genetic code and metabolism. Diversity is produced by adaptation, isolation, speciation and long-term evolutionary change.</p>
+    <p>Thus, evolution connects origin of life, adaptation, biodiversity, speciation and the development of major plant groups.</p>
+  </div>
+
+  <div class="major-heading"><span class="tag">Small-scale change</span><h3>Microevolution</h3></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Definition</h3>
+      <p><strong>Microevolution</strong> refers to small-scale evolutionary changes occurring within a population or species. It mainly involves changes in <strong>gene frequency</strong> or <strong>allele frequency</strong> from one generation to the next.</p>
+      <p>It does not usually produce a major new group immediately, but it is the basic foundation of evolution.</p>
+    </div>
+    <div class="card">
+      <h3>Explanation</h3>
+      <p>A population contains different alleles of genes. If the frequency of these alleles changes due to mutation, recombination, natural selection, genetic drift or gene flow, microevolution occurs.</p>
+      <p>For example, in a plant population, some individuals may tolerate drought better than others. If the environment becomes dry, drought-tolerant plants survive and reproduce more successfully. Over generations, genes for drought tolerance increase in the population. This is microevolution.</p>
+      <p>Thus, microevolution explains how populations gradually become adapted to their local environment.</p>
+    </div>
+  </div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Cause</th><th>Explanation</th></tr>
+    <tr><td>Mutation</td><td>Produces new alleles and creates fresh variation</td></tr>
+    <tr><td>Recombination</td><td>Produces new gene combinations during sexual reproduction</td></tr>
+    <tr><td>Natural selection</td><td>Favours useful variations and eliminates harmful ones</td></tr>
+    <tr><td>Genetic drift</td><td>Randomly changes allele frequency, especially in small populations</td></tr>
+    <tr><td>Gene flow</td><td>Transfers genes between populations through pollen, seed or migration</td></tr>
+    <tr><td>Isolation</td><td>Prevents interbreeding and allows populations to change independently</td></tr>
+  </table></div>
+
+  <div class="grid2">
+    <div class="card"><h3>Examples of Microevolution</h3><p>Microevolution can be seen in the development of antibiotic resistance in bacteria, pesticide resistance in insects and herbicide resistance in weeds. In plants, the formation of local ecotypes adapted to dry, saline, cold or high-altitude habitats is also an example of microevolution.</p><p>For example, two populations of the same plant species growing in different habitats may slowly become different in height, leaf size, flowering time or stress tolerance. These are small evolutionary changes within the species.</p></div>
+    <div class="card"><h3>Importance of Microevolution</h3><p>Microevolution is important because it explains adaptation within populations. It shows how small genetic changes accumulate over generations. If such changes continue for a long time and populations become isolated, they may eventually form new species. Therefore, microevolution is the starting point of macroevolution.</p></div>
+  </div>
+
+  <div class="major-heading"><span class="tag">Large-scale change</span><h3>Macroevolution</h3></div>
+  <div class="grid2">
+    <div class="card"><h3>Definition</h3><p><strong>Macroevolution</strong> refers to large-scale evolutionary changes that occur over long geological periods. It results in the origin of new species, genera, families, orders or major groups of organisms.</p><p>It includes major evolutionary events such as the origin of land plants, vascular tissues, seeds, flowers and fruits.</p></div>
+    <div class="card"><h3>Explanation</h3><p>Macroevolution operates above the species level. It is not just a minor change in gene frequency but involves major structural, reproductive and ecological changes. These changes usually take place over millions of years and are studied through fossils, comparative morphology, embryology and molecular evidence.</p><p>In plants, macroevolution can be seen in the transition from aquatic algal ancestors to land plants, from non-vascular plants to vascular plants, from homospory to heterospory, from naked seeds to flowers and fruits.</p><p>Thus, macroevolution explains the origin of major plant groups and large evolutionary trends.</p></div>
+  </div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Feature</th><th>Explanation</th></tr>
+    <tr><td>Speciation</td><td>Formation of new species from ancestral populations</td></tr>
+    <tr><td>Adaptive radiation</td><td>Evolution of many different forms from one ancestor</td></tr>
+    <tr><td>Extinction</td><td>Disappearance of older forms, allowing new forms to dominate</td></tr>
+    <tr><td>Evolutionary novelties</td><td>Origin of new structures such as vascular tissue, seeds, flowers and fruits</td></tr>
+    <tr><td>Long-term trends</td><td>Gradual development from simple to more complex forms</td></tr>
+    <tr><td>Higher taxa formation</td><td>Origin of genera, families, orders and major plant groups</td></tr>
+  </table></div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Evolutionary event</th><th>Importance</th></tr>
+    <tr><td>Origin of land plants</td><td>Plants moved from aquatic to terrestrial habitat</td></tr>
+    <tr><td>Origin of vascular tissue</td><td>Xylem and phloem allowed conduction and support</td></tr>
+    <tr><td>Origin of heterospory</td><td>Led towards seed habit</td></tr>
+    <tr><td>Origin of seed plants</td><td>Embryo became protected inside seed</td></tr>
+    <tr><td>Origin of gymnosperms</td><td>Seed plants became dominant in dry land habitats</td></tr>
+    <tr><td>Origin of angiosperms</td><td>Flowers, fruits and double fertilization evolved</td></tr>
+    <tr><td>Adaptive radiation of angiosperms</td><td>Angiosperms diversified into herbs, shrubs, trees, climbers, hydrophytes and xerophytes</td></tr>
+  </table></div>
+
+  <div class="callout"><strong>Importance of Macroevolution</strong>Macroevolution helps us understand the broad history of life. It explains how major groups originated, why some groups became extinct and why some became dominant. In botany, macroevolution explains the rise of vascular plants, seed plants, gymnosperms and angiosperms. It also explains large-scale patterns seen in the fossil record, such as dominance of pteridophytes in the Carboniferous period, gymnosperms in the Mesozoic era and angiosperms from the Cretaceous period onwards.</div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Character</th><th>Microevolution</th><th>Macroevolution</th></tr>
+    <tr><td>Scale</td><td>Small-scale change</td><td>Large-scale change</td></tr>
+    <tr><td>Level</td><td>Population or species level</td><td>Above species level</td></tr>
+    <tr><td>Time taken</td><td>Shorter period</td><td>Long geological period</td></tr>
+    <tr><td>Main change</td><td>Change in allele frequency</td><td>Origin of new species and higher groups</td></tr>
+    <tr><td>Main processes</td><td>Mutation, recombination, natural selection, drift and gene flow</td><td>Speciation, adaptive radiation, extinction and evolutionary novelties</td></tr>
+    <tr><td>Example</td><td>Drought-resistant population of a plant species</td><td>Origin and diversification of angiosperms</td></tr>
+    <tr><td>Result</td><td>Adaptation within population</td><td>Formation of major evolutionary groups</td></tr>
+  </table></div>
+
+  <div class="callout"><strong>Relationship Between Microevolution and Macroevolution</strong>Microevolution and macroevolution are closely connected. Microevolutionary changes first occur within populations. If these changes accumulate for many generations and populations become isolated, new species may arise. Repeated speciation, extinction and adaptation over long periods produce macroevolutionary patterns. The relationship can be shown as: <strong>Microevolution → population change → adaptation → isolation → speciation → macroevolution</strong>. Thus, macroevolution may be considered the large-scale result of accumulated microevolutionary changes over geological time.</div>
+
+  <div class="major-heading"><span class="tag">Timeline</span><h3>Origin of Life and Evolutionary Timeline</h3></div>
+  <div class="tablewrap"><table>
+    <tr><th>Time / Period</th><th>Major event</th><th>Explanation / evolutionary importance</th></tr>
+    <tr><td>About 4.6 billion years ago</td><td>Formation of Earth</td><td>Earth originated as a hot mass. Conditions were unsuitable for life in the beginning.</td></tr>
+    <tr><td>About 4.4–4.0 billion years ago</td><td>Cooling of Earth and formation of oceans</td><td>Earth cooled, crust formed, water vapour condensed and primitive oceans appeared.</td></tr>
+    <tr><td>Primitive atmosphere</td><td>Reducing atmosphere</td><td>Early atmosphere had little or no free oxygen. It contained gases like methane, ammonia, hydrogen, carbon dioxide, nitrogen and water vapour.</td></tr>
+    <tr><td>About 4.0–3.8 billion years ago</td><td>Chemical evolution</td><td>Simple inorganic molecules reacted using energy from lightning, UV rays and volcanic heat. Organic molecules such as amino acids, sugars, fatty acids and nitrogenous bases formed.</td></tr>
+    <tr><td>Prebiotic ocean stage</td><td>“Hot dilute soup”</td><td>Organic molecules accumulated in primitive oceans. This organic-rich ocean is called prebiotic soup or hot dilute soup.</td></tr>
+    <tr><td>Polymer formation</td><td>Complex organic molecules</td><td>Simple molecules joined to form proteins, lipids, polysaccharides and nucleic acids. These were essential for life.</td></tr>
+    <tr><td>Protocell stage</td><td>Coacervates / protobionts</td><td>Organic molecules aggregated into droplet-like structures having boundary and simple metabolic properties. They were not true cells but acted as precursors of cells.</td></tr>
+    <tr><td>About 3.8–3.5 billion years ago</td><td>First living cells</td><td>First cells were probably simple, unicellular, prokaryotic, anaerobic and heterotrophic. They used organic molecules from the primitive ocean.</td></tr>
+    <tr><td>Around 3.5 billion years ago</td><td>Origin of photosynthesis</td><td>Cyanobacteria-like organisms evolved photosynthesis and started releasing oxygen.</td></tr>
+    <tr><td>Around 2.4 billion years ago</td><td>Great Oxygenation Event</td><td>Oxygen accumulated in the atmosphere. This changed Earth’s environment and allowed aerobic respiration to evolve.</td></tr>
+    <tr><td>After oxygen accumulation</td><td>Formation of ozone layer</td><td>Oxygen helped form ozone, which protected life from harmful ultraviolet radiation.</td></tr>
+    <tr><td>Around 2.0–1.8 billion years ago</td><td>Origin of eukaryotic cells</td><td>Cells with true nucleus and membrane-bound organelles evolved. Mitochondria and chloroplasts are explained by endosymbiotic theory.</td></tr>
+    <tr><td>Around 1.2 billion years ago onwards</td><td>Multicellular organisms</td><td>Multicellular forms evolved, allowing division of labour among cells.</td></tr>
+    <tr><td>Around 470 million years ago</td><td>First land plants</td><td>Early plants colonized land and developed adaptations such as cuticle, spores and protected gametes.</td></tr>
+    <tr><td>Around 420 million years ago</td><td>Vascular plants</td><td>Xylem and phloem evolved, allowing better conduction and mechanical support.</td></tr>
+    <tr><td>Around 360 million years ago</td><td>Seed plants</td><td>Heterospory and retention of megaspore led to seed habit. Seeds protected the embryo and helped survival.</td></tr>
+    <tr><td>Mesozoic era</td><td>Gymnosperm dominance</td><td>Gymnosperms such as cycads, conifers and ginkgoes became dominant. They had naked seeds and were adapted to dry land.</td></tr>
+    <tr><td>Cretaceous period onwards</td><td>Origin and diversification of angiosperms</td><td>Flowering plants evolved flowers, enclosed ovules, fruits and double fertilization. They became the most successful plant group.</td></tr>
+    <tr><td>Present flora</td><td>Dominance of angiosperms</td><td>Angiosperms occupy almost all habitats and show maximum diversity among plants.</td></tr>
+  </table></div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Step</th><th>Sequence of Origin of Life</th></tr>
+    <tr><td>1</td><td>Formation of Earth</td></tr>
+    <tr><td>2</td><td>Cooling of Earth and formation of oceans</td></tr>
+    <tr><td>3</td><td>Reducing atmosphere</td></tr>
+    <tr><td>4</td><td>Formation of simple organic molecules</td></tr>
+    <tr><td>5</td><td>Formation of complex organic molecules</td></tr>
+    <tr><td>6</td><td>Formation of coacervates or protocells</td></tr>
+    <tr><td>7</td><td>Origin of first prokaryotic anaerobic cells</td></tr>
+    <tr><td>8</td><td>Origin of photosynthesis</td></tr>
+    <tr><td>9</td><td>Oxygenation of atmosphere</td></tr>
+    <tr><td>10</td><td>Origin of eukaryotes and multicellular life</td></tr>
+    <tr><td>11</td><td>Evolution of land plants, vascular plants, seed plants and angiosperms</td></tr>
+  </table></div>
+  <div class="callout"><strong>Conclusion</strong>Evolution explains the gradual change of life through time. Microevolution refers to small genetic changes within populations, while macroevolution refers to large-scale changes leading to new species and higher groups. Microevolution provides the foundation for macroevolution when changes accumulate over long periods. The origin of life began with the formation of Earth, primitive atmosphere, oceans, organic molecules, protocells and first prokaryotic cells. Later, photosynthesis, oxygenation, eukaryotic cells, multicellularity, land plants, vascular plants, seed plants, gymnosperms and angiosperms evolved. Thus, evolution explains the origin, continuity, adaptation and diversity of life.</div>
+</section>
+
+<section class="section" id="theories">
+  <span class="label">Topic 4</span>
+  <div class="head"><div class="num">04</div><h2>Lamarckism, Darwinism, Neo-Darwinism and Modern Synthetic Theory</h2></div>
+  <p class="intro">Evolution is the gradual change in organisms over generations, leading to the formation of new forms and species from pre-existing ones. Several theories have been proposed to explain the process of evolution. Among them, <strong>Lamarckism</strong>, <strong>Darwinism</strong>, <strong>Neo-Darwinism</strong> and the <strong>Modern Synthetic Theory</strong> are important. Lamarckism explains evolution through inheritance of acquired characters. Darwinism explains evolution through natural selection. Neo-Darwinism modifies Darwin’s theory by emphasizing heritable variations and rejecting acquired characters. The Modern Synthetic Theory gives the most accepted explanation by combining Darwinism with genetics, mutation, recombination, population genetics and speciation.</p>
+
+  <div class="major-heading"><span class="tag">Theory 1</span><h3>Lamarckism</h3></div>
+  <div class="card"><h3>Meaning</h3><p><strong>Lamarckism</strong> was proposed by <strong>Jean Baptiste de Lamarck</strong> in his book <em>Philosophie Zoologique</em> in 1809. It is also called the theory of <strong>inheritance of acquired characters</strong>.</p><p>According to Lamarck, organisms change during their lifetime due to environmental influence, use and disuse of organs, and these acquired changes are transmitted to the next generation.</p></div>
+
+  <div class="grid2">
+    <div class="card"><h3>1. Internal Vital Force</h3><p>Lamarck believed that every living organism has an internal force or tendency to increase in size, complexity and perfection. According to him, this internal vital force drives organisms from simpler forms towards more complex forms.</p><p>For example, Lamarck thought that simple organisms gradually became more complex because of this natural internal tendency.</p><p>This idea is not accepted today because evolution does not occur due to a mysterious internal force. However, it was important historically because Lamarck tried to explain progressive change in organisms.</p></div>
+    <div class="card"><h3>2. Effect of Environment and New Needs</h3><p>According to Lamarck, changes in the environment create new needs in organisms. When surroundings change, organisms must adjust themselves to survive. These new needs lead to new habits and changes in the use of organs.</p><p>For example, if food becomes scarce near the ground and is available only on tall trees, animals may try to stretch their necks to reach the leaves. Similarly, aquatic plants may develop features suited to water, while desert plants develop features suited to dry conditions.</p><p>Thus, Lamarck gave importance to the role of environment in producing adaptive changes.</p></div>
+    <div class="card"><h3>3. Use and Disuse of Organs</h3><p>This is one of the most important postulates of Lamarckism. Lamarck stated that organs which are used continuously become stronger, larger and better developed. On the other hand, organs which are not used become weak, reduced and may finally disappear.</p><ul><li>The long neck of giraffe was explained as the result of repeated stretching to reach leaves of tall trees.</li><li>The strong limbs of running animals were explained by constant use.</li><li>The loss of limbs in snakes was explained by disuse.</li><li>The reduced eyes of cave animals were explained by disuse in darkness.</li></ul><p>Thus, according to Lamarck, use strengthens an organ and disuse weakens it.</p></div>
+    <div class="card"><h3>4. Inheritance of Acquired Characters</h3><p>Lamarck believed that characters acquired by an organism during its lifetime are inherited by offspring. If an organ becomes stronger due to use, that improvement is passed to the next generation. Similarly, if an organ becomes reduced due to disuse, that reduction is also inherited.</p><p>Over many generations, these acquired changes accumulate and lead to the formation of new species.</p><p>For example, according to Lamarck, giraffes acquired longer necks by stretching. Their offspring inherited slightly longer necks. Repetition of this process for many generations produced modern long-necked giraffes.</p></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h3>Merits of Lamarckism</h3><p>Lamarckism was one of the earliest scientific attempts to explain evolution. It rejected the idea that organisms are fixed and unchanging. Lamarck correctly emphasized that organisms change with time and that the environment has an important role in adaptation.</p><p>The theory also highlighted the relationship between structure, function and environment. Lamarck’s ideas encouraged later scientists to study adaptation and evolution more scientifically.</p></div>
+    <div class="card"><h3>Demerits of Lamarckism</h3><p>The main weakness of Lamarckism is that acquired characters are generally not inherited. Characters developed during the lifetime of an organism do not usually affect germ cells and therefore cannot be passed to offspring.</p><p>For example, cutting the tails of mice for many generations does not produce tailless mice. Similarly, muscles developed by exercise are not directly inherited by children.</p><p>Lamarck also did not know about genes, chromosomes, mutation and heredity. His idea of internal vital force is also not scientifically accepted. Therefore, Lamarckism is historically important but not accepted in its original form.</p></div>
+  </div>
+
+  <div class="major-heading"><span class="tag">Theory 2</span><h3>Darwinism</h3></div>
+  <div class="card"><h3>Meaning</h3><p><strong>Darwinism</strong> was proposed by <strong>Charles Darwin</strong> in his book <em>On the Origin of Species</em> in 1859. It is also called the theory of <strong>natural selection</strong>. Alfred Russel Wallace also independently proposed a similar idea.</p><p>Darwin was influenced by observations made during his voyage on HMS Beagle and by Malthus’ idea that populations increase faster than food supply. According to Darwin, organisms produce more offspring than can survive, and nature selects individuals with favourable variations.</p></div>
+
+  <div class="grid2">
+    <div class="card"><h3>1. Overproduction or Enormous Fertility</h3><p>Darwin observed that all organisms have a very high reproductive capacity. They produce far more offspring than can survive. For example, plants produce thousands of seeds, fishes lay thousands of eggs and insects produce many offspring. If all offspring survived, the population of every species would increase enormously.</p><p>However, in nature, population size remains more or less limited because most offspring fail to survive due to competition, predation, disease or environmental stress. Thus, overproduction creates pressure on available resources.</p></div>
+    <div class="card"><h3>2. Struggle for Existence</h3><p>Since organisms produce more offspring than the environment can support, there is competition for food, space, light, water, mates and other resources. Darwin called this the <strong>struggle for existence</strong>.</p><p>In plants, seedlings may compete for light, minerals, water and space. Only some survive and grow into mature plants.</p></div>
+  </div>
+  <div class="tablewrap"><table><tr><th>Type of struggle</th><th>Explanation</th></tr><tr><td>Intraspecific struggle</td><td>Competition among individuals of the same species</td></tr><tr><td>Interspecific struggle</td><td>Competition between individuals of different species</td></tr><tr><td>Environmental struggle</td><td>Struggle against physical factors like drought, flood, temperature, disease and climate</td></tr></table></div>
+
+  <div class="grid2">
+    <div class="card"><h3>3. Variations</h3><p>Darwin observed that individuals of the same species are not exactly alike. They show differences in size, shape, colour, physiology, resistance and reproductive capacity. These differences are called variations.</p><p>Some variations are favourable, some are harmful and some are neutral. Favourable variations help organisms survive better in a particular environment. For example, in a dry habitat, plants with deeper roots, smaller leaves or thicker cuticle may survive better. In a cold region, plants with suitable physiological tolerance may have an advantage.</p><p>Darwin considered variations as the raw material for evolution. However, he could not explain the actual origin of variations because genetics was not known at that time.</p></div>
+    <div class="card"><h3>4. Survival of the Fittest</h3><p>In the struggle for existence, individuals with favourable variations survive better than others. This is called <strong>survival of the fittest</strong>.</p><p>Fitness does not mean physical strength only. It means the ability of an organism to survive and reproduce successfully in a particular environment. For example, a plant with better drought tolerance may be “fitter” in a desert, while a fast-growing plant may be fitter in a disturbed habitat. Thus, fitness depends on the environment.</p><p>Individuals without useful adaptations may die early or reproduce less.</p></div>
+    <div class="card"><h3>5. Natural Selection</h3><p>Natural selection is the central idea of Darwinism. Nature acts as a selecting force. It preserves individuals with favourable variations and eliminates less adapted individuals.</p><p>Natural selection does not create new variations. It only acts on existing variations. Useful variations are passed to the next generation because individuals possessing them reproduce more successfully. Over many generations, favourable characters become more common in the population. This leads to adaptation.</p><p>For example, if drought-resistant plants survive better during repeated dry seasons, the next generations will contain more drought-resistant individuals.</p></div>
+    <div class="card"><h3>6. Origin of New Species</h3><p>Darwin believed that useful variations accumulate slowly over many generations. As the population changes, it becomes better adapted to its environment. If changes become large enough and populations become separated, new species may arise.</p><div class="flow">Sequence of Darwinism: Overproduction → struggle for existence → variations → survival of the fittest → natural selection → accumulation of favourable variations → origin of new species</div></div>
+  </div>
+
+  <div class="grid2"><div class="card"><h3>Merits of Darwinism</h3><p>Darwinism gave a natural and scientific explanation of evolution. It explained adaptation, struggle for existence, survival of the fittest and the origin of new species without depending on supernatural causes.</p><p>It is supported by many examples such as industrial melanism, pesticide resistance, antibiotic resistance and adaptation of plants to different habitats. The concept of natural selection remains one of the strongest foundations of evolutionary biology.</p></div><div class="card"><h3>Demerits of Darwinism</h3><p>Darwinism could not explain the origin and inheritance of variations because Mendel’s work was not known to Darwin. Darwin also gave more importance to continuous variations and did not properly explain sudden mutations.</p><p>He could not explain how favourable variations are genetically preserved and how reproductive isolation helps in speciation. These limitations were later corrected by Neo-Darwinism and Modern Synthetic Theory.</p></div></div>
+
+  <div class="major-heading"><span class="tag">Theory 3</span><h3>Neo-Darwinism</h3></div>
+  <div class="grid2"><div class="card"><h3>Meaning</h3><p><strong>Neo-Darwinism</strong> is a modified form of Darwinism. It accepts natural selection as an important force of evolution but rejects the inheritance of acquired characters. It was strongly supported by <strong>August Weismann</strong>.</p><p>Neo-Darwinism states that only heritable variations can take part in evolution.</p></div><div class="card"><h3>1. Rejection of Acquired Characters</h3><p>Neo-Darwinism rejects Lamarck’s idea that acquired characters are inherited. Changes produced in the body due to use, disuse or environment are not passed to the next generation unless they affect germ cells.</p><p>For example, if a person develops strong muscles by exercise, that character is not directly inherited by children.</p></div></div>
+  <div class="tablewrap"><table><tr><th>Type of cell</th><th>Role</th></tr><tr><td>Somatic cells</td><td>Form the body; changes are not inherited</td></tr><tr><td>Germ cells</td><td>Form gametes; changes can be inherited</td></tr></table></div>
+  <div class="grid2"><div class="card"><h3>2. Germplasm Theory</h3><p>Weismann proposed the <strong>germplasm theory</strong>. According to it, the body has two types of cells: somatic cells and germ cells. Only changes in germ cells can be transmitted to offspring. Therefore, evolution depends on changes in the germplasm, not on changes acquired by the body.</p></div><div class="card"><h3>3. Continuity of Germplasm</h3><p>Weismann believed that germplasm continues from one generation to another through gametes. Somatic cells die with the body, but germ cells carry hereditary material to the next generation. This explained why acquired characters are not inherited.</p></div><div class="card"><h3>4. Natural Selection Acts on Heritable Variations</h3><p>Neo-Darwinism retains Darwin’s idea of natural selection but makes it clear that natural selection acts only on inherited variations. Non-heritable changes cannot cause evolution. Thus, Neo-Darwinism connects natural selection with heredity.</p></div><div class="card"><h3>Importance and Limitations</h3><p>Neo-Darwinism corrected Lamarckism and improved Darwinism by emphasizing germ cells and heritable variations. It prepared the way for modern evolutionary genetics.</p><p>However, it did not fully explain mutation, recombination, gene frequency, genetic drift, gene flow and population-level evolution. These were later explained by the Modern Synthetic Theory.</p></div></div>
+
+  <div class="major-heading"><span class="tag">Theory 4</span><h3>Modern Synthetic Theory</h3></div>
+  <div class="card"><h3>Meaning</h3><p>The <strong>Modern Synthetic Theory</strong> is the most accepted theory of evolution. It combines Darwin’s natural selection with Mendelian genetics, mutation theory, population genetics, cytology and systematics.</p><p>Important contributors include <strong>Fisher, Haldane, Wright, Dobzhansky, Mayr, Simpson</strong> and <strong>Stebbins</strong>. According to this theory, evolution is a change in <strong>gene frequency</strong> in a population over generations.</p></div>
+  <div class="grid2">
+    <div class="card"><h3>1. Mutation</h3><p>Mutation is a sudden heritable change in genetic material. It produces new alleles and is the ultimate source of new variation. Mutations may be harmful, neutral or beneficial. Beneficial mutations may be preserved by natural selection.</p></div>
+    <div class="card"><h3>2. Recombination</h3><p>Recombination produces new gene combinations during sexual reproduction. It occurs through crossing over, independent assortment of chromosomes and random fertilization. In plants, cross-pollination increases recombination by mixing genes from different individuals.</p></div>
+    <div class="card"><h3>3. Natural Selection</h3><p>Natural selection acts on genetic variations in a population. Individuals with favourable gene combinations survive and reproduce better. As a result, favourable alleles increase in frequency. Thus, natural selection changes the genetic composition of a population.</p></div>
+    <div class="card"><h3>4. Genetic Drift</h3><p>Genetic drift is random change in gene frequency, especially in small populations. It may cause some alleles to become common or disappear purely by chance. Founder effect and bottleneck effect are examples of genetic drift.</p></div>
+    <div class="card"><h3>5. Gene Flow</h3><p>Gene flow is the movement of genes between populations. In plants, it may occur through pollen transfer, seed dispersal or hybridization. Gene flow introduces new alleles and increases variation, but it may also reduce differences between populations.</p></div>
+    <div class="card"><h3>6. Isolation</h3><p>Isolation prevents interbreeding between populations. It may be geographical, ecological, seasonal, mechanical or genetic. When populations remain isolated, they accumulate different genetic changes. This is important for speciation.</p></div>
+    <div class="card"><h3>7. Speciation</h3><p>Speciation is the formation of new species. It occurs when populations become genetically different and reproductively isolated. In plants, speciation may occur through geographical isolation, hybridization and polyploidy. Polyploidy is especially important because chromosome doubling can quickly produce new species.</p></div>
+    <div class="card"><h3>Summary of Modern Synthetic Theory</h3><p>According to Modern Synthetic Theory: <strong>Mutation produces new alleles. Recombination creates new gene combinations. Natural selection preserves useful variations. Genetic drift and gene flow change gene frequencies. Isolation prevents interbreeding. Accumulation of genetic differences leads to speciation.</strong></p><p>Thus, evolution is a population-level process involving changes in gene frequency.</p></div>
+  </div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Theory</th><th>Main idea</th><th>Present status</th></tr>
+    <tr><td>Lamarckism</td><td>Evolution by inheritance of acquired characters</td><td>Historically important but not accepted in original form</td></tr>
+    <tr><td>Darwinism</td><td>Evolution by natural selection</td><td>Foundation of evolutionary theory</td></tr>
+    <tr><td>Neo-Darwinism</td><td>Natural selection acts only on heritable variations</td><td>Important modification of Darwinism</td></tr>
+    <tr><td>Modern Synthetic Theory</td><td>Evolution is change in gene frequency due to mutation, recombination, selection, drift, gene flow and isolation</td><td>Most accepted theory</td></tr>
+  </table></div>
+  <div class="callout"><strong>Conclusion</strong>Lamarckism, Darwinism, Neo-Darwinism and Modern Synthetic Theory represent important stages in the development of evolutionary thought. Lamarckism explained evolution through use and disuse and inheritance of acquired characters, but it is not accepted in its original form. Darwinism explained evolution through overproduction, struggle for existence, variation, survival of the fittest, natural selection and origin of species. Neo-Darwinism corrected Darwinism by emphasizing heritable variations and germplasm. The Modern Synthetic Theory gives the most complete explanation by combining natural selection with genetics, mutation, recombination, genetic drift, gene flow, isolation and speciation.</div>
+</section>
+
+<section class="section" id="variation">
+  <span class="label">Topic 5</span>
+  <div class="head"><div class="num">05</div><h2>Variation and Phylogenetic Analysis</h2></div>
+  <p class="intro">Evolution depends on two important ideas: <strong>variation</strong> and <strong>relationship among organisms</strong>. Variation provides the raw material for evolution, while phylogenetic analysis helps us understand evolutionary relationships and ancestry of organisms. Without variation, natural selection and evolution cannot occur. Without phylogenetic analysis, it is difficult to understand how different groups of organisms are related and how they evolved from common ancestors.</p>
+
+  <div class="major-heading"><span class="tag">Variation</span><h3>Variation</h3></div>
+  <div class="card"><h3>Definition</h3><p><strong>Variation</strong> refers to the differences found among individuals of the same species or among different species. No two individuals are exactly alike. These differences may occur in morphology, anatomy, physiology, cytology, biochemistry or genetics.</p><p>In evolution, variation is very important because it provides the material on which natural selection acts. Favourable variations are preserved, while harmful variations may be eliminated.</p></div>
+
+  <div class="grid2">
+    <div class="card"><h3>1. Somatic and Germinal Variation</h3><h4>Somatic variation</h4><p>Somatic variation occurs in body cells. It may be caused by environmental factors such as light, temperature, nutrition, water availability or injury. These variations are generally not inherited because they do not affect the germ cells.</p><p><strong>Example:</strong> A plant growing in shade may have larger, thinner leaves than the same species growing in strong sunlight.</p><h4>Germinal variation</h4><p>Germinal variation occurs in reproductive cells or germ cells. These variations are heritable and can be passed to the next generation. Germinal variations are important in evolution because they affect the genetic constitution of offspring.</p><p>Examples include mutations in gametes and genetic recombinations during meiosis.</p></div>
+    <div class="card"><h3>2. Continuous and Discontinuous Variation</h3><h4>Continuous variation</h4><p>Continuous variation shows small and gradual differences among individuals. It usually produces a range of forms without sharp breaks. It is commonly controlled by many genes and is also influenced by environment.</p><p><strong>Examples:</strong> Height of plants, size of leaves, seed weight and flower size.</p><h4>Discontinuous variation</h4><p>Discontinuous variation shows distinct differences with no intermediate forms. It is usually controlled by one or few genes and is less influenced by environment.</p><p><strong>Examples:</strong> Flower colour differences, presence or absence of awns in grasses and blood groups in animals.</p></div>
+    <div class="card"><h3>3. Heritable and Environmental Variation</h3><h4>Heritable variation</h4><p>Heritable variation is caused by changes in genes or chromosomes and is passed from parents to offspring. It is important for evolution and speciation.</p><p><strong>Examples:</strong> Mutation, recombination, hybridization and polyploidy.</p><h4>Environmental variation</h4><p>Environmental variation is caused by external conditions such as soil, water, light, temperature and nutrition. These variations may affect the appearance of organisms but are usually not inherited.</p><p><strong>Example:</strong> The same plant species may grow tall in fertile soil but remain stunted in poor soil.</p></div>
+    <div class="card"><h3>Importance of Variation</h3><p>Variation is the foundation of evolution. It allows some individuals to survive better under changing environmental conditions. Natural selection acts on variation and preserves favourable characters.</p><p>In plants, variation leads to the formation of ecotypes, varieties and species. It is also useful in plant breeding because breeders select useful variations such as high yield, disease resistance, drought tolerance and better fruit quality.</p><p>Thus, variation is important for adaptation, survival, natural selection, speciation and crop improvement.</p></div>
+  </div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Cause</th><th>Explanation</th></tr>
+    <tr><td>Mutation</td><td>Sudden heritable change in genetic material</td></tr>
+    <tr><td>Recombination</td><td>New gene combinations formed during sexual reproduction</td></tr>
+    <tr><td>Crossing over</td><td>Exchange of chromosome segments during meiosis</td></tr>
+    <tr><td>Independent assortment</td><td>Random distribution of chromosomes during meiosis</td></tr>
+    <tr><td>Random fertilization</td><td>Fusion of different gametes produces new combinations</td></tr>
+    <tr><td>Hybridization</td><td>Crossing between different varieties or species</td></tr>
+    <tr><td>Polyploidy</td><td>Increase in chromosome sets, common in plants</td></tr>
+    <tr><td>Environmental factors</td><td>Light, temperature, soil, water and nutrition affect phenotype</td></tr>
+  </table></div>
+
+  <div class="major-heading"><span class="tag">Phylogeny</span><h3>Phylogenetic Analysis</h3></div>
+  <div class="grid2"><div class="card"><h3>Definition</h3><p><strong>Phylogenetic analysis</strong> is the study of evolutionary relationships among organisms. It attempts to find out how different organisms are related to each other and how they evolved from common ancestors.</p><p>A phylogenetic analysis usually results in a branching diagram called a <strong>phylogenetic tree</strong> or <strong>cladogram</strong>. This diagram shows the possible evolutionary relationships among organisms.</p></div><div class="card"><h3>Meaning of Phylogeny</h3><p><strong>Phylogeny</strong> means the evolutionary history of a group of organisms. It shows the line of descent and relationship among taxa.</p><p>For example, in plants, phylogenetic study helps us understand how algae, bryophytes, pteridophytes, gymnosperms and angiosperms are related and how advanced characters evolved through time.</p></div></div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Type of evidence</th><th>Examples</th></tr>
+    <tr><td>Morphological characters</td><td>Habit, leaves, flowers, fruits, seeds</td></tr>
+    <tr><td>Anatomical characters</td><td>Vascular bundles, stomata, wood structure</td></tr>
+    <tr><td>Embryological characters</td><td>Embryo sac, embryo development, endosperm</td></tr>
+    <tr><td>Cytological characters</td><td>Chromosome number and structure</td></tr>
+    <tr><td>Palynological characters</td><td>Pollen type, aperture and exine ornamentation</td></tr>
+    <tr><td>Biochemical characters</td><td>Proteins, enzymes and secondary metabolites</td></tr>
+    <tr><td>Molecular characters</td><td>DNA, RNA and protein sequences</td></tr>
+    <tr><td>Fossil evidence</td><td>Extinct forms and transitional groups</td></tr>
+  </table></div>
+  <p>Modern phylogenetic analysis gives great importance to molecular data because DNA and protein sequences provide direct information about genetic relationships.</p>
+
+  <div class="major-heading"><span class="tag">Terms</span><h3>Basic Terms Used in Phylogenetic Analysis</h3></div>
+  <div class="grid2">
+    <div class="card"><h3>1. Taxon</h3><p>A <strong>taxon</strong> is any unit used in classification, such as species, genus, family or order.</p></div>
+    <div class="card"><h3>2. Character</h3><p>A <strong>character</strong> is any feature used for comparison, such as leaf type, flower structure, chromosome number or DNA sequence.</p></div>
+    <div class="card"><h3>3. Homology</h3><p>Homologous characters have the same evolutionary origin but may perform different functions. Homology is very important in phylogenetic analysis because it indicates common ancestry.</p><p><strong>Example:</strong> Leaf tendril of pea and leaf spine of cactus are homologous because both are modifications of leaves.</p></div>
+    <div class="card"><h3>4. Analogy</h3><p>Analogous characters have similar function but different origin. They may mislead phylogenetic analysis if not identified properly.</p><p><strong>Example:</strong> Leaf tendril of pea and stem tendril of <em>Cucurbita</em> both help in climbing but have different origins.</p></div>
+    <div class="card"><h3>5. Clade</h3><p>A <strong>clade</strong> is a group of organisms consisting of a common ancestor and all its descendants.</p></div>
+    <div class="card"><h3>6. Outgroup</h3><p>An <strong>outgroup</strong> is a related taxon used for comparison with the main group under study. It helps in identifying primitive and advanced characters.</p></div>
+  </div>
+
+  <div class="major-heading"><span class="tag">Methods</span><h3>Methods of Phylogenetic Analysis</h3></div>
+  <div class="grid2">
+    <div class="card"><h3>1. Phenetic Method</h3><p>The phenetic method groups organisms based on overall similarity. It considers many characters and measures the total resemblance among organisms. However, it may not always show true evolutionary relationships because similarity may be due to analogy or convergence.</p></div>
+    <div class="card"><h3>2. Cladistic Method</h3><p>The cladistic method groups organisms based on shared derived characters. It tries to identify common ancestry and branching patterns. It produces a diagram called a <strong>cladogram</strong>.</p></div>
+    <div class="card"><h3>3. Molecular Phylogenetic Method</h3><p>Molecular phylogeny uses DNA, RNA or protein sequences to study relationships. Organisms with more similar sequences are considered more closely related. This method is widely used in modern taxonomy and evolutionary biology.</p></div>
+  </div>
+  <div class="tablewrap"><table>
+    <tr><th>Term</th><th>Meaning</th></tr>
+    <tr><td>Primitive character</td><td>Ancestral character present in older groups</td></tr>
+    <tr><td>Derived character</td><td>Newly evolved character</td></tr>
+    <tr><td>Synapomorphy</td><td>Shared derived character indicating common ancestry</td></tr>
+    <tr><td>Monophyletic group</td><td>Common ancestor and all descendants</td></tr>
+    <tr><td>Paraphyletic group</td><td>Common ancestor but not all descendants</td></tr>
+    <tr><td>Polyphyletic group</td><td>Organisms from different ancestors grouped artificially</td></tr>
+  </table></div>
+
+  <div class="tablewrap"><table>
+    <tr><th>Step</th><th>Steps in Phylogenetic Analysis</th></tr>
+    <tr><td>1</td><td>Selection of organisms or taxa to be studied</td></tr>
+    <tr><td>2</td><td>Selection of suitable characters</td></tr>
+    <tr><td>3</td><td>Comparison of characters among taxa</td></tr>
+    <tr><td>4</td><td>Identification of homologous and derived characters</td></tr>
+    <tr><td>5</td><td>Selection of an outgroup for comparison</td></tr>
+    <tr><td>6</td><td>Construction of a phylogenetic tree or cladogram</td></tr>
+    <tr><td>7</td><td>Interpretation of evolutionary relationships</td></tr>
+  </table></div>
+
+  <div class="callout"><strong>Importance of Phylogenetic Analysis</strong>
+    <ol>
+      <li>Classification of plants and animals.</li>
+      <li>Understanding origin of major groups.</li>
+      <li>Studying evolution of characters.</li>
+      <li>Identifying primitive and advanced groups.</li>
+      <li>Tracing speciation and diversification.</li>
+      <li>Comparing extinct and living organisms.</li>
+      <li>Molecular taxonomy and biodiversity studies.</li>
+    </ol>
+    <p>In botany, phylogenetic analysis helps in understanding the evolution of land plants, vascular plants, seed plants and flowering plants.</p>
+  </div>
+
+  <div class="callout"><strong>Relationship Between Variation and Phylogenetic Analysis</strong>Variation and phylogenetic analysis are closely related. Variation produces differences among organisms. Some variations become inherited and accumulate over generations. These accumulated variations create differences between populations, species and higher groups. Phylogenetic analysis studies these differences and similarities to reconstruct evolutionary relationships. Homologous variations help in identifying common ancestry, while derived variations help in understanding evolutionary branching. Thus, variation provides the material for evolution, and phylogenetic analysis helps interpret the evolutionary history produced by that variation.</div>
+  <div class="callout"><strong>Conclusion</strong>Variation refers to differences among organisms and is the raw material of evolution. It may be somatic or germinal, continuous or discontinuous, heritable or environmental. Heritable variation arises through mutation, recombination, hybridization and polyploidy and plays an important role in natural selection and speciation. Phylogenetic analysis is the study of evolutionary relationships among organisms. It uses morphological, anatomical, embryological, cytological, palynological, biochemical, molecular and fossil evidence to construct phylogenetic trees. Thus, variation explains how organisms change, while phylogenetic analysis explains how organisms are related through evolution.</div>
+</section>
+
+</main>
+</body>
+</html>

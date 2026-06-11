@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>403C Unit 6 — Variation, Polymorphism, Isolation and Speciation</title>
+<style>
+:root {
+  --bg:#111417; --panel:#1b2024; --panel2:#22252b; --paper:#f3eddf; --ink:#111;
+  --edge:#d9dbc8; --sage:#b9d8be; --blue:#b8cce5; --clay:#dfa486; --mauve:#d5b6cc;
+  --sand:#eee3ca; --yellow:#e8c468; --white:#f8f4e9; --shadow:#050606;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; background:radial-gradient(circle at top left, rgba(184,204,229,.12), transparent 32%),
+  radial-gradient(circle at bottom right, rgba(223,164,134,.10), transparent 35%), var(--bg);
+  color:var(--white); font-family:Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-size:18px; line-height:1.65;
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size:28px 28px;
+}
+.page { width:min(1220px, calc(100% - 34px)); margin:0 auto; padding:26px 0 60px; position:relative; z-index:1; }
+.hero, .section {
+  border:4px solid var(--edge); box-shadow:10px 10px 0 var(--shadow);
+  background:linear-gradient(150deg,#1d2227,#15191d); padding:28px; margin:0 0 26px;
+}
+.kicker,.label {
+  display:inline-block; background:var(--mauve); color:var(--ink); border:3px solid var(--ink);
+  box-shadow:5px 5px 0 var(--shadow); font-weight:900; text-transform:uppercase; padding:8px 14px;
+  letter-spacing:.04em; margin-bottom:14px;
+}
+.hero h1 { font-size:clamp(2.25rem,5vw,4.6rem); line-height:.95; margin:0 0 16px; letter-spacing:-.055em; }
+.hero p,.intro { color:#dde0d9; max-width:92ch; margin:0 0 18px; }
+.toc { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin:0 0 26px; }
+.toc a { color:var(--ink); text-decoration:none; font-weight:900; line-height:1.25; border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; background:var(--sand); }
+.toc a:nth-child(2n){background:var(--sage)} .toc a:nth-child(3n){background:var(--blue)} .toc a:nth-child(4n){background:var(--clay)}
+.head { display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:center; margin-bottom:16px; }
+.num { width:58px; height:58px; display:grid; place-items:center; background:var(--yellow); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); font-size:1.2rem; font-weight:900; }
+h2 { font-size:clamp(1.9rem,4vw,3.5rem); line-height:1; margin:0; letter-spacing:-.04em; }
+h3 { margin:20px 0 8px; font-size:1.22rem; }
+.major-heading {
+  margin:30px 0 18px; padding:16px 18px; background:var(--yellow); color:var(--ink);
+  border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow);
+}
+.major-heading .tag {
+  display:inline-block; background:var(--ink); color:var(--white); padding:4px 10px;
+  font-size:.78rem; font-weight:900; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;
+}
+.major-heading h3 {
+  margin:0; font-size:clamp(1.55rem,3vw,2.35rem); line-height:1.08; letter-spacing:-.025em;
+}
+.major-heading.male { background:var(--blue); }
+.major-heading.female { background:var(--sage); }
+@media print {
+  .major-heading { box-shadow:none; border:1.5px solid #111; background:#f2f2f2!important; break-after:avoid; }
+  .major-heading .tag { background:#111!important; color:#fff!important; }
+}
+h4 { margin:16px 0 6px; font-size:1rem; text-transform:uppercase; letter-spacing:.035em; }
+.grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:14px; }
+.grid3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; }
+.card,.note {
+  background:var(--paper); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow);
+  padding:16px; overflow:hidden;
+}
+.card:nth-child(2n){background:var(--blue)} .card:nth-child(3n){background:var(--sage)} .card:nth-child(4n){background:var(--clay)} .card:nth-child(5n){background:var(--mauve)}
+.card p { margin:0 0 10px; } .card p:last-child{margin-bottom:0}
+ul,ol { margin-top:8px; padding-left:1.35rem; }
+.tablewrap { margin:16px 0; border:3px solid var(--ink); background:var(--paper); box-shadow:6px 6px 0 var(--shadow); overflow:visible; }
+table { width:100%; border-collapse:collapse; table-layout:fixed; color:var(--ink); font-size:.86rem; line-height:1.32; }
+th,td { border:2px solid var(--ink); padding:8px; vertical-align:top; overflow-wrap:anywhere; }
+th { background:var(--yellow); text-align:left; font-weight:900; }
+td:first-child { background:#ead9bb; font-weight:800; }
+.diagram {
+  margin:18px 0; padding:14px; background:var(--paper); color:var(--ink);
+  border:3px solid var(--ink); box-shadow:6px 6px 0 var(--shadow);
+}
+.diagram img { display:block; max-width:100%; max-height:650px; object-fit:contain; margin:0 auto; background:white; }
+.diagram figcaption { margin-top:10px; font-weight:900; text-align:center; font-size:.95rem; }
+.callout { background:var(--sand); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:15px; margin-top:18px; }
+.callout strong { display:block; margin-bottom:6px; }
+.small { font-size:.94rem; }
+@media(max-width:800px){ body{font-size:16px} .head{grid-template-columns:1fr} .hero,.section{padding:20px} }
+@media print {
+  @page { size:A4; margin:8mm; }
+  body { background:white; color:#111; font-size:10pt; line-height:1.36; }
+  body::before,.toc { display:none; }
+  .page { width:100%; padding:0; }
+  .hero,.section,.card,.note,.diagram,.callout { box-shadow:none; border:1.5px solid #111; background:white!important; color:#111; break-inside:avoid; }
+  h2 { color:#111; } .intro,.hero p { color:#111; }
+  table { font-size:7.2pt; } th,td { padding:4px; border:1px solid #111; }
+  .diagram img { max-height:420px; }
+}
+
+.formula { background:var(--yellow); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; margin:14px 0; font-weight:900; text-align:center; font-size:1.12rem; }
+.flow { background:var(--blue); color:var(--ink); border:3px solid var(--ink); box-shadow:5px 5px 0 var(--shadow); padding:14px 16px; margin:14px 0; font-weight:900; }
+</style>
+</head>
+<body>
+<main class="page">
+<section class="hero">
+  <span class="kicker">403C Unit 6</span>
+  <h1>Variation, Polymorphism, Isolation Mechanisms and Speciation</h1>
+  <p>This unit covers variation, its types, causes and consequences; polymorphism, its types, maintenance and significance; isolation mechanisms; pre-zygotic and post-zygotic barriers; speciation, steps and types of speciation in plants. The notes are arranged in B.Sc. 4th semester Botany exam-ready format with major headings, cards, tables and summary callouts. No diagram blocks are added because no separate diagrams were provided for this unit.</p>
+</section>
+
+<nav class="toc">
+  <a href="#variation">01 · Variation: causes and consequences</a>
+  <a href="#polymorphism">02 · Polymorphism</a>
+  <a href="#isolation">03 · Isolation mechanisms</a>
+  <a href="#speciation">04 · Speciation</a>
+  <a href="#plant-speciation">05 · Speciation in plants</a>
+  <a href="#summary">06 · Comparisons and significance</a>
+</nav>
+
+<section class="section" id="variation">
+  <span class="label">Topic 1</span>
+  <div class="head"><div class="num">01</div><h2>Variation: Causes, Consequences and Polymorphism</h2></div>
+  <p class="intro"><strong>Variation</strong> refers to the differences found among individuals of the same species or among populations of a species. No two individuals are exactly identical, except genetically identical clones. Variation may be seen in morphology, anatomy, physiology, cytology, biochemistry and genetics.</p>
+  <p class="intro">Variation is the basic raw material of evolution. Natural selection acts on variations, preserving favourable ones and eliminating harmful ones. Without variation, adaptation, speciation and evolution cannot occur. One important expression of variation in a population is <strong>polymorphism</strong>, where two or more distinct forms occur in the same population.</p>
+
+  <div class="major-heading"><span class="tag">Definition</span><h3>Meaning of Variation</h3></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Definition</h3>
+      <p>Variation is the occurrence of differences among individuals of a species due to genetic, environmental or developmental factors.</p>
+      <p>In evolutionary biology, only <strong>heritable variation</strong> is most important because it can be passed from one generation to the next and can influence evolution.</p>
+    </div>
+    <div class="card">
+      <h3>Importance in Evolution</h3>
+      <p>Variation provides the material on which natural selection acts. Favourable variations help organisms survive and reproduce better, while harmful variations may be eliminated.</p>
+      <p>Variation therefore forms the starting point of adaptation, natural selection and formation of new species.</p>
+    </div>
+  </div>
+
+  <div class="major-heading"><span class="tag">Types</span><h3>Types of Variation</h3></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>1. Somatic Variation</h3>
+      <p>Somatic variation occurs in body cells. It is usually caused by environmental factors such as light, temperature, water, nutrition or injury.</p>
+      <p>These variations are generally not inherited because they do not affect the gametes.</p>
+      <p><strong>Example:</strong> A plant growing in shade may have larger, thinner leaves than the same species growing in strong sunlight.</p>
+    </div>
+    <div class="card">
+      <h3>2. Germinal Variation</h3>
+      <p>Germinal variation occurs in reproductive cells or gametes. It is heritable and can be transmitted to offspring. Therefore, germinal variation is important in evolution.</p>
+      <p><strong>Examples:</strong> Mutation, recombination, chromosomal changes and polyploidy.</p>
+    </div>
+    <div class="card">
+      <h3>3. Continuous Variation</h3>
+      <p>Continuous variation shows gradual differences without sharp breaks. It is usually controlled by many genes and is influenced by the environment.</p>
+      <p><strong>Examples:</strong> Plant height, leaf size, seed weight, flower size and fruit size.</p>
+    </div>
+    <div class="card">
+      <h3>4. Discontinuous Variation</h3>
+      <p>Discontinuous variation shows clear-cut differences with no intermediate forms. It is usually controlled by one or a few genes.</p>
+      <p><strong>Examples:</strong> Flower colour, seed colour, presence or absence of awns in grasses, and different blood groups in animals.</p>
+    </div>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Type of variation</th><th>Main character</th><th>Inheritance</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td>Somatic variation</td><td>Occurs in body cells due to environmental influence</td><td>Usually not inherited</td><td>Larger, thinner shade leaves</td></tr>
+        <tr><td>Germinal variation</td><td>Occurs in reproductive cells or gametes</td><td>Inherited</td><td>Mutation, recombination, polyploidy</td></tr>
+        <tr><td>Continuous variation</td><td>Gradual differences with intermediates</td><td>Often polygenic and environmental</td><td>Height, leaf size, seed weight</td></tr>
+        <tr><td>Discontinuous variation</td><td>Clear differences without intermediates</td><td>Usually controlled by one or few genes</td><td>Flower colour, awns in grasses</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="major-heading"><span class="tag">Causes</span><h3>Causes of Variation</h3></div>
+  <p class="intro">Variation arises due to several causes. These causes may be genetic or environmental.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>1. Mutation</h3>
+      <p>Mutation is a sudden heritable change in genetic material. It may occur in genes or chromosomes. Mutation produces new alleles and is the ultimate source of new genetic variation.</p>
+      <p>Mutations may be harmful, neutral or beneficial. Beneficial mutations may be preserved by natural selection and may help in adaptation.</p>
+      <p><strong>Example:</strong> A mutation producing disease resistance in a plant may become useful if the disease is common in that environment.</p>
+    </div>
+    <div class="card">
+      <h3>2. Recombination</h3>
+      <p>Recombination produces new combinations of genes during sexual reproduction. It does not usually create new genes, but it rearranges existing genes into new combinations.</p>
+      <p>Recombination occurs due to crossing over during meiosis, independent assortment of chromosomes and random fertilization.</p>
+      <p>In plants, cross-pollination increases recombination by bringing together genes from different individuals.</p>
+    </div>
+    <div class="card">
+      <h3>3. Crossing Over</h3>
+      <p>Crossing over occurs during prophase I of meiosis. Homologous chromosomes exchange segments, producing new combinations of alleles.</p>
+      <p>This is an important source of genetic variation because gametes formed after crossing over are genetically different from the parent cells.</p>
+    </div>
+    <div class="card">
+      <h3>4. Independent Assortment</h3>
+      <p>During meiosis, chromosomes of maternal and paternal origin are distributed randomly into gametes. This random distribution produces different genetic combinations in gametes.</p>
+      <p>As a result, offspring show differences even when they are produced by the same parents.</p>
+    </div>
+    <div class="card">
+      <h3>5. Random Fertilization</h3>
+      <p>Fertilization is random because any male gamete may fuse with any female gamete. Since each gamete is genetically different, random fertilization produces genetically different offspring.</p>
+      <p>This is one reason why sexually reproducing organisms show more variation than asexually reproducing organisms.</p>
+    </div>
+    <div class="card">
+      <h3>6. Hybridization</h3>
+      <p>Hybridization is crossing between genetically different individuals, varieties or species. It brings together different gene combinations and produces variation.</p>
+      <p>In plants, hybridization is very important in evolution and plant breeding. Many crop varieties have been improved through hybridization.</p>
+    </div>
+    <div class="card">
+      <h3>7. Polyploidy</h3>
+      <p>Polyploidy is the presence of more than two sets of chromosomes. It is very common in plants and is an important cause of variation and speciation.</p>
+      <p>Polyploid plants often show larger size, greater vigour, larger flowers, bigger fruits and better adaptability.</p>
+      <p><strong>Examples:</strong> Wheat, cotton, tobacco and many cultivated plants show polyploid origin.</p>
+    </div>
+    <div class="card">
+      <h3>8. Chromosomal Changes</h3>
+      <p>Changes in chromosome structure or number also cause variation. These include deletion, duplication, inversion and translocation.</p>
+      <p>Such changes may alter gene arrangement and produce new characters. Some chromosomal changes may be harmful, while others may contribute to evolution.</p>
+    </div>
+    <div class="card">
+      <h3>9. Gene Flow</h3>
+      <p>Gene flow is the movement of genes from one population to another. In plants, gene flow occurs through pollen transfer, seed dispersal or hybridization.</p>
+      <p>Gene flow introduces new alleles into a population and increases variation.</p>
+    </div>
+    <div class="card">
+      <h3>10. Environmental Factors</h3>
+      <p>Environment also produces variation by influencing the expression of characters. Factors such as light, temperature, soil, water, nutrition and altitude can affect plant growth.</p>
+      <p><strong>Example:</strong> Plants growing in fertile soil may be taller and healthier than plants growing in poor soil.</p>
+      <p>However, environmental variations are usually not inherited unless they are associated with genetic change.</p>
+    </div>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Cause</th><th>Explanation</th></tr></thead>
+      <tbody>
+        <tr><td>Mutation</td><td>Sudden heritable change in genetic material</td></tr>
+        <tr><td>Recombination</td><td>New gene combinations formed during sexual reproduction</td></tr>
+        <tr><td>Crossing over</td><td>Exchange of chromosome segments during meiosis</td></tr>
+        <tr><td>Independent assortment</td><td>Random distribution of chromosomes during meiosis</td></tr>
+        <tr><td>Random fertilization</td><td>Fusion of different gametes produces new combinations</td></tr>
+        <tr><td>Hybridization</td><td>Crossing between different varieties or species</td></tr>
+        <tr><td>Polyploidy</td><td>Increase in chromosome sets, common in plants</td></tr>
+        <tr><td>Environmental factors</td><td>Light, temperature, soil, water and nutrition affect phenotype</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="major-heading"><span class="tag">Consequences</span><h3>Consequences of Variation</h3></div>
+  <p class="intro">Variation has several important consequences in evolution and biology.</p>
+  <div class="grid3">
+    <div class="card"><h3>1. Raw Material for Evolution</h3><p>Variation provides the raw material on which natural selection acts. Without variation, all individuals would be identical, and natural selection would have nothing to select. Thus, variation is the starting point of evolution.</p></div>
+    <div class="card"><h3>2. Adaptation</h3><p>Favourable variations help organisms adjust to their environment. Individuals with useful variations survive and reproduce better. For example, plants with thick cuticle, reduced leaves or deep roots are better adapted to dry habitats.</p></div>
+    <div class="card"><h3>3. Natural Selection</h3><p>Natural selection preserves useful variations and eliminates harmful ones. Over generations, favourable variations become common in the population. Thus, variation allows natural selection to bring evolutionary change.</p></div>
+    <div class="card"><h3>4. Speciation</h3><p>When variations accumulate in isolated populations, they may become genetically different from the original population. If reproductive isolation develops, new species may arise. Thus, variation is essential for the origin of new species.</p></div>
+    <div class="card"><h3>5. Formation of Ecotypes</h3><p>Variation may produce local forms or ecotypes adapted to different habitats. Ecotypes are genetically different populations of the same species adapted to specific environmental conditions.</p><p><strong>Example:</strong> Populations of the same plant species growing in plains, hills, dry areas or saline soils may develop different adaptive features.</p></div>
+    <div class="card"><h3>6. Biodiversity</h3><p>Variation contributes to biodiversity at genetic, species and ecosystem levels. Genetic variation within species increases the ability of populations to survive environmental changes. High variation makes a species more flexible and evolutionarily successful.</p></div>
+    <div class="card"><h3>7. Crop Improvement</h3><p>Variation is very useful in plant breeding. Breeders select useful variations such as high yield, disease resistance, drought tolerance, early flowering, better fruit quality and larger seeds. Hybridization, mutation breeding and polyploidy are used to create useful variations in crop plants.</p></div>
+    <div class="card"><h3>8. Survival in Changing Environment</h3><p>Environmental conditions are not constant. Climate, soil, diseases and competitors may change. Populations with more variation have a better chance of survival because some individuals may possess characters suitable for the new conditions.</p></div>
+    <div class="card"><h3>9. Harmful Effects</h3><p>All variations are not beneficial. Some mutations and chromosomal abnormalities may be harmful or lethal. They may reduce fertility, survival or normal development. However, even harmful variations are important because they show that variation can influence survival and selection.</p></div>
+  </div>
+</section>
+
+<section class="section" id="polymorphism">
+  <span class="label">Topic 2</span>
+  <div class="head"><div class="num">02</div><h2>Polymorphism</h2></div>
+  <p class="intro"><strong>Polymorphism</strong> is the occurrence of two or more distinct forms of individuals in the same population of a species, where the different forms are genetically determined and occur in noticeable frequency. In simple words, polymorphism means the presence of different forms within the same interbreeding population.</p>
+  <p class="intro">Polymorphism is different from ordinary variation because the forms are distinct and stable, not just minor gradual differences.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Examples of Polymorphism</h3>
+      <p>In plants, polymorphism may be seen in flower colour, leaf form, pollen type, self-incompatibility alleles and floral forms.</p>
+      <ul>
+        <li>Different flower colours in the same plant species</li>
+        <li>Heterostyly in <em>Primula</em>, where pin and thrum flowers occur</li>
+        <li>Tristyly in some species such as <em>Lythrum</em></li>
+        <li>Different leaf forms in some aquatic plants</li>
+        <li>Multiple self-incompatibility alleles in flowering plants</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Why It Is Important</h3>
+      <p>Polymorphism maintains genetic diversity within a population. It allows populations to survive changing environments and provides material for natural selection.</p>
+      <p>In plants, polymorphism is important in pollination, reproduction and adaptation. For example, heterostyly promotes cross-pollination, while self-incompatibility polymorphism encourages outbreeding and maintains genetic diversity.</p>
+    </div>
+  </div>
+
+  <div class="major-heading"><span class="tag">Types</span><h3>Types of Polymorphism</h3></div>
+  <div class="grid2">
+    <div class="card"><h3>1. Genetic Polymorphism</h3><p>Genetic polymorphism occurs due to the presence of two or more alleles at a gene locus in a population. These alleles produce different forms or traits.</p><p><strong>Example:</strong> Multiple alleles controlling self-incompatibility in plants.</p></div>
+    <div class="card"><h3>2. Morphological Polymorphism</h3><p>Morphological polymorphism involves visible differences in external form. Examples include differences in flower colour, leaf shape, plant height or floral structure.</p><p>Heterostyly in <em>Primula</em> is a good example, where two floral forms occur in the same species.</p></div>
+    <div class="card"><h3>3. Balanced Polymorphism</h3><p>Balanced polymorphism occurs when different forms are maintained in a population for many generations because each form has some selective advantage.</p><p>It is maintained by natural selection and does not disappear easily.</p></div>
+    <div class="card"><h3>4. Transient Polymorphism</h3><p>Transient polymorphism occurs when one form is gradually being replaced by another due to selection. It is temporary and does not remain stable for a long time.</p><p>For example, if a new favourable allele appears and slowly replaces the older allele, the population may show temporary polymorphism.</p></div>
+    <div class="card"><h3>5. Chromosomal Polymorphism</h3><p>Chromosomal polymorphism occurs due to differences in chromosome number or structure among individuals of a population.</p><p><strong>Examples:</strong> Inversions, translocations or polyploid forms in plant populations.</p></div>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Factor</th><th>Role in maintenance of polymorphism</th></tr></thead>
+      <tbody>
+        <tr><td>Heterozygote advantage</td><td>Heterozygotes have better survival than both homozygotes</td></tr>
+        <tr><td>Frequency-dependent selection</td><td>Fitness of a form depends on how common or rare it is</td></tr>
+        <tr><td>Environmental heterogeneity</td><td>Different forms are favoured in different habitats</td></tr>
+        <tr><td>Mutation</td><td>Produces new alleles</td></tr>
+        <tr><td>Gene flow</td><td>Introduces alleles from other populations</td></tr>
+        <tr><td>Balanced selection</td><td>Maintains more than one form in the population</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="major-heading"><span class="tag">Comparison</span><h3>Difference Between Variation and Polymorphism</h3></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Character</th><th>Variation</th><th>Polymorphism</th></tr></thead>
+      <tbody>
+        <tr><td>Meaning</td><td>General differences among individuals</td><td>Presence of two or more distinct forms in a population</td></tr>
+        <tr><td>Nature</td><td>May be continuous or discontinuous</td><td>Usually distinct and discontinuous</td></tr>
+        <tr><td>Frequency</td><td>May be rare or common</td><td>Forms occur in noticeable frequency</td></tr>
+        <tr><td>Cause</td><td>Genetic or environmental</td><td>Mainly genetic</td></tr>
+        <tr><td>Evolutionary role</td><td>Raw material for evolution</td><td>Maintains diversity within population</td></tr>
+        <tr><td>Example</td><td>Differences in plant height</td><td>Pin and thrum flowers in <em>Primula</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout"><strong>Conclusion</strong> Variation is the occurrence of differences among individuals of a species. It may be caused by mutation, recombination, crossing over, independent assortment, random fertilization, hybridization, polyploidy, chromosomal changes, gene flow and environmental factors. Variation has important consequences such as adaptation, natural selection, speciation, ecotype formation, biodiversity and crop improvement. Polymorphism is a special form of variation in which two or more distinct forms occur in the same population. It is important in maintaining genetic diversity, promoting adaptation and supporting evolutionary change.</div>
+</section>
+
+<section class="section" id="isolation">
+  <span class="label">Topic 3</span>
+  <div class="head"><div class="num">03</div><h2>Isolation Mechanisms</h2></div>
+  <p class="intro">Evolution occurs when populations change genetically over generations. One of the most important steps in evolution is the formation of new species, known as <strong>speciation</strong>. For speciation to occur, populations must become separated in such a way that they cannot freely interbreed. This separation is called <strong>isolation</strong>.</p>
+  <p class="intro">Isolation prevents gene flow between populations. When gene flow stops, different populations accumulate different mutations, variations and adaptations. Over time, they become genetically distinct and may form new species. Thus, isolation mechanisms are essential for speciation.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Definition</h3>
+      <p><strong>Isolation mechanisms</strong> are biological or geographical barriers that prevent interbreeding between individuals or populations. They stop or reduce gene flow and help maintain the distinctness of species.</p>
+      <p>Isolation mechanisms may act before fertilization or after fertilization.</p>
+    </div>
+    <div class="card">
+      <h3>Main Types</h3>
+      <ol>
+        <li><strong>Pre-zygotic isolation</strong></li>
+        <li><strong>Post-zygotic isolation</strong></li>
+      </ol>
+      <p>Pre-zygotic isolation prevents formation of the zygote, while post-zygotic isolation acts after zygote formation.</p>
+    </div>
+  </div>
+
+  <div class="major-heading"><span class="tag">Before zygote</span><h3>1. Pre-zygotic Isolation</h3></div>
+  <p class="intro">Pre-zygotic isolation acts <strong>before zygote formation</strong>. It prevents mating, pollination, fertilization or fusion of gametes between different populations or species.</p>
+  <div class="grid2">
+    <div class="card"><h3>1. Geographical Isolation</h3><p>Geographical isolation occurs when populations are physically separated by barriers such as mountains, rivers, seas, deserts, glaciers or long distances.</p><p>Due to this separation, individuals of different populations cannot interbreed. Each population evolves independently under different environmental conditions.</p><p><strong>Example:</strong> Plant populations separated on different islands or mountain ranges may gradually become different species.</p><p>Geographical isolation is very important in <strong>allopatric speciation</strong>.</p></div>
+    <div class="card"><h3>2. Ecological or Habitat Isolation</h3><p>Ecological isolation occurs when related populations live in the same general region but occupy different habitats. Since they are adapted to different habitats, they rarely come into contact for reproduction.</p><p><strong>Example:</strong> Two plant species may grow in the same area, but one may grow in dry soil while the other grows in marshy soil. Even if they are geographically close, they remain reproductively separated.</p><p>This type of isolation is common in plants because soil type, moisture, altitude and light conditions strongly affect distribution.</p></div>
+    <div class="card"><h3>3. Seasonal or Temporal Isolation</h3><p>Temporal isolation occurs when related species reproduce at different times. They may flower, produce pollen or become receptive in different seasons, months or even different times of the day.</p><p><strong>Example:</strong> Two closely related plant species may grow in the same area, but one flowers in spring and the other flowers in late summer. Since their flowering periods do not overlap, cross-pollination does not occur.</p><p>Temporal isolation is very important in flowering plants.</p></div>
+    <div class="card"><h3>4. Mechanical Isolation</h3><p>Mechanical isolation occurs when structural differences in reproductive organs prevent successful mating or pollination.</p><p>In plants, differences in flower structure may prevent a pollinator from transferring pollen from one species to the stigma of another species. Differences in stigma position, style length, floral tube length or anther arrangement may act as mechanical barriers.</p><p><strong>Example:</strong> In heterostylous flowers like <em>Primula</em>, pin and thrum forms have different positions of anthers and stigmas, promoting proper pollination and reducing unsuitable crossing.</p></div>
+    <div class="card"><h3>5. Pollinator Isolation</h3><p>Pollinator isolation is common in angiosperms. Different plant species may attract different pollinators due to differences in flower colour, scent, shape, nectar position or flowering time.</p><p><strong>Example:</strong> One species may be pollinated by bees, while another closely related species may be pollinated by butterflies, birds or moths. Since pollen is carried by different pollinators, interbreeding is reduced.</p><p>This type of isolation plays an important role in the evolution of flowering plants.</p></div>
+    <div class="card"><h3>6. Gametic Isolation</h3><p>Gametic isolation occurs when male and female gametes fail to fuse even after pollination or mating.</p><p>In plants, pollen grains of one species may fall on the stigma of another species, but they may fail to germinate. In some cases, the pollen tube may germinate but fail to grow properly through the style or fail to reach the ovule.</p><p>This prevents fertilization and maintains species separation.</p></div>
+  </div>
+
+  <div class="major-heading"><span class="tag">After zygote</span><h3>2. Post-zygotic Isolation</h3></div>
+  <p class="intro">Post-zygotic isolation acts <strong>after zygote formation</strong>. In this case, fertilization may occur, but the hybrid offspring is weak, sterile or unable to produce successful future generations.</p>
+  <div class="grid2">
+    <div class="card"><h3>1. Hybrid Inviability</h3><p>Hybrid inviability occurs when a hybrid zygote is formed but fails to develop properly. The embryo may die early, or the seed may fail to mature.</p><p>In plants, interspecific crosses may produce embryos that abort before seed formation. This prevents gene exchange between species.</p></div>
+    <div class="card"><h3>2. Hybrid Weakness</h3><p>In some cases, hybrids are formed but are weak, poorly adapted or unable to survive under natural conditions.</p><p>Such hybrids may have reduced vigour, poor growth, low fertility or low survival. These weak hybrids do not contribute much to future generations.</p></div>
+    <div class="card"><h3>3. Hybrid Sterility</h3><p>Hybrid sterility occurs when hybrids are viable but sterile. They cannot produce functional gametes because chromosomes from the two parent species fail to pair properly during meiosis.</p><p>A common example is the mule in animals. In plants, many interspecific hybrids are sterile unless chromosome doubling occurs.</p><p>Hybrid sterility is an important post-zygotic barrier.</p></div>
+    <div class="card"><h3>4. Hybrid Breakdown</h3><p>Hybrid breakdown occurs when the first-generation hybrid is viable and fertile, but later generations are weak, sterile or abnormal.</p><p>This means that even if the first hybrid generation survives, stable gene flow between the parent species is prevented.</p></div>
+  </div>
+</section>
+
+<section class="section" id="speciation">
+  <span class="label">Topic 4</span>
+  <div class="head"><div class="num">04</div><h2>Speciation</h2></div>
+  <p class="intro"><strong>Speciation</strong> is the evolutionary process by which new species arise from pre-existing species. It occurs when populations become genetically different and reproductively isolated from each other.</p>
+  <p class="intro">Speciation requires variation, isolation, accumulation of genetic differences, reproductive isolation and formation of new species.</p>
+
+  <div class="major-heading"><span class="tag">Steps</span><h3>Steps in Speciation</h3></div>
+  <div class="grid2">
+    <div class="card"><h3>1. Formation of Variation</h3><p>Variation arises in a population due to mutation, recombination, hybridization, gene flow and polyploidy. These variations create differences among individuals.</p></div>
+    <div class="card"><h3>2. Isolation of Populations</h3><p>A population becomes divided by geographical, ecological, seasonal or reproductive barriers. Gene flow between the separated populations is reduced or stopped.</p></div>
+    <div class="card"><h3>3. Independent Evolution</h3><p>Each isolated population evolves independently. Natural selection, mutation and genetic drift act differently in different populations.</p></div>
+    <div class="card"><h3>4. Accumulation of Genetic Differences</h3><p>Over many generations, genetic differences become greater. Populations may develop different morphological, physiological, reproductive or ecological characters.</p></div>
+    <div class="card"><h3>5. Reproductive Isolation</h3><p>Eventually, the populations become unable to interbreed successfully even if they come into contact again.</p></div>
+    <div class="card"><h3>6. Formation of New Species</h3><p>When reproductive isolation becomes complete, the populations are considered separate species.</p></div>
+  </div>
+
+  <div class="flow">Speciation sequence: variation &rarr; isolation &rarr; accumulation of genetic differences &rarr; reproductive isolation &rarr; formation of new species</div>
+
+  <div class="major-heading"><span class="tag">Types</span><h3>Types of Speciation</h3></div>
+  <div class="grid2">
+    <div class="card"><h3>1. Allopatric Speciation</h3><p>Allopatric speciation occurs when populations are separated by geographical barriers. Because gene flow stops, the populations evolve independently.</p><p><strong>Examples of geographical barriers:</strong> Mountains, rivers, oceans, deserts and glaciers.</p><p>In plants, populations growing on different islands, mountain valleys or separated habitats may become new species over time. This is one of the most common types of speciation.</p></div>
+    <div class="card"><h3>2. Sympatric Speciation</h3><p>Sympatric speciation occurs without geographical separation. New species arise within the same geographical area due to reproductive isolation.</p><p>In plants, sympatric speciation commonly occurs through <strong>polyploidy</strong> and <strong>hybridization</strong>.</p><p>For example, if chromosome doubling occurs in a plant, the polyploid individual may no longer interbreed successfully with the original diploid population. This can produce a new species rapidly.</p><p>Sympatric speciation is especially important in angiosperms.</p></div>
+    <div class="card"><h3>3. Parapatric Speciation</h3><p>Parapatric speciation occurs when populations live in adjacent areas but experience different environmental conditions. There is limited gene flow between them.</p><p><strong>Example:</strong> A plant population growing in normal soil and another population growing in metal-rich or saline soil may gradually become different due to different selection pressures.</p><p>Over time, partial isolation and adaptation may lead to speciation.</p></div>
+    <div class="card"><h3>4. Peripatric Speciation</h3><p>Peripatric speciation occurs when a small population becomes isolated at the edge of the main population. Because the population is small, genetic drift and natural selection act strongly.</p><p>The isolated population may quickly become different from the parent population and form a new species.</p><p>This is similar to allopatric speciation but involves a small peripheral population.</p></div>
+  </div>
+</section>
+
+<section class="section" id="plant-speciation">
+  <span class="label">Topic 5</span>
+  <div class="head"><div class="num">05</div><h2>Speciation in Plants</h2></div>
+  <p class="intro">Speciation in plants occurs through several important mechanisms. Plant populations may become reproductively separated by geographical barriers, ecological differences, chromosome changes, hybridization or pollinator differences.</p>
+
+  <div class="grid2">
+    <div class="card"><h3>1. Geographical Isolation</h3><p>Plant populations separated by mountains, rivers, islands or long distances may evolve into separate species.</p></div>
+    <div class="card"><h3>2. Ecological Isolation</h3><p>Different populations may adapt to different habitats such as dry soil, marshy land, saline soil or high altitude.</p></div>
+    <div class="card"><h3>3. Polyploidy</h3><p>Polyploidy is the increase in chromosome sets. It is very common in plants and can produce new species rapidly.</p><p><strong>Examples:</strong> Polyploid crop plants include wheat, cotton and tobacco.</p></div>
+    <div class="card"><h3>4. Hybridization</h3><p>Hybridization between different species may produce new combinations of characters. If the hybrid becomes fertile, especially through chromosome doubling, it may form a new species.</p></div>
+    <div class="card"><h3>5. Pollinator Isolation</h3><p>Different floral characters may attract different pollinators, reducing interbreeding and helping speciation.</p></div>
+  </div>
+
+  <div class="major-heading"><span class="tag">Role</span><h3>Role of Isolation in Speciation</h3></div>
+  <div class="card">
+    <p>Isolation is important because it stops gene flow between populations. If gene flow continues, populations remain genetically similar. But when isolation occurs, each population follows its own evolutionary path.</p>
+    <p>Different mutations, recombinations, natural selection and genetic drift act in each population. Over time, these differences accumulate and lead to reproductive isolation. Finally, new species are formed.</p>
+  </div>
+  <div class="flow">Isolation &rarr; stoppage of gene flow &rarr; genetic divergence &rarr; reproductive isolation &rarr; speciation</div>
+</section>
+
+<section class="section" id="summary">
+  <span class="label">Topic 6</span>
+  <div class="head"><div class="num">06</div><h2>Comparisons, Significance and Conclusion</h2></div>
+
+  <div class="major-heading"><span class="tag">Comparison</span><h3>Difference Between Isolation and Speciation</h3></div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Character</th><th>Isolation</th><th>Speciation</th></tr></thead>
+      <tbody>
+        <tr><td>Meaning</td><td>Prevention of interbreeding or gene flow</td><td>Formation of new species</td></tr>
+        <tr><td>Nature</td><td>Barrier or mechanism</td><td>Evolutionary process</td></tr>
+        <tr><td>Stage</td><td>Usually begins before speciation</td><td>Final result of evolutionary divergence</td></tr>
+        <tr><td>Types</td><td>Geographical, ecological, temporal, mechanical, gametic and hybrid sterility</td><td>Allopatric, sympatric, parapatric and peripatric</td></tr>
+        <tr><td>Role</td><td>Allows populations to evolve separately</td><td>Produces new species</td></tr>
+        <tr><td>Example</td><td>Different flowering seasons</td><td>Formation of new plant species by polyploidy</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="major-heading"><span class="tag">Significance</span><h3>Significance of Isolation and Speciation</h3></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Importance of Isolation</h3>
+      <p>Isolation prevents interbreeding and stops or reduces gene flow between populations. It allows different populations to evolve separately under different environmental and genetic conditions.</p>
+      <p>Isolation is therefore the starting point of reproductive separation and speciation.</p>
+    </div>
+    <div class="card">
+      <h3>Importance of Speciation</h3>
+      <p>Speciation explains the origin of biodiversity. It shows how one ancestral species can give rise to many different species.</p>
+      <p>In plants, speciation produces great diversity in habits, habitats, floral structures, pollination mechanisms and adaptations.</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Botanical Importance</h3>
+    <p>Speciation is also important in plant evolution because it explains the origin of new varieties, ecotypes and species. Mechanisms such as polyploidy, hybridization and ecological isolation have played a major role in the diversification of angiosperms.</p>
+  </div>
+
+  <div class="callout"><strong>Final Conclusion</strong> Variation is the raw material of evolution and may arise due to mutation, recombination, crossing over, independent assortment, random fertilization, hybridization, polyploidy, chromosomal changes, gene flow and environmental factors. Variation produces adaptation, biodiversity, crop improvement and speciation. Polymorphism is a special form of variation where two or more distinct forms occur within the same population. Isolation mechanisms are barriers that prevent interbreeding and gene flow between populations. They may be pre-zygotic, such as geographical, ecological, temporal, mechanical, pollinator and gametic isolation, or post-zygotic, such as hybrid inviability, hybrid weakness, hybrid sterility and hybrid breakdown. Speciation is the formation of new species through variation, isolation, accumulation of genetic differences and reproductive isolation. In plants, speciation commonly occurs through geographical isolation, ecological adaptation, hybridization and polyploidy. Thus, variation and isolation mechanisms are the starting points, and speciation is the final result of evolutionary divergence.</div>
+</section>
+
+</main>
+</body>
+</html>
